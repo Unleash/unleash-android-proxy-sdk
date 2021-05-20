@@ -3,17 +3,19 @@ package io.getunleash
 import io.getunleash.cache.InMemoryToggleCache
 import io.getunleash.cache.ToggleCache
 import io.getunleash.data.Variant
+import io.getunleash.data.disabledVariant
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.AutoPollingPolicy
-import io.getunleash.polling.PollingMode
+import io.getunleash.polling.LazyLoadingMode
+import io.getunleash.polling.LazyLoadingPolicy
 import io.getunleash.polling.RefreshPolicy
 import io.getunleash.polling.UnleashFetcher
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.nio.file.Files
 import java.security.InvalidParameterException
-import java.sql.Ref
 import java.time.Duration
+import java.util.concurrent.CompletableFuture
 
 class UnleashClient(
     val unleashConfig: UnleashConfig,
@@ -27,31 +29,31 @@ class UnleashClient(
     val cache: ToggleCache = InMemoryToggleCache(),
 ) : UnleashClientSpec {
     private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
-    private val refreshPolicy: RefreshPolicy
-    init {
-        refreshPolicy = when(unleashConfig.pollingMode) {
-            is AutoPollingMode -> AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
-            else -> throw InvalidParameterException("The polling mode parameter is invalid")
-        }
+    private val refreshPolicy: RefreshPolicy = when(unleashConfig.pollingMode) {
+        is AutoPollingMode -> AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
+        is LazyLoadingMode -> LazyLoadingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
+        else -> throw InvalidParameterException("The polling mode parameter is invalid")
     }
+
     companion object {
         fun newBuilder(): Builder = Builder()
     }
 
     override fun isEnabled(toggleName: String): Boolean {
-        TODO("Not implemented yet, need to figure out where to get toggles from")
+        return refreshPolicy.readToggleCache()[toggleName]?.enabled ?: false
     }
 
     override fun getVariant(toggleName: String): Variant {
-        TODO("Not yet implemented")
+        return refreshPolicy.readToggleCache()[toggleName]?.variant ?: disabledVariant
     }
 
-    override fun updateContext(context: UnleashContext) {
-        TODO("Not yet implemented")
+    override fun updateContext(context: UnleashContext): CompletableFuture<Void> {
+        refreshPolicy.context = context
+        return refreshPolicy.refreshAsync()
     }
 
     override fun getContext(): UnleashContext {
-        TODO("Not yet implemented")
+        return unleashContext
     }
 
     override fun close() {

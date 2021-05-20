@@ -15,7 +15,7 @@ class AutoPollingPolicy(
     override val unleashFetcher: UnleashFetcher,
     override val cache: ToggleCache,
     override val config: UnleashConfig,
-    override val context: UnleashContext,
+    override var context: UnleashContext,
     private val autoPollingConfig: AutoPollingMode
 ) :
     RefreshPolicy(

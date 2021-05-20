@@ -14,7 +14,7 @@ abstract class RefreshPolicy(
     open val cache: ToggleCache,
     val logger: Logger,
     open val config: UnleashConfig,
-    open val context: UnleashContext
+    open var context: UnleashContext
 ) : Closeable {
     private var inMemoryConfig: Map<String, Toggle> = emptyMap()
     private val cacheKey: String by lazy { String(DigestUtils.sha256Hex(cacheBase.format(this.config.clientSecret)).toByteArray()) }

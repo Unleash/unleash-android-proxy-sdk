@@ -15,7 +15,7 @@ class LazyLoadingPolicy(
     override val unleashFetcher: UnleashFetcher,
     override val cache: ToggleCache,
     override val config: UnleashConfig,
-    override val context: UnleashContext = UnleashContext(),
+    override var context: UnleashContext = UnleashContext(),
     private val lazyLoadingMode: LazyLoadingMode,
 ) :
     RefreshPolicy(

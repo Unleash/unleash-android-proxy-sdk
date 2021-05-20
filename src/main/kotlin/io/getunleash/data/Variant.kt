@@ -9,3 +9,5 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Variant(val name: String, val payload: Payload? = null)
+
+val disabledVariant = Variant("disabled")

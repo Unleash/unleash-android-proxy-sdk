@@ -19,7 +19,6 @@ import org.mockito.kotlin.verify
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
-import java.util.concurrent.TimeUnit
 
 class LazyLoadingPolicySyncTest {
     @Test
@@ -29,7 +28,7 @@ class LazyLoadingPolicySyncTest {
             proxyUrl = server.url("/proxy").toString(),
             clientSecret = "some-secret",
             httpClientConnectionTimeout = 2L,
-            httpClientReadTimeout = 5L
+            httpClientReadTimeout = 2L
         )
         val mode = PollingModes.lazyLoad(5)
         val unleashFetcher = UnleashFetcher(unleashConfig)
@@ -44,13 +43,12 @@ class LazyLoadingPolicySyncTest {
         )
         policy.clock = clock
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.threeToggles))
-        server.enqueue(
-            MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants)
-                .setBodyDelay(1, TimeUnit.SECONDS)
-        )
+        server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants))
 
         assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.threeToggles.toToggleMap())
-        assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.threeToggles.toToggleMap())
+        assertThat(server.requestCount).isEqualTo(1)
+        assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.threeToggles.toToggleMap()) // Should go straight to cache
+        assertThat(server.requestCount).isEqualTo(1)
         policy.clock = Clock.fixed(start.plusSeconds(6), ZoneOffset.UTC)
         assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.complicatedVariants.toToggleMap())
         assertThat(server.requestCount).isEqualTo(2)
@@ -59,6 +57,7 @@ class LazyLoadingPolicySyncTest {
     @Test
     fun `handles cache failing`() {
         val server = MockWebServer()
+        server.start()
         val unleashConfig = UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "some-secret")
         val mode = PollingModes.lazyLoad(5)
         val unleashFetcher = UnleashFetcher(unleashConfig)
@@ -74,11 +73,10 @@ class LazyLoadingPolicySyncTest {
             config = unleashConfig,
             lazyLoadingMode = mode as LazyLoadingMode
         )
-        policy.clock
+        policy.clock = clock
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.threeToggles))
         server.enqueue(
             MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants)
-                .setBodyDelay(1, TimeUnit.SECONDS)
         )
         assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.threeToggles.toToggleMap())
         policy.clock = Clock.fixed(start.plusSeconds(6), ZoneOffset.UTC)
@@ -131,14 +129,9 @@ class LazyLoadingPolicySyncTest {
         )
         policy.clock = clock
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.threeToggles))
-        server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.threeToggles))
-        assertThat(policy.getConfigurationAsync().get()).isEqualTo(TestReponses.threeToggles.toToggleMap())
-        policy.clock = Clock.fixed(start.plusSeconds(6), ZoneOffset.UTC)
-        assertThat(
-            policy.getConfigurationAsync().get()
-        ).isEqualTo(TestReponses.threeToggles.toToggleMap()) // Same because refresh failure
+        assertThat(policy.getConfigurationAsync().get()).isEqualTo(result)
         verify(cache, never()).write(anyString(), eq(result))
-
+        assertThat(server.requestCount).isEqualTo(1)
 
     }
 }
