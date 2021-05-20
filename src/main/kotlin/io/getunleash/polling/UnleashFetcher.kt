@@ -26,7 +26,10 @@ import java.time.Duration
 import java.util.concurrent.CompletableFuture
 
 /**
- *
+ * Http Client for fetching data from Unleash Proxy.
+ * By default creates an OkHttpClient with readTimeout set to 2 seconds and a cache of 10 MBs
+ * @param unleashConfig - Configuration for unleash - see docs for [io.getunleash.UnleashConfig]
+ * @param httpClient - the http client to use for fetching toggles from Unleash proxy
  */
 open class UnleashFetcher(
     val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder().readTimeout(
@@ -69,21 +72,26 @@ open class UnleashFetcher(
                 response.use { res ->
                     when {
                         res.isSuccessful -> {
-                            res.body?.let { b ->
-                                try {
-                                    val proxyResponse = json.decodeFromString(ProxyResponse.serializer(), b.string())
-                                    fetch.complete(FetchResponse(Status.FETCHED, proxyResponse))
-                                } catch (e: Exception) {
-                                    // If we fail to parse, just keep data
-                                    fetch.complete(FetchResponse(Status.FAILED))
+                            if (res.cacheResponse != null) {
+                                fetch.complete(FetchResponse(Status.NOTMODIFIED))
+                            } else {
+                                res.body?.let { b ->
+                                    try {
+                                        val proxyResponse =
+                                            json.decodeFromString(ProxyResponse.serializer(), b.string())
+                                        fetch.complete(FetchResponse(Status.FETCHED, proxyResponse))
+                                    } catch (e: Exception) {
+                                        // If we fail to parse, just keep data
+                                        fetch.complete(FetchResponse(Status.FAILED))
+                                    }
                                 }
                             }
                         }
-                        response.code == 304 -> {
+                        res.code == 304 -> {
                             logger.debug("Fetch was successful; config not modified")
                             fetch.complete(FetchResponse(Status.NOTMODIFIED))
                         }
-                        response.code == 401 -> {
+                        res.code == 401 -> {
                             logger.error("Double check your SDK key")
                             fetch.complete(FetchResponse(Status.FAILED))
                         }

@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class UnleashFetcherTest {
-    val complicatedVariants = """{
+    private val complicatedVariants = """{
             	"toggles": [
                     {
                         "name": "variantToggle",
@@ -39,25 +39,35 @@ class UnleashFetcherTest {
                     }
                 ]
             }""".trimIndent()
+
     @Test
     fun `Fetcher uses ETags if present`() {
         val server = MockWebServer()
-        val fetcher = UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "my-secret"))
+        val fetcher =
+            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "my-secret"))
         val fakeEtagHeader = "etag-1"
-        server.enqueue(MockResponse().setResponseCode(200).setBody(complicatedVariants).setHeader("ETag", fakeEtagHeader))
+        server.enqueue(
+            MockResponse().setResponseCode(200)
+                .setBody(complicatedVariants)
+                .addHeader("ETag", fakeEtagHeader)
+                .addHeader("Cache-Control", "private, must-revalidate")
+        )
         server.enqueue(MockResponse().setResponseCode(304))
 
         val response = fetcher.getResponseAsync(UnleashContext.newBuilder().userId("hello").build()).get()
         assertThat(response.isFetched()).isTrue
         assertThat(response.isFailed()).isFalse
         assertThat(response.isNotModified()).isFalse
+        val firstRequest = server.takeRequest()
+        assertThat(firstRequest.getHeader("If-None-Match")).isNull()
+
 
         val cachedResponse = fetcher.getResponseAsync(UnleashContext.newBuilder().userId("hello").build()).get()
+        val secondRequest = server.takeRequest()
+        assertThat(secondRequest.getHeader("If-None-Match")).isEqualTo(fakeEtagHeader)
         assertThat(cachedResponse.isNotModified()).isTrue
         assertThat(cachedResponse.isFetched()).isFalse
         assertThat(cachedResponse.isFailed()).isFalse
 
-        assertThat(server.takeRequest().getHeader("If-None-Match")).isNull()
-        assertThat(server.takeRequest().getHeader("If-None-Match")).isEqualTo(fakeEtagHeader)
     }
 }
