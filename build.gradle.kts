@@ -2,8 +2,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    kotlin("jvm").version("1.5.0")
-    kotlin("plugin.serialization").version("1.5.0")
+    kotlin("jvm").version("1.4.32")
+    kotlin("plugin.serialization").version("1.4.32")
     id("org.jetbrains.dokka").version("1.4.32")
     `java-library`
     `maven-publish`
@@ -26,8 +26,10 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     api("com.squareup.okhttp3:okhttp:4.9.1")
+    api("org.slf4j:slf4j-api:1.7.30")
+    api("commons-codec:commons-codec:1.15")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
