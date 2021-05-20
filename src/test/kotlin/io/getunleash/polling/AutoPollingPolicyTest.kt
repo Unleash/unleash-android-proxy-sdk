@@ -23,37 +23,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
 
 class AutoPollingPolicyTest {
-    val complicatedVariants = """{
-            	"toggles": [
-                    {
-                        "name": "variantToggle",
-                        "enabled": true,
-                        "variant": {
-                            "name": "green",
-                            "payload": {
-                                "type": "number",
-                                "value": 54
-                            }
-                        }
-                    }, {
-                        "name": "featureToggle",
-                        "enabled": true,
-                        "variant": {
-                            "name": "disabled"
-                        }
-                    }, {
-                        "name": "simpleToggle",
-                        "enabled": true
-                        "variant": {
-                            "name": "red",
-                            "payload": {
-                                "type": "json",
-                                "value": { "key": "value" }
-                            }
-                        }
-                    }
-                ]
-            }""".trimIndent()
+
 
     @Test
     fun `if cache is empty tries to fetch`() {
@@ -120,7 +90,7 @@ class AutoPollingPolicyTest {
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
-        server.enqueue(MockResponse().setResponseCode(200).setBody(complicatedVariants))
+        server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants))
         Thread.sleep(1000)
         assertThat(isCalled.get()).isTrue
         server.close()

@@ -5,7 +5,6 @@ import io.getunleash.UnleashContext
 import io.getunleash.data.FetchResponse
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Status
-import io.getunleash.data.Toggle
 import io.getunleash.data.ToggleResponse
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
@@ -22,8 +21,8 @@ import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.io.IOException
 import java.nio.file.Files
-import java.time.Duration
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 /**
  * Http Client for fetching data from Unleash Proxy.
@@ -32,26 +31,30 @@ import java.util.concurrent.CompletableFuture
  * @param httpClient - the http client to use for fetching toggles from Unleash proxy
  */
 open class UnleashFetcher(
-    val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder().readTimeout(
-        Duration.ofSeconds(2)
-    ).cache(
-        Cache(
-            directory = Files.createTempDirectory("unleash_toggles").toFile(),
-            maxSize = 10L * 1024L * 1024L // Use 10 MB as max
-        )
-    ).build()
+    val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder()
+        .readTimeout(unleashConfig.httpClientReadTimeout, TimeUnit.SECONDS)
+        .connectTimeout(unleashConfig.httpClientConnectionTimeout, TimeUnit.SECONDS)
+        .cache(
+            Cache(
+                directory = Files.createTempDirectory("unleash_toggles").toFile(),
+                maxSize = unleashConfig.httpClientCacheSize
+            )
+        ).build()
 ) : Closeable {
     companion object {
         val logger: Logger = LoggerFactory.getLogger(UnleashFetcher::class.java)
-        val TOGGLE_BACKUP_NAME = "unleash_proxy_toggles"
+        const val TOGGLE_BACKUP_NAME = "unleash_proxy_toggles"
     }
+
     private val json: Json = Json
     private val proxyUrl = unleashConfig.proxyUrl.toHttpUrl()
 
     open fun getTogglesAsync(ctx: UnleashContext): CompletableFuture<ToggleResponse> {
         return getResponseAsync(ctx).thenApply { response ->
-            if(response.isFetched()) {
-                ToggleResponse(response.status, response.config!!.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
+            if (response.isFetched()) {
+                ToggleResponse(
+                    response.status,
+                    response.config!!.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
             } else {
                 ToggleResponse(response.status)
             }

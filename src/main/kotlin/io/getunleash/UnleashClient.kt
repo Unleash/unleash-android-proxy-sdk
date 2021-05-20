@@ -11,6 +11,8 @@ import io.getunleash.polling.UnleashFetcher
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.nio.file.Files
+import java.security.InvalidParameterException
+import java.sql.Ref
 import java.time.Duration
 
 class UnleashClient(
@@ -24,8 +26,14 @@ class UnleashClient(
     ).build(),
     val cache: ToggleCache = InMemoryToggleCache(),
 ) : UnleashClientSpec {
-    val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
-
+    private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
+    private val refreshPolicy: RefreshPolicy
+    init {
+        refreshPolicy = when(unleashConfig.pollingMode) {
+            is AutoPollingMode -> AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
+            else -> throw InvalidParameterException("The polling mode parameter is invalid")
+        }
+    }
     companion object {
         fun newBuilder(): Builder = Builder()
     }
