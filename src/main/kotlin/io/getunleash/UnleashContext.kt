@@ -25,6 +25,14 @@ class UnleashContext(
     val appName: String? = null,
     val environment: String? = null,
 ) {
+    fun newBuilder(): Builder = Builder(
+        userId = userId,
+        sessionId = sessionId,
+        remoteAddress = remoteAddress,
+        properties = properties.toMutableMap(),
+        appName = appName,
+        environment = environment
+    )
 
     companion object {
         fun newBuilder(): Builder = Builder()

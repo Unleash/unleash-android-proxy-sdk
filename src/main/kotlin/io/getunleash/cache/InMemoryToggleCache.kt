@@ -1,9 +1,9 @@
-package io.getunleash
+package io.getunleash.cache
 
 import io.getunleash.data.Toggle
 import java.util.concurrent.ConcurrentHashMap
 
-class InMemoryToggleCache : ToggleCache() {
+class InMemoryToggleCache : ToggleCache {
     private val internalCache = ConcurrentHashMap<String, Map<String, Toggle>>()
 
     override fun read(key: String): Map<String, Toggle> {

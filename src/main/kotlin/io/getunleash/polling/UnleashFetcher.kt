@@ -1,9 +1,12 @@
-package io.getunleash
+package io.getunleash.polling
 
+import io.getunleash.UnleashConfig
+import io.getunleash.UnleashContext
 import io.getunleash.data.FetchResponse
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Status
 import io.getunleash.data.Toggle
+import io.getunleash.data.ToggleResponse
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
 import okhttp3.Call
@@ -25,7 +28,7 @@ import java.util.concurrent.CompletableFuture
 /**
  *
  */
-class UnleashFetcher(
+open class UnleashFetcher(
     val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder().readTimeout(
         Duration.ofSeconds(2)
     ).cache(
@@ -41,6 +44,16 @@ class UnleashFetcher(
     }
     private val json: Json = Json
     private val proxyUrl = unleashConfig.proxyUrl.toHttpUrl()
+
+    open fun getTogglesAsync(ctx: UnleashContext): CompletableFuture<ToggleResponse> {
+        return getResponseAsync(ctx).thenApply { response ->
+            if(response.isFetched()) {
+                ToggleResponse(response.status, response.config!!.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
+            } else {
+                ToggleResponse(response.status)
+            }
+        }
+    }
 
     fun getResponseAsync(ctx: UnleashContext): CompletableFuture<FetchResponse> {
         val contextUrl = buildContextUrl(ctx)
