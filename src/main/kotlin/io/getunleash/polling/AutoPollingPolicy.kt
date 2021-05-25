@@ -28,7 +28,7 @@ class AutoPollingPolicy(
     ) {
     private val listeners: MutableList<ToggleUpdatedListener> = mutableListOf()
     private val initialized = AtomicBoolean(false)
-    private val initFuture = CompletableFuture<FetchResponse>()
+    private val initFuture = CompletableFuture<Unit>()
     private val timer: Timer
 
     init {

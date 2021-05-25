@@ -87,7 +87,7 @@ class AutoPollingPolicyTest {
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants))
-        assertThat(isCalled).succeedsWithin(Duration.ofMillis(500))
+        assertThat(isCalled).succeedsWithin(Duration.ofMillis(1000))
         server.close()
         policy.close()
     }
