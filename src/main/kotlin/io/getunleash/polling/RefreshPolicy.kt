@@ -27,7 +27,6 @@ abstract class RefreshPolicy(
         return try {
             this.cache.read(cacheKey)
         } catch (e: Exception) {
-            logger.warn("An error occurred when reading toggle cache", e)
             inMemoryConfig
         }
     }
@@ -37,7 +36,6 @@ abstract class RefreshPolicy(
             this.inMemoryConfig = value
             this.cache.write(cacheKey, value)
         } catch (e: Exception) {
-            logger.warn("An error occurred when writing the cache", e)
         }
     }
 

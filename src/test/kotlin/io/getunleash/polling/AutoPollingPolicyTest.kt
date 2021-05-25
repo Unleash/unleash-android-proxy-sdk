@@ -81,15 +81,14 @@ class AutoPollingPolicyTest {
     @Test
     fun togglesChanged() {
         val server = MockWebServer()
-        val isCalled = AtomicBoolean()
-        val pollingMode = PollingModes.autoPoll(Duration.ofMillis(200)) { isCalled.set(true) }
+        val isCalled = CompletableFuture<Unit>()
+        val pollingMode = PollingModes.autoPoll(Duration.ofMillis(20)) { isCalled.complete(null) }
         val config = UnleashConfig.newBuilder().proxyUrl(server.url("/").toString()).clientSecret("my-secret").build()
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants))
-        Thread.sleep(1000)
-        assertThat(isCalled.get()).isTrue
+        assertThat(isCalled).succeedsWithin(Duration.ofMillis(500))
         server.close()
         policy.close()
     }
