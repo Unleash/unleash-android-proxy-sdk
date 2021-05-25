@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val unleashContext = UnleashContext.newBuilder()
             .appName(applicationContext.getAppName())
-            .addProperty("minSdkVersion", applicationInfo.minSdkVersion.toString())
             .userId("unleash_demo_user")
             .sessionId(Random.nextLong().toString())
             .build()
