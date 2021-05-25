@@ -21,7 +21,6 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.atomic.AtomicBoolean
 
 class AutoPollingPolicyTest {
 
