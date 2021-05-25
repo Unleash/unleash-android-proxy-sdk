@@ -1,6 +1,8 @@
 package io.getunleash.polling
 
-class AutoPollingMode(val pollRateInSeconds: Long, val togglesUpdatedListener: ToggleUpdatedListener? = null) : PollingMode {
+import java.time.Duration
+
+class AutoPollingMode(val pollRateDuration: Duration, val togglesUpdatedListener: ToggleUpdatedListener = ToggleUpdatedListener {  }) : PollingMode {
     override fun pollingIdentifier(): String = "auto"
 
 }

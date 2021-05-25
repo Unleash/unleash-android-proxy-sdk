@@ -1,5 +1,7 @@
 package io.getunleash.polling
 
+import java.time.Duration
+
 /**
  * Describes the polling modes
  */
@@ -8,15 +10,31 @@ object PollingModes {
     /**
      * Creates a configured auto polling config
      *
-     * @param autoPollIntervalSeconds - Sets how often this policy should refresh the cache
+     * @param autoPollIntervalSeconds - Sets how often (in seconds) this policy should refresh the cache
      * @return the auto polling config
      */
 
     fun autoPoll(autoPollIntervalSeconds: Long): PollingMode {
-        return AutoPollingMode(autoPollIntervalSeconds)
+        return AutoPollingMode(Duration.ofSeconds(autoPollIntervalSeconds))
     }
 
+    /**
+     * Creates a configured auto polling config with a listener which receives updates when/if toggles get updated
+     * @param autoPollIntervalSeconds - Sets how often (in seconds) this policy should refresh the cache
+     * @param listener - What should the poller call when toggles are updated?
+     * @return the auto polling config
+     */
     fun autoPoll(autoPollIntervalSeconds: Long, listener: ToggleUpdatedListener): PollingMode {
-        return AutoPollingMode(autoPollIntervalSeconds, listener)
+        return AutoPollingMode(Duration.ofSeconds(autoPollIntervalSeconds), listener)
+    }
+
+    /**
+     * Creates a configured auto polling config with a listener which receives updates when/if toggles get updated
+     * @param duration - Sets how often as a duration this policy should refresh the cache
+     * @param listener - What should the poller call when toggles are updated?
+     * @return the auto polling config
+     */
+    fun autoPoll(duration: Duration, listener: ToggleUpdatedListener): PollingMode {
+        return AutoPollingMode(duration, listener)
     }
 }

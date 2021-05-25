@@ -19,6 +19,7 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
+import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -81,11 +82,7 @@ class AutoPollingPolicyTest {
     fun togglesChanged() {
         val server = MockWebServer()
         val isCalled = AtomicBoolean()
-        val pollingMode = PollingModes.autoPoll(2, object: ToggleUpdatedListener {
-            override fun onTogglesUpdated() {
-                isCalled.set(true)
-            }
-        })
+        val pollingMode = PollingModes.autoPoll(Duration.ofMillis(200)) { isCalled.set(true) }
         val config = UnleashConfig.newBuilder().proxyUrl(server.url("/").toString()).clientSecret("my-secret").build()
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()

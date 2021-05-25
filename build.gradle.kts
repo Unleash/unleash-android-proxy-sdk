@@ -2,8 +2,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    kotlin("jvm").version("1.4.32")
-    kotlin("plugin.serialization").version("1.4.32")
+    kotlin("jvm").version("1.5.10")
     id("org.jetbrains.dokka").version("1.4.32")
     `java-library`
     `maven-publish`
@@ -21,12 +20,15 @@ project.version = scmVersion.version
 repositories {
     mavenCentral()
 }
-
+jacoco {
+    toolVersion = "0.8.7"
+}
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.12.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
     api("com.squareup.okhttp3:okhttp:4.9.1")
     api("org.slf4j:slf4j-api:1.7.30")
     api("commons-codec:commons-codec:1.15")

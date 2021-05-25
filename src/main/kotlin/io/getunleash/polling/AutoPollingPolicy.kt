@@ -5,6 +5,7 @@ import io.getunleash.UnleashContext
 import io.getunleash.cache.ToggleCache
 import io.getunleash.data.FetchResponse
 import io.getunleash.data.Toggle
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.Timer
 import java.util.concurrent.CompletableFuture
@@ -31,9 +32,9 @@ class AutoPollingPolicy(
     private val timer: Timer
 
     init {
-        autoPollingConfig.togglesUpdatedListener?.let { listeners.add(it) }
+        autoPollingConfig.togglesUpdatedListener.let { listeners.add(it) }
         timer =
-            fixedRateTimer("unleash_toggles_fetcher", initialDelay = 0L, daemon = true, period = autoPollingConfig.pollRateInSeconds) {
+            fixedRateTimer("unleash_toggles_fetcher", initialDelay = 0L, daemon = true, period = autoPollingConfig.pollRateDuration.toMillis()) {
                 updateToggles()
                 if (!initialized.getAndSet(true)) {
                     initFuture.complete(null)
@@ -70,7 +71,9 @@ class AutoPollingPolicy(
             }
         }
     }
-
+    companion object {
+        val LOGGER: Logger = LoggerFactory.getLogger(AutoPollingPolicy::class.java)
+    }
     override fun close() {
         super.close()
         this.timer.cancel()

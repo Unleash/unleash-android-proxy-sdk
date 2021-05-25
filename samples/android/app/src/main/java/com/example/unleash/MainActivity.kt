@@ -1,7 +1,9 @@
 package com.example.unleash
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,19 +20,25 @@ import io.getunleash.UnleashContext
 import io.getunleash.cache.InMemoryToggleCache
 import io.getunleash.polling.PollingModes
 import io.getunleash.polling.ToggleUpdatedListener
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var unleashClient: UnleashClient
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val unleashContext = UnleashContext.newBuilder().appName(applicationContext.getAppName())
-            .addProperty("minSdkVersion", applicationInfo.minSdkVersion.toString()).build()
+        val unleashContext = UnleashContext.newBuilder()
+            .appName(applicationContext.getAppName())
+            .addProperty("minSdkVersion", applicationInfo.minSdkVersion.toString())
+            .userId("unleash_demo_user")
+            .sessionId(Random.nextLong().toString())
+            .build()
         this.unleashClient = UnleashClient.newBuilder()
             .unleashConfig(
                 UnleashConfig.newBuilder()
@@ -38,13 +46,23 @@ class MainActivity : AppCompatActivity() {
                     .proxyUrl("https://app.unleash-hosted.com/demo/proxy")
                     .pollingMode(
                         PollingModes.autoPoll(
-                            autoPollIntervalSeconds = 5,
-                            listener = updateConfigFromUnleash()
-                        )
-                    )
-                    .environment("dev").build()
+                            autoPollIntervalSeconds = 5
+                        ) {
+                            this@MainActivity.runOnUiThread {
+                                val firstFragmentText = findViewById<TextView>(R.id.textview_first)
+                                firstFragmentText.text =
+                                    "Variant ${unleashClient.getVariant("unleash_android_sdk_demo").name}"
+                                findViewById<TextView>(R.id.textview_second)?.let {
+                                    it.text =
+                                        "Unleash is ${unleashClient.isEnabled("unleash_android_sdk_demo")}"
+                                }
+                            }
+
+                        }
             )
-            .cache(InMemoryToggleCache())
+            .environment("dev").build()
+        )
+        .cache(InMemoryToggleCache())
             .unleashContext(unleashContext)
             .build()
         setSupportActionBar(binding.toolbar)
@@ -56,19 +74,6 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-        }
-    }
-
-    fun updateConfigFromUnleash(): ToggleUpdatedListener {
-        return object: ToggleUpdatedListener {
-            override fun onTogglesUpdated() {
-                this@MainActivity.runOnUiThread {
-                    var firstFragmentText = findViewById<TextView>(R.id.textview_first)
-                    firstFragmentText.text =
-                        "Variant ${this.unleashClient.getVariant("unleash_android_sdk_demo").name}"
-                }
-            }
-
         }
     }
 

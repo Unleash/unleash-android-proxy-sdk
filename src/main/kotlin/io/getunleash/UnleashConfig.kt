@@ -2,6 +2,7 @@ package io.getunleash
 
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.PollingMode
+import java.time.Duration
 
 /**
  * Represents configuration for Unleash.
@@ -19,7 +20,7 @@ data class UnleashConfig(
     val clientSecret: String,
     val appName: String? = null,
     val environment: String? = null,
-    val pollingMode: PollingMode = AutoPollingMode(60),
+    val pollingMode: PollingMode = AutoPollingMode(Duration.ofSeconds(60)),
     val httpClientConnectionTimeout: Long = 2L,
     val httpClientReadTimeout: Long = 5L,
     val httpClientCacheSize: Long = 1024 * 1024 * 10
@@ -64,7 +65,7 @@ data class UnleashConfig(
                 ?: throw IllegalStateException("You have to set client secret in your UnleashConfig"),
             appName = appName,
             environment = environment,
-            pollingMode = pollingMode ?: AutoPollingMode(60),
+            pollingMode = pollingMode ?: AutoPollingMode(Duration.ofSeconds(60)),
             httpClientConnectionTimeout = httpClientConnectionTimeout ?: 2L,
             httpClientReadTimeout = httpClientReadTimeout ?: 5L,
             httpClientCacheSize = httpClientCacheSize ?: 1024 * 1024 * 10

@@ -1,8 +1,9 @@
 package io.getunleash.polling
 
+import com.fasterxml.jackson.module.kotlin.readValue
+import io.getunleash.data.Parser
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Toggle
-import kotlinx.serialization.json.Json
 
 object TestReponses {
     val threeToggles = """
@@ -52,7 +53,7 @@ object TestReponses {
                         }
                     }, {
                         "name": "simpleToggle",
-                        "enabled": true
+                        "enabled": true,
                         "variant": {
                             "name": "red",
                             "payload": {
@@ -64,5 +65,8 @@ object TestReponses {
                 ]
             }""".trimIndent()
 
-    fun String.toToggleMap(): Map<String, Toggle> = Json.decodeFromString(ProxyResponse.serializer(), this).toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() }
+    fun String.toToggleMap(): Map<String, Toggle> {
+        val response: ProxyResponse = Parser.jackson.readValue(this)
+        return response.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() }
+    }
 }

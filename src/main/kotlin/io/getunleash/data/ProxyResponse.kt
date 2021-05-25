@@ -1,8 +1,5 @@
 package io.getunleash.data
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 /**
  * Holder for parsing response from proxy
  */

@@ -1,12 +1,13 @@
 package io.getunleash.polling
 
+import com.fasterxml.jackson.module.kotlin.readValue
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.data.FetchResponse
+import io.getunleash.data.Parser
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Status
 import io.getunleash.data.ToggleResponse
-import kotlinx.serialization.json.Json
 import okhttp3.Cache
 import okhttp3.Call
 import okhttp3.Callback
@@ -46,7 +47,6 @@ open class UnleashFetcher(
         const val TOGGLE_BACKUP_NAME = "unleash_proxy_toggles"
     }
 
-    private val json: Json = Json
     private val proxyUrl = unleashConfig.proxyUrl.toHttpUrl()
 
     open fun getTogglesAsync(ctx: UnleashContext): CompletableFuture<ToggleResponse> {
@@ -75,15 +75,15 @@ open class UnleashFetcher(
                 response.use { res ->
                     when {
                         res.isSuccessful -> {
-                            if (res.cacheResponse != null) {
+                            if (res.cacheResponse != null && res.networkResponse?.code == 304) {
                                 fetch.complete(FetchResponse(Status.NOTMODIFIED))
                             } else {
-                                res.body?.let { b ->
+                                res.body?.use { b ->
                                     try {
-                                        val proxyResponse =
-                                            json.decodeFromString(ProxyResponse.serializer(), b.string())
+                                        val proxyResponse: ProxyResponse = Parser.jackson.readValue(b.string())
                                         fetch.complete(FetchResponse(Status.FETCHED, proxyResponse))
                                     } catch (e: Exception) {
+                                        logger.warn("Couldn't parse data", e)
                                         // If we fail to parse, just keep data
                                         fetch.complete(FetchResponse(Status.FAILED))
                                     }
@@ -91,7 +91,6 @@ open class UnleashFetcher(
                             }
                         }
                         res.code == 304 -> {
-                            logger.debug("Fetch was successful; config not modified")
                             fetch.complete(FetchResponse(Status.NOTMODIFIED))
                         }
                         res.code == 401 -> {
@@ -99,7 +98,6 @@ open class UnleashFetcher(
                             fetch.complete(FetchResponse(Status.FAILED))
                         }
                         else -> {
-                            logger.warn("Unexpected result from Unleash Proxy, keep old result")
                             fetch.complete(FetchResponse(Status.FAILED))
                         }
                     }

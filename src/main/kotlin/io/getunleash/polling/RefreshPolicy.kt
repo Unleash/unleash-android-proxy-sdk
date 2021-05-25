@@ -1,8 +1,8 @@
 package io.getunleash.polling
 
-import io.getunleash.cache.ToggleCache
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
+import io.getunleash.cache.ToggleCache
 import io.getunleash.data.Toggle
 import org.apache.commons.codec.digest.DigestUtils
 import org.slf4j.Logger

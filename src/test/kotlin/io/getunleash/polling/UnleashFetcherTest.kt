@@ -28,7 +28,7 @@ class UnleashFetcherTest {
                         }
                     }, {
                         "name": "simpleToggle",
-                        "enabled": true
+                        "enabled": true,
                         "variant": {
                             "name": "red",
                             "payload": {
@@ -38,6 +38,20 @@ class UnleashFetcherTest {
                         }
                     }
                 ]
+            }""".trimIndent()
+
+    private val actualProxyResponse =
+        """{"toggles":[
+                {"name":"asdasd","enabled":true,"variant":{"name":"123","payload":{"type":"string","value":"11"},"enabled":true}},
+                {"name":"atrxrmnqwe","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"clint.testToggle","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"demounleash.cheque","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"demounleash.inversiones","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"demounleash.movimientosenriquecidos","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"EnableAt","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"Test_release","enabled":true,"variant":{"name":"disabled","enabled":false}},
+                {"name":"unleash_android_sdk_demo","enabled":true, "variant":{"name":"HelloNeptune","enabled":true }}
+            ]
             }""".trimIndent()
 
     @Test
@@ -69,5 +83,21 @@ class UnleashFetcherTest {
         assertThat(cachedResponse.isFetched()).isFalse
         assertThat(cachedResponse.isFailed()).isFalse
 
+    }
+
+    @Test
+    fun `Can handle actual proxy response`() {
+        val server = MockWebServer()
+        val fetcher =
+            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "my-secret"))
+        server.enqueue(
+            MockResponse().setResponseCode(200)
+                .setBody(actualProxyResponse)
+        )
+        val response = fetcher.getResponseAsync(UnleashContext.newBuilder().userId("hello").build()).get()
+        assertThat(response.isFetched()).isTrue
+        assertThat(response.isFailed()).isFalse
+        assertThat(response.isNotModified()).isFalse
+        assertThat(response.config).isNotNull
     }
 }
