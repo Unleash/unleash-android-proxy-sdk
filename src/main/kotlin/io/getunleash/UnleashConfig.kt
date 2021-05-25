@@ -21,8 +21,8 @@ data class UnleashConfig(
     val appName: String? = null,
     val environment: String? = null,
     val pollingMode: PollingMode = AutoPollingMode(Duration.ofSeconds(60)),
-    val httpClientConnectionTimeout: Long = 2L,
-    val httpClientReadTimeout: Long = 5L,
+    val httpClientConnectionTimeout: Duration = Duration.ofSeconds(2),
+    val httpClientReadTimeout: Duration = Duration.ofSeconds(5),
     val httpClientCacheSize: Long = 1024 * 1024 * 10
 ) {
     fun newBuilder(): Builder =
@@ -47,8 +47,8 @@ data class UnleashConfig(
         var appName: String? = null,
         var environment: String? = null,
         var pollingMode: PollingMode? = null,
-        var httpClientConnectionTimeout: Long? = null,
-        var httpClientReadTimeout: Long? = null,
+        var httpClientConnectionTimeout: Duration? = null,
+        var httpClientReadTimeout: Duration? = null,
         var httpClientCacheSize: Long? = null
     ) {
         fun proxyUrl(proxyUrl: String) = apply { this.proxyUrl = proxyUrl }
@@ -56,8 +56,10 @@ data class UnleashConfig(
         fun appName(appName: String) = apply { this.appName = appName }
         fun environment(environment: String) = apply { this.environment = environment }
         fun pollingMode(pollingMode: PollingMode) = apply { this.pollingMode = pollingMode }
-        fun httpClientConnectionTimeout(timeout: Long) = apply { this.httpClientConnectionTimeout = timeout }
-        fun httpClientReadTimeout(timeout: Long) = apply { this.httpClientReadTimeout = timeout }
+        fun httpClientConnectionTimeout(timeout: Duration) = apply { this.httpClientConnectionTimeout = timeout }
+        fun httpClientConnectionTimeoutInSeconds(seconds: Long) = apply { this.httpClientConnectionTimeout = Duration.ofSeconds(seconds) }
+        fun httpClientReadTimeout(timeout: Duration) = apply { this.httpClientReadTimeout = timeout }
+        fun httpClientReadTimeoutInSeconds(seconds: Long) = apply { this.httpClientReadTimeout = Duration.ofSeconds(seconds) }
         fun httpClientCacheSize(cacheSize: Long) = apply { this.httpClientCacheSize = cacheSize }
         fun build(): UnleashConfig = UnleashConfig(
             proxyUrl = proxyUrl ?: throw IllegalStateException("You have to set proxy url in your UnleashConfig"),
@@ -66,8 +68,8 @@ data class UnleashConfig(
             appName = appName,
             environment = environment,
             pollingMode = pollingMode ?: AutoPollingMode(Duration.ofSeconds(60)),
-            httpClientConnectionTimeout = httpClientConnectionTimeout ?: 2L,
-            httpClientReadTimeout = httpClientReadTimeout ?: 5L,
+            httpClientConnectionTimeout = httpClientConnectionTimeout ?: Duration.ofSeconds(2),
+            httpClientReadTimeout = httpClientReadTimeout ?: Duration.ofSeconds(5),
             httpClientCacheSize = httpClientCacheSize ?: 1024 * 1024 * 10
         )
 

@@ -51,10 +51,6 @@ class MainActivity : AppCompatActivity() {
                                 val firstFragmentText = findViewById<TextView>(R.id.textview_first)
                                 firstFragmentText.text =
                                     "Variant ${unleashClient.getVariant("unleash_android_sdk_demo").name}"
-                                findViewById<TextView>(R.id.textview_second)?.let {
-                                    it.text =
-                                        "Unleash is ${unleashClient.isEnabled("unleash_android_sdk_demo")}"
-                                }
                             }
 
                         }

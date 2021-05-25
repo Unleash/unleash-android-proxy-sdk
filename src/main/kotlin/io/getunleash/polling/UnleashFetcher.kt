@@ -33,8 +33,8 @@ import java.util.concurrent.TimeUnit
  */
 open class UnleashFetcher(
     val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(unleashConfig.httpClientReadTimeout, TimeUnit.SECONDS)
-        .connectTimeout(unleashConfig.httpClientConnectionTimeout, TimeUnit.SECONDS)
+        .readTimeout(unleashConfig.httpClientReadTimeout)
+        .connectTimeout(unleashConfig.httpClientConnectionTimeout)
         .cache(
             Cache(
                 directory = Files.createTempDirectory("unleash_toggles").toFile(),

@@ -13,11 +13,31 @@ implementation("io.getunleash:unleash-android:sdk:${unleash.sdk.version}")
 
 ### Now configure your client instance
 
-You should use this as a singleton to avoid file contention on cache directory
+You should use this as a singleton to avoid file contention on cache directory.
+PollingModes.autoPoll() takes either seconds or a duration and a ToggleUpdatedListener, which is a functional interface allowing a simple lambda for deciding what to do when new updates for toggles arrives.
+
 
 ```kotlin
 val context = UnleashContext.newBuilder()
     .appName("Your AppName")
-    .userId("However you resolve your userid").sessionId("However you resolve your session id")
-val config = UnleashConfig.newBuilder().proxyUrl("URL to your proxy installation").clientSecret("yourProxyApiKey").unleashContext()
+    .userId("However you resolve your userid")
+    .sessionId("However you resolve your session id")
+    .build()
+val config = UnleashConfig.newBuilder()
+    .proxyUrl("URL to your proxy installation")
+    .clientSecret("yourProxyApiKey")
+    .pollMode(PollingModes.autoPoll(Duration.ofSeconds(60)) {
+        featuresUpdated()
+    })
+    .build()
+val client = UnleashClient(config = config, unleashContext = context)
+```
+In [the sample app](./samples/android/app/src/main/java/com/example/unleash/MainActivity.kt)
+we use this to update the text on the first view
+
+```kotlin
+ this@MainActivity.runOnUiThread {
+    val firstFragmentText = findViewById<TextView>(R.id.textview_first)
+    firstFragmentText.text = "Variant ${unleashClient.getVariant("unleash_android_sdk_demo").name}"
+ }
 ```

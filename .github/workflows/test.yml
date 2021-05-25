@@ -15,12 +15,12 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
-      - name: Cache Gradle packages
-        uses: actions/cache@v1
+          java-version: 15
+      - uses: burrunan/gradle-cache-action@v1
+        name: Build and test
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
-      - name: Test with Gradle
-        run: ./gradlew test
+          job-id: jdk15
+          arguments: build coverallsJacoco
+          gradle-version: wrapper
