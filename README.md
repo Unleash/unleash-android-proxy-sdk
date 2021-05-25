@@ -1,14 +1,14 @@
 # Unleash Android SDK
-[![Coverage Status](https://coveralls.io/repos/github/Unleash/unleash-android-sdk/badge.svg?branch=main)](https://coveralls.io/github/Unleash/unleash-android-sdk?branch=main)
-[![main](https://github.com/Unleash/unleash-android-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/Unleash/unleash-android-sdk/actions/workflows/test.yml)
-[![latest](https://badgen.net/maven/v/maven-central/io.getunleash/unleash-android-sdk)](https://search.maven.org/search?q=g:io.getunleash%20AND%20a:unleash-android-sdk)
+[![Coverage Status](https://coveralls.io/repos/github/Unleash/unleash-android-proxy-sdk/badge.svg?branch=main)](https://coveralls.io/github/Unleash/unleash-android-proxy-sdk?branch=main)
+[![main](https://github.com/Unleash/unleash-android-proxy-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/Unleash/unleash-android-proxy-sdk/actions/workflows/test.yml)
+[![latest](https://badgen.net/maven/v/maven-central/io.getunleash/unleash-android-proxy-sdk)](https://search.maven.org/search?q=g:io.getunleash%20AND%20a:unleash-android-proxy-sdk)
 
 ## Getting started
 
 You will require the SDK on your classpath, so go ahead and add it to your gradle file
 
 ```kotlin
-implementation("io.getunleash:unleash-android:sdk:${unleash.sdk.version}")
+implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ```
 
 ### Now configure your client instance
