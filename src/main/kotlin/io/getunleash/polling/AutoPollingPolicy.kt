@@ -71,9 +71,6 @@ class AutoPollingPolicy(
             }
         }
     }
-    companion object {
-        val LOGGER: Logger = LoggerFactory.getLogger(AutoPollingPolicy::class.java)
-    }
     override fun close() {
         super.close()
         this.timer.cancel()

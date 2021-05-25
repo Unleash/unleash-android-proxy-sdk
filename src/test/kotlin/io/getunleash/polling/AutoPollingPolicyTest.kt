@@ -79,6 +79,12 @@ class AutoPollingPolicyTest {
     }
 
     @Test
+    fun `yields correct identifier`() {
+        val f = PollingModes.autoPoll(5)
+        assertThat(f.pollingIdentifier()).isEqualTo("auto")
+    }
+
+    @Test
     @Disabled("Disabled for CI. If changing AutoPolling, bring back")
     fun togglesChanged() {
         val server = MockWebServer()
@@ -88,7 +94,7 @@ class AutoPollingPolicyTest {
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
-        server.enqueue(MockResponse().setResponseCode(200).setBody(TestReponses.complicatedVariants))
+        server.enqueue(MockResponse().setResponseCode(200).setBody(TestResponses.complicatedVariants))
         assertThat(isCalled).succeedsWithin(Duration.ofMillis(1000))
         server.close()
         policy.close()

@@ -5,7 +5,7 @@ import io.getunleash.data.Parser
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Toggle
 
-object TestReponses {
+object TestResponses {
     val threeToggles = """
         {
             	"toggles": [

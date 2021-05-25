@@ -39,7 +39,9 @@ abstract class RefreshPolicy(
         }
     }
 
-
+    /**
+     * Subclasses should override this to implement their way of updating the toggle cache
+     */
     abstract fun getConfigurationAsync(): CompletableFuture<Map<String, Toggle>>
 
     /**

@@ -54,7 +54,7 @@ class UnleashClient(
     }
 
     override fun close() {
-        TODO("Not yet implemented")
+        this.refreshPolicy.close()
     }
 
     data class Builder(
