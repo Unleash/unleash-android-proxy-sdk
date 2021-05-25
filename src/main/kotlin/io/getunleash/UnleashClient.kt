@@ -6,8 +6,6 @@ import io.getunleash.data.Variant
 import io.getunleash.data.disabledVariant
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.AutoPollingPolicy
-import io.getunleash.polling.LazyLoadingMode
-import io.getunleash.polling.LazyLoadingPolicy
 import io.getunleash.polling.RefreshPolicy
 import io.getunleash.polling.UnleashFetcher
 import okhttp3.Cache
@@ -31,7 +29,6 @@ class UnleashClient(
     private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
     private val refreshPolicy: RefreshPolicy = when(unleashConfig.pollingMode) {
         is AutoPollingMode -> AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
-        is LazyLoadingMode -> LazyLoadingPolicy(unleashFetcher = fetcher, cache = cache, config = unleashConfig, context = unleashContext, unleashConfig.pollingMode)
         else -> throw InvalidParameterException("The polling mode parameter is invalid")
     }
 

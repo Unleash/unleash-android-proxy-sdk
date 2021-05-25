@@ -16,7 +16,7 @@ class AutoPollingPolicy(
     override val cache: ToggleCache,
     override val config: UnleashConfig,
     override var context: UnleashContext,
-    private val autoPollingConfig: AutoPollingMode
+    autoPollingConfig: AutoPollingMode
 ) :
     RefreshPolicy(
         unleashFetcher = unleashFetcher,
@@ -31,7 +31,7 @@ class AutoPollingPolicy(
     private val timer: Timer
 
     init {
-        listeners.addAll(autoPollingConfig.togglesUpdatedListeners)
+        autoPollingConfig.togglesUpdatedListener?.let { listeners.add(it) }
         timer =
             fixedRateTimer("unleash_toggles_fetcher", initialDelay = 0L, daemon = true, period = autoPollingConfig.pollRateInSeconds) {
                 updateToggles()
