@@ -21,7 +21,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingPassphrase: ${{ secrets.GPG_PASSPHRASE }}
         with:
           job-id: release
-          arguments: publishMavenJavaPublicationToSonatypeRepository
+          arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
       - name: Build changelog
         id: github_release
         uses: metcalfc/changelog-generator@v1.0.0
