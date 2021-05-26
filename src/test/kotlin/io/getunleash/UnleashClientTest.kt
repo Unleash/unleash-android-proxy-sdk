@@ -37,7 +37,7 @@ class UnleashClientTest {
     fun `Can check toggle status`() {
         UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { client ->
             assertThat(client.isEnabled("variantToggle")).isFalse
-            Thread.sleep(1000)
+            Thread.sleep(5000)
             assertThat(client.isEnabled("variantToggle")).isTrue
         }
     }
@@ -46,7 +46,7 @@ class UnleashClientTest {
     fun `Can get variant`() {
         UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { client ->
             assertThat(client.getVariant("variantToggle").name).isEqualTo("disabled")
-            Thread.sleep(1000)
+            Thread.sleep(5000)
             assertThat(client.getVariant("variantToggle").name).isEqualTo("green")
         }
     }

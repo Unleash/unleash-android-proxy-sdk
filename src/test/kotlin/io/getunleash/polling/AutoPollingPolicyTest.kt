@@ -85,7 +85,6 @@ class AutoPollingPolicyTest {
     }
 
     @Test
-    @Disabled("Disabled for CI. If changing AutoPolling, bring back")
     fun togglesChanged() {
         val server = MockWebServer()
         val isCalled = CompletableFuture<Unit>()
@@ -95,7 +94,7 @@ class AutoPollingPolicyTest {
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
         server.enqueue(MockResponse().setResponseCode(200).setBody(TestResponses.complicatedVariants))
-        assertThat(isCalled).succeedsWithin(Duration.ofMillis(1000))
+        assertThat(isCalled).succeedsWithin(Duration.ofSeconds(5))
         server.close()
         policy.close()
     }
