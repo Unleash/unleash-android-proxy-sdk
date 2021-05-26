@@ -59,7 +59,7 @@ $dokka.location:io.getunleash.data/Variant/name/#/PointingToDeclaration/-unleas
 $dokka.location:io.getunleash.data/Variant/payload/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.data/-variant/payload.html
 $dokka.location:io.getunleash.polling////PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/index.html
 $dokka.location:io.getunleash.polling/AutoPollingMode///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/index.html
-$dokka.location:io.getunleash.polling/AutoPollingMode/AutoPollingMode/#java.time.Duration#io.getunleash.polling.ToggleUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/-auto-polling-mode.html
+$dokka.location:io.getunleash.polling/AutoPollingMode/AutoPollingMode/#java.time.Duration#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/-auto-polling-mode.html
 $dokka.location:io.getunleash.polling/AutoPollingMode/pollRateDuration/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/poll-rate-duration.html
 $dokka.location:io.getunleash.polling/AutoPollingMode/pollingIdentifier/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/polling-identifier.html
 $dokka.location:io.getunleash.polling/AutoPollingMode/togglesUpdatedListener/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-mode/toggles-updated-listener.html
@@ -75,8 +75,8 @@ $dokka.location:io.getunleash.polling/AutoPollingPolicy/unleashFetcher/#/Pointin
 $dokka.location:io.getunleash.polling/PollingMode///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-mode/index.html
 $dokka.location:io.getunleash.polling/PollingMode/pollingIdentifier/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-mode/polling-identifier.html
 $dokka.location:io.getunleash.polling/PollingModes///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/index.html
-$dokka.location:io.getunleash.polling/PollingModes/autoPoll/#java.time.Duration#io.getunleash.polling.ToggleUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/auto-poll.html
-$dokka.location:io.getunleash.polling/PollingModes/autoPoll/#kotlin.Long#io.getunleash.polling.ToggleUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/auto-poll.html
+$dokka.location:io.getunleash.polling/PollingModes/autoPoll/#java.time.Duration#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/auto-poll.html
+$dokka.location:io.getunleash.polling/PollingModes/autoPoll/#kotlin.Long#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/auto-poll.html
 $dokka.location:io.getunleash.polling/PollingModes/autoPoll/#kotlin.Long/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/auto-poll.html
 $dokka.location:io.getunleash.polling/RefreshPolicy.Companion///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-companion/index.html
 $dokka.location:io.getunleash.polling/RefreshPolicy.Companion/cacheBase/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-companion/cache-base.html
@@ -94,8 +94,8 @@ $dokka.location:io.getunleash.polling/RefreshPolicy/readToggleCache/#/PointingTo
 $dokka.location:io.getunleash.polling/RefreshPolicy/refreshAsync/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/refresh-async.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/unleashFetcher/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/unleash-fetcher.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/writeToggleCache/#kotlin.collections.Map[kotlin.String,io.getunleash.data.Toggle]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/write-toggle-cache.html
-$dokka.location:io.getunleash.polling/ToggleUpdatedListener///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-toggle-updated-listener/index.html
-$dokka.location:io.getunleash.polling/ToggleUpdatedListener/onTogglesUpdated/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-toggle-updated-listener/on-toggles-updated.html
+$dokka.location:io.getunleash.polling/TogglesUpdatedListener///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-toggles-updated-listener/index.html
+$dokka.location:io.getunleash.polling/TogglesUpdatedListener/onTogglesUpdated/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-toggles-updated-listener/on-toggles-updated.html
 $dokka.location:io.getunleash.polling/UnleashFetcher.Companion///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/-companion/index.html
 $dokka.location:io.getunleash.polling/UnleashFetcher.Companion/TOGGLE_BACKUP_NAME/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/-companion/-t-o-g-g-l-e_-b-a-c-k-u-p_-n-a-m-e.html
 $dokka.location:io.getunleash.polling/UnleashFetcher.Companion/logger/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/-companion/logger.html
