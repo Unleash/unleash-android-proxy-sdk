@@ -3,23 +3,21 @@ package com.example.unleash
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.TextView
 import com.example.unleash.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import io.getunleash.UnleashClient
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.InMemoryToggleCache
 import io.getunleash.polling.PollingModes
-import io.getunleash.polling.ToggleUpdatedListener
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
