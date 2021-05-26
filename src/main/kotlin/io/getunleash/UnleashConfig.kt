@@ -7,12 +7,12 @@ import java.time.Duration
 /**
  * Represents configuration for Unleash.
  * @property url HTTP(s) URL to the Unleash Proxy (Required).
- * @property clientKey the secret added as the Authorization header sent to the unleash-proxy (Required)
- * @property appName: name of the underlying application. Will be part of the unleash context if not overridden in the [io.getunleash.UnleashClient.updateContext] call (Required).
- * @property environment Part of unleash context if not overridden when using [io.getunleash.UnleashClient.updateContext] (Optional - Defaults to 'default')
- * @property pollingMode How to poll for features. Defaults to Automatic and once every 60 seconds
- * @property httpClientReadTimeout The number of seconds to wait for HTTP reads. (Optional - Defaults to 5)
- * @property httpClientConnectionTimeout The number of seconds to wait for HTTP connection. (Optional - Defaults to 2)
+ * @property clientSecret the secret added as the Authorization header sent to the unleash-proxy (Required)
+ * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Required).
+ * @property environment which environment is the application running in. Will be used as default argument for the [io.getunleash.UnleashContext]. (Optional - Defaults to 'default')
+ * @property pollingMode How to poll for features. Defaults to [io.getunleash.polling.AutoPollingMode] with poll interval set to 60 seconds.
+ * @property httpClientReadTimeout How long to wait for HTTP reads. (Optional - Defaults to 5 seconds)
+ * @property httpClientConnectionTimeout How long to wait for HTTP connection. (Optional - Defaults to 2 seconds)
  * @property httpClientCacheSize Disk space (in bytes) set aside for http cache. (Optional - Defaults to 10MB)
  */
 data class UnleashConfig(
@@ -25,6 +25,10 @@ data class UnleashConfig(
     val httpClientReadTimeout: Duration = Duration.ofSeconds(5),
     val httpClientCacheSize: Long = 1024 * 1024 * 10
 ) {
+    /**
+     * Get a [io.getunleash.UnleashConfig.Builder] with all fields set to the value of
+     * this instance of the class.
+     */
     fun newBuilder(): Builder =
         Builder(
             proxyUrl = proxyUrl,
@@ -38,9 +42,15 @@ data class UnleashConfig(
         )
 
     companion object {
+        /**
+         * Get a [io.getunleash.UnleashConfig.Builder] with no fields set.
+         */
         fun newBuilder(): Builder = Builder()
     }
 
+    /**
+     * Builder for [io.getunleash.UnleashConfig]
+     */
     data class Builder(
         var proxyUrl: String? = null,
         var clientSecret: String? = null,

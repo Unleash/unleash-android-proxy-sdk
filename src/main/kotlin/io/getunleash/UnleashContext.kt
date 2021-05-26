@@ -17,7 +17,7 @@ package io.getunleash
  * @property environment - Which environment are you running in? Not currently supported server side
  * (per Unleash-server v4.0.0), but support is coming, and can be used for custom strategies
  */
-class UnleashContext(
+data class UnleashContext(
     val userId: String? = null,
     val sessionId: String? = null,
     val remoteAddress: String? = null,
@@ -25,6 +25,9 @@ class UnleashContext(
     val appName: String? = null,
     val environment: String? = null,
 ) {
+    /**
+     * Used to get a new builder with current state
+     */
     fun newBuilder(): Builder = Builder(
         userId = userId,
         sessionId = sessionId,
@@ -35,6 +38,9 @@ class UnleashContext(
     )
 
     companion object {
+        /**
+         * Used to get a Builder with no fields set, hopefully simplifying constructing contexts
+         */
         fun newBuilder(): Builder = Builder()
     }
 

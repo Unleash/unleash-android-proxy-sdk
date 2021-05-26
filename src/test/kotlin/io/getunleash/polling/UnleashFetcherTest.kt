@@ -100,4 +100,5 @@ class UnleashFetcherTest {
         assertThat(response.isNotModified()).isFalse
         assertThat(response.config).isNotNull
     }
+
 }

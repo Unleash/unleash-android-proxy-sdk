@@ -61,6 +61,28 @@ object TestResponses {
                                 "value": { "key": "value" }
                             }
                         }
+                    },
+                    {
+                        "name": "booleanVariant",
+                        "enabled": true,
+                        "variant": {
+                            "name": "boolthis",
+                            "payload": {
+                                "type": "boolean",
+                                "value": true
+                            }
+                        }
+                    },
+                    {
+                        "name": "doubleVariant",
+                        "enabled": true,
+                        "variant": {
+                            "name": "the-answer",
+                            "payload": {
+                                "type": "number",
+                                "value": 42.0
+                            }
+                        }
                     }
                 ]
             }""".trimIndent()
