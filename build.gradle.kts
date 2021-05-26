@@ -73,7 +73,7 @@ tasks.withType<DokkaTask>().configureEach {
             moduleName.set("Unleash Proxy Client")
             sourceLink {
                 localDirectory.set(file("src/main/kotlin"))
-                remoteUrl.set(URL("https://github.com/Unleash/unleash-android-sdk/tree/${tagVersion ?: "main"}/src/main/kotlin"))
+                remoteUrl.set(URL("https://github.com/Unleash/unleash-android-proxy-sdk/tree/${tagVersion ?: "main"}/src/main/kotlin"))
                 remoteLineSuffix.set("#L")
             }
         }
@@ -94,12 +94,12 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             groupId = group
-            artifactId = "unleash-android-sdk"
+            artifactId = "unleash-android-proxy-sdk"
             version = "${version}"
             pom {
                 name.set("Unleash Android SDK")
                 description.set("Android SDK for Unleash")
-                url.set("https://docs.getunleash.io/unleash-android-sdk/index.html")
+                url.set("https://docs.getunleash.io/unleash-android-proxy-sdk/index.html")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
@@ -119,9 +119,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:https://github.com/Unleash/unleash-android-sdk")
-                    developerConnection.set("scm:git:ssh://git@github.com:Unleash/unleash-android-sdk")
-                    url.set("https://github.com/Unleash/unleash-android-sdk")
+                    connection.set("scm:git:https://github.com/Unleash/unleash-android-proxy-sdk")
+                    developerConnection.set("scm:git:ssh://git@github.com:Unleash/unleash-android-proxy-sdk")
+                    url.set("https://github.com/Unleash/unleash-android-proxy-sdk")
                 }
             }
         }
