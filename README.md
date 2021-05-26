@@ -14,14 +14,27 @@ implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ### Now configure your client instance
 
 You should use this as a singleton to avoid file contention on cache directory.
-PollingModes.autoPoll() takes either seconds or a duration and a ToggleUpdatedListener, which is a functional interface allowing a simple lambda for deciding what to do when new updates for toggles arrives.
 
+#### Unleash Context
+The important properties to configure on the context are
+* Appname - In case you use strategies that depend on which app
+* UserId - GradualRolloutStrategies often use this to decide stickiness when assigning which group of users the user end up in
+* SessionId - GradualRolloutStrategies often use this to decide stickiness
+
+#### Unleash Config
+For the config you must set two variables, and if you'd like to be notified when the polling thread has found updates you should also configure pollMode
+* proxyUrl - Where your proxy installation is located, for Unleash-Hosted's demo instance this is at `https://app.unleash-hosted.com/demo/proxy` but yours will be somewhere else
+* clientSecret - The api key for accessing your proxy.
+* pollMode - For now we only support autoPolling, but when constructing the pollMode you can set the duration of the polling interval and pass in a lambda describing what to do when the poller notifies you that toggles have been updated.
+
+
+Example setup:
 
 ```kotlin
 val context = UnleashContext.newBuilder()
     .appName("Your AppName")
     .userId("However you resolve your userid")
-    .sessionId("However you resolve your session id")
+    .sessionId("However you resolve your session id") 
     .build()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation")

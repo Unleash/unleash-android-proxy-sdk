@@ -3,9 +3,7 @@ package io.getunleash.polling
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.ToggleCache
-import io.getunleash.data.FetchResponse
 import io.getunleash.data.Toggle
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.Timer
 import java.util.concurrent.CompletableFuture
@@ -26,7 +24,7 @@ class AutoPollingPolicy(
         config = config,
         context = context
     ) {
-    private val listeners: MutableList<ToggleUpdatedListener> = mutableListOf()
+    private val listeners: MutableList<TogglesUpdatedListener> = mutableListOf()
     private val initialized = AtomicBoolean(false)
     private val initFuture = CompletableFuture<Unit>()
     private val timer: Timer

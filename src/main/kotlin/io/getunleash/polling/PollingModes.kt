@@ -24,7 +24,7 @@ object PollingModes {
      * @param listener - What should the poller call when toggles are updated?
      * @return the auto polling config
      */
-    fun autoPoll(autoPollIntervalSeconds: Long, listener: ToggleUpdatedListener): PollingMode {
+    fun autoPoll(autoPollIntervalSeconds: Long, listener: TogglesUpdatedListener): PollingMode {
         return AutoPollingMode(Duration.ofSeconds(autoPollIntervalSeconds), listener)
     }
 
@@ -34,7 +34,7 @@ object PollingModes {
      * @param listener - What should the poller call when toggles are updated?
      * @return the auto polling config
      */
-    fun autoPoll(duration: Duration, listener: ToggleUpdatedListener): PollingMode {
+    fun autoPoll(duration: Duration, listener: TogglesUpdatedListener): PollingMode {
         return AutoPollingMode(duration, listener)
     }
 }
