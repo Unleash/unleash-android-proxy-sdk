@@ -6,6 +6,8 @@ import io.getunleash.data.Variant
 import io.getunleash.data.disabledVariant
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.AutoPollingPolicy
+import io.getunleash.polling.FilePollingMode
+import io.getunleash.polling.FilePollingPolicy
 import io.getunleash.polling.RefreshPolicy
 import io.getunleash.polling.UnleashFetcher
 import okhttp3.Cache
@@ -42,6 +44,13 @@ class UnleashClient(
     private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
     private val refreshPolicy: RefreshPolicy = when (unleashConfig.pollingMode) {
         is AutoPollingMode -> AutoPollingPolicy(
+            unleashFetcher = fetcher,
+            cache = cache,
+            config = unleashConfig,
+            context = unleashContext,
+            unleashConfig.pollingMode
+        )
+        is FilePollingMode -> FilePollingPolicy(
             unleashFetcher = fetcher,
             cache = cache,
             config = unleashConfig,

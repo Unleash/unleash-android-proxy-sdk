@@ -1,5 +1,6 @@
 package io.getunleash.polling
 
+import java.io.File
 import java.time.Duration
 
 /**
@@ -36,5 +37,9 @@ object PollingModes {
      */
     fun autoPoll(duration: Duration, listener: TogglesUpdatedListener): PollingMode {
         return AutoPollingMode(duration, listener)
+    }
+
+    fun fileMode(toggleFile: File): PollingMode {
+        return FilePollingMode(toggleFile)
     }
 }

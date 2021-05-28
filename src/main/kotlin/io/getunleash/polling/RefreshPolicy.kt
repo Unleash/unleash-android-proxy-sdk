@@ -9,6 +9,14 @@ import org.slf4j.Logger
 import java.io.Closeable
 import java.util.concurrent.CompletableFuture
 
+/**
+ * Used to define how to Refresh and serve toggles
+ * @param unleashFetcher How to fetch toggles
+ * @param cache The toggle cache
+ * @param logger Allowing for logging with correct classname
+ * @param config Configuring unleash
+ * @param context Configuring context
+ */
 abstract class RefreshPolicy(
     open val unleashFetcher: UnleashFetcher,
     open val cache: ToggleCache,
