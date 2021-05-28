@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>AutoPollingPolicy</title>
+    <title>FilePollingPolicy</title>
 <link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
   <body>
     <div id="container">
@@ -13,49 +13,51 @@
       </div>
       <div id="main">
         <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="Unleash Proxy Client::io.getunleash.polling/AutoPollingPolicy///PointingToDeclaration//769193423">
+<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="Unleash Proxy Client::io.getunleash.polling/FilePollingPolicy///PointingToDeclaration//769193423">
           <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">Unleash Proxy Client</a>/<a href="../index.html">io.getunleash.polling</a>/<a href="index.html">AutoPollingPolicy</a></div>
+            <div class="breadcrumbs"><a href="../../../index.html">Unleash Proxy Client</a>/<a href="../index.html">io.getunleash.polling</a>/<a href="index.html">FilePollingPolicy</a></div>
             <div class="pull-right d-flex">
               <div id="searchBar"></div>
             </div>
           </div>
           <div class="cover ">
-            <h1 class="cover"><span>Auto</span><wbr></wbr><span>Polling</span><wbr></wbr><span>Policy</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">AutoPollingPolicy</a>(unleashFetcher: <a href="../-unleash-fetcher/index.html">UnleashFetcher</a>, cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a>, config: <a href="../../io.getunleash/-unleash-config/index.html">UnleashConfig</a>, context: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>, autoPollingConfig: <a href="../-auto-polling-mode/index.html">AutoPollingMode</a>) : <a href="../-refresh-policy/index.html">RefreshPolicy</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+            <h1 class="cover"><span>File</span><wbr></wbr><span>Polling</span><wbr></wbr><span>Policy</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">FilePollingPolicy</a>(unleashFetcher: <a href="../-unleash-fetcher/index.html">UnleashFetcher</a>, cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a>, config: <a href="../../io.getunleash/-unleash-config/index.html">UnleashConfig</a>, context: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>, filePollingConfig: <a href="../-file-polling-mode/index.html">FilePollingMode</a>) : <a href="../-refresh-policy/index.html">RefreshPolicy</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Allows loading a proxy response from file. Does not poll, does not update toggles. Is useful when you want to have a known state of all toggles to query against, or if your app's internet connectivity is limited and you'd still like to have toggles. Steps to use</p><ol><li><p class="paragraph">Download json file from proxy <code>curl -XGET -H &quot;Authentication: your-proxy-key&quot; YOURPROXYURL &gt; toggles.json</code></p></li><li><p class="paragraph">Include json file in your package</p></li><li><p class="paragraph">Use <a href="../-polling-modes/file-mode.html">io.getunleash.polling.PollingModes.fileMode</a></p></li><li><p class="paragraph">Be aware that you'll need to repackage and restart your app to have updates to toggles</p></li></ol></div></div>
           </div>
           <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
             <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1743756909%2FFunctions%2F769193423" anchor-label="broadcastTogglesUpdated" id="1743756909%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <h2 class="">Parameters</h2>
+              <div data-togglable="Parameters">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">filePollingConfig</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Configure where we're reading the toggles file from</p></div></div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="1009476274%2FConstructors%2F769193423" anchor-label="FilePollingPolicy" id="1009476274%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="broadcast-toggles-updated.html">broadcastTogglesUpdated</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1743756909%2FFunctions%2F769193423"></span>
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-file-polling-policy.html">FilePollingPolicy</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1009476274%2FConstructors%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="broadcast-toggles-updated.html">broadcastTogglesUpdated</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="-file-polling-policy.html">FilePollingPolicy</a>(unleashFetcher: <a href="../-unleash-fetcher/index.html">UnleashFetcher</a>, cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a>, config: <a href="../../io.getunleash/-unleash-config/index.html">UnleashConfig</a>, context: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>, filePollingConfig: <a href="../-file-polling-mode/index.html">FilePollingMode</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Configure where we're reading the toggles file from</div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1092876626%2FFunctions%2F769193423" anchor-label="close" id="1092876626%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="-194395157%2FFunctions%2F769193423" anchor-label="close" id="-194395157%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="close.html">close</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1092876626%2FFunctions%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="../-refresh-policy/close.html">close</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-194395157%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="close.html">close</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="../-refresh-policy/close.html">close</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 </div>
 </div>
@@ -79,10 +81,10 @@
                     </div>
                   </div>
                 </div>
-<a data-name="-48790354%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="-48790354%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="532062971%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="532062971%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="get-configuration-async.html">getConfigurationAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-48790354%2FFunctions%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="get-configuration-async.html">getConfigurationAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="532062971%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -91,7 +93,7 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="get-configuration-async.html">getConfigurationAsync</a>(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <a href="../../io.getunleash.data/-toggle/index.html">Toggle</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-48790354%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="-48790354%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="-48790354%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="-48790354%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Subclasses should override this to implement their way of updating the toggle cache</div></div>
+<a data-name="532062971%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="532062971%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="532062971%2FFunctions%2F769193423" anchor-label="getConfigurationAsync" id="532062971%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Subclasses should override this to implement their way of updating the toggle cache</div></div>
 </div>
                     </div>
                   </div>
@@ -166,77 +168,77 @@
                 </div>
               </div>
               <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="-1167255800%2FProperties%2F769193423" anchor-label="cache" id="-1167255800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Properties"><a data-name="-2086375595%2FProperties%2F769193423" anchor-label="cache" id="-2086375595%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="cache.html">cache</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1167255800%2FProperties%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="cache.html">cache</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2086375595%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1167255800%2FProperties%2F769193423" anchor-label="cache" id="-1167255800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="cache.html">cache</a>: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1167255800%2FProperties%2F769193423" anchor-label="cache" id="-1167255800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>The toggle cache</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-2086375595%2FProperties%2F769193423" anchor-label="cache" id="-2086375595%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="cache.html">cache</a>: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-2086375595%2FProperties%2F769193423" anchor-label="cache" id="-2086375595%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>The toggle cache</div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1377602610%2FProperties%2F769193423" anchor-label="config" id="-1377602610%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="194454817%2FProperties%2F769193423" anchor-label="config" id="194454817%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="config.html">config</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1377602610%2FProperties%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="config.html">config</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="194454817%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1377602610%2FProperties%2F769193423" anchor-label="config" id="-1377602610%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="config.html">config</a>: <a href="../../io.getunleash/-unleash-config/index.html">UnleashConfig</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1377602610%2FProperties%2F769193423" anchor-label="config" id="-1377602610%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Configuring unleash</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="194454817%2FProperties%2F769193423" anchor-label="config" id="194454817%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="config.html">config</a>: <a href="../../io.getunleash/-unleash-config/index.html">UnleashConfig</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="194454817%2FProperties%2F769193423" anchor-label="config" id="194454817%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Configuring unleash</div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1153696197%2FProperties%2F769193423" anchor-label="context" id="-1153696197%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="335443784%2FProperties%2F769193423" anchor-label="context" id="335443784%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="context.html">context</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1153696197%2FProperties%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="context.html">context</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="335443784%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1153696197%2FProperties%2F769193423" anchor-label="context" id="-1153696197%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override var <a href="context.html">context</a>: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1153696197%2FProperties%2F769193423" anchor-label="context" id="-1153696197%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Configuring context</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="335443784%2FProperties%2F769193423" anchor-label="context" id="335443784%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override var <a href="context.html">context</a>: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="335443784%2FProperties%2F769193423" anchor-label="context" id="335443784%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Configuring context</div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1757844800%2FProperties%2F769193423" anchor-label="logger" id="1757844800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="-965065069%2FProperties%2F769193423" anchor-label="logger" id="-965065069%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#1757844800%2FProperties%2F769193423">logger</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1757844800%2FProperties%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="index.html#-965065069%2FProperties%2F769193423">logger</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-965065069%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1757844800%2FProperties%2F769193423" anchor-label="logger" id="1757844800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="index.html#1757844800%2FProperties%2F769193423">logger</a>: <span data-unresolved-link="org.slf4j/Logger///PointingToDeclaration/">Logger</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1757844800%2FProperties%2F769193423" anchor-label="logger" id="1757844800%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Allowing for logging with correct classname</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-965065069%2FProperties%2F769193423" anchor-label="logger" id="-965065069%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="index.html#-965065069%2FProperties%2F769193423">logger</a>: <span data-unresolved-link="org.slf4j/Logger///PointingToDeclaration/">Logger</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-965065069%2FProperties%2F769193423" anchor-label="logger" id="-965065069%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Allowing for logging with correct classname</div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-620526003%2FProperties%2F769193423" anchor-label="unleashFetcher" id="-620526003%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="950416544%2FProperties%2F769193423" anchor-label="unleashFetcher" id="950416544%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="unleash-fetcher.html">unleashFetcher</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-620526003%2FProperties%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="unleash-fetcher.html">unleashFetcher</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="950416544%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-620526003%2FProperties%2F769193423" anchor-label="unleashFetcher" id="-620526003%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="unleash-fetcher.html">unleashFetcher</a>: <a href="../-unleash-fetcher/index.html">UnleashFetcher</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-620526003%2FProperties%2F769193423" anchor-label="unleashFetcher" id="-620526003%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>How to fetch toggles</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="950416544%2FProperties%2F769193423" anchor-label="unleashFetcher" id="950416544%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">open override val <a href="unleash-fetcher.html">unleashFetcher</a>: <a href="../-unleash-fetcher/index.html">UnleashFetcher</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="950416544%2FProperties%2F769193423" anchor-label="unleashFetcher" id="950416544%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>How to fetch toggles</div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="1514597711%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/AutoPollingPolicy.kt#L13" id="1514597711%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Sources"><a data-name="1422246748%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/FilePollingPolicy.kt#L13" id="1422246748%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/AutoPollingPolicy.kt#L13">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1514597711%2FSource%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/FilePollingPolicy.kt#L13">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1422246748%2FSource%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
