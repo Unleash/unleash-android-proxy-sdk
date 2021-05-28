@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture
  * 3. Use [io.getunleash.polling.PollingModes.fileMode]
  * 4. Be aware that you'll need to repackage and restart your app to have updates to toggles
  * @param filePollingConfig Configure where we're reading the toggles file from
+ * @since 0.2
  */
 class FilePollingPolicy(
     override val unleashFetcher: UnleashFetcher,

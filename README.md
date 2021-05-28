@@ -80,7 +80,7 @@ val config = UnleashConfig.newBuilder()
 val client = UnleashClient(config = config, unleashContext = context)
 ```
 
-#### FilePolling
+#### FilePolling (since v0.2 *UNRELEASED*)
 The name `FilePolling` can be a tad misleading, since this policy doesn't actually poll, it simply loads a file of toggles from disk on startup, and uses that to answer all client calls.
 Useful when your app might have limited internet connectivity, you'd like to run tests with a known toggle state or you simply do not want background activity.
 
