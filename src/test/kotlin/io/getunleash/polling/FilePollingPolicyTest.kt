@@ -54,6 +54,5 @@ class FilePollingPolicyTest {
         )
         val toggles = filePollingPolicy.getConfigurationAsync().get()
         assertThat(toggles).isNotEmpty
-        verify(fetcher, times(0))
     }
 }
