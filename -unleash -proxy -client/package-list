@@ -92,6 +92,7 @@ $dokka.location:io.getunleash.polling/PollingModes/autoPoll/#kotlin.Long/Pointin
 $dokka.location:io.getunleash.polling/PollingModes/fileMode/#java.io.File/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-polling-modes/file-mode.html
 $dokka.location:io.getunleash.polling/RefreshPolicy.Companion///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-companion/index.html
 $dokka.location:io.getunleash.polling/RefreshPolicy.Companion/cacheBase/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-companion/cache-base.html
+$dokka.location:io.getunleash.polling/RefreshPolicy.Companion/sha256/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-companion/sha256.html
 $dokka.location:io.getunleash.polling/RefreshPolicy///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/index.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/RefreshPolicy/#io.getunleash.polling.UnleashFetcher#io.getunleash.cache.ToggleCache#org.slf4j.Logger#io.getunleash.UnleashConfig#io.getunleash.UnleashContext/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/-refresh-policy.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/cache/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/cache.html
