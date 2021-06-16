@@ -4,9 +4,10 @@ import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.ToggleCache
 import io.getunleash.data.Toggle
-import org.apache.commons.codec.digest.DigestUtils
 import org.slf4j.Logger
 import java.io.Closeable
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -25,10 +26,16 @@ abstract class RefreshPolicy(
     open var context: UnleashContext
 ) : Closeable {
     private var inMemoryConfig: Map<String, Toggle> = emptyMap()
-    private val cacheKey: String by lazy { String(DigestUtils.sha256Hex(cacheBase.format(this.config.clientSecret)).toByteArray()) }
+    private val cacheKey: String by lazy { sha256(cacheBase.format(this.config.clientSecret)) }
 
     companion object {
         val cacheBase = "android_${UnleashFetcher.TOGGLE_BACKUP_NAME}_%s"
+        fun sha256(s: String): String {
+            val md = MessageDigest.getInstance("SHA-256")
+            val digest = md.digest(s.toByteArray(Charsets.UTF_8))
+            val number = BigInteger(1, digest)
+            return number.toString(16).padStart(32, '0')
+        }
     }
 
     fun readToggleCache(): Map<String, Toggle> {
@@ -74,4 +81,5 @@ abstract class RefreshPolicy(
     override fun close() {
         this.unleashFetcher.close()
     }
+
 }

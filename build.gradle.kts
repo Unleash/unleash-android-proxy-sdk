@@ -31,7 +31,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
     api("com.squareup.okhttp3:okhttp:4.9.1")
     api("org.slf4j:slf4j-api:1.7.30")
-    api("commons-codec:commons-codec:1.15")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
