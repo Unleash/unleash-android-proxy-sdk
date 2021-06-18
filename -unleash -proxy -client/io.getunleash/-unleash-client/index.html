@@ -22,7 +22,7 @@
           </div>
           <div class="cover ">
             <h1 class="cover"><span>Unleash</span><wbr></wbr><span>Client</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">UnleashClient</a>(unleashConfig: <a href="../-unleash-config/index.html">UnleashConfig</a>, unleashContext: <a href="../-unleash-context/index.html">UnleashContext</a>, httpClient: <span data-unresolved-link="okhttp3/OkHttpClient///PointingToDeclaration/">OkHttpClient</span>, cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a>) : <a href="../-unleash-client-spec/index.html">UnleashClientSpec</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A client for interacting with the Unleash Proxy. Enables checking whether a feature toggle is enabled or not, and working with variants. Evaluation happens in the proxy, so part of the setup is to configure how you'd like to poll/update your local copy of the evaluated feature toggles. This can be configured in <a href="../-unleash-config/polling-mode.html">io.getunleash.UnleashConfig.pollingMode</a></p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">UnleashClient</a>(unleashConfig: <a href="../-unleash-config/index.html">UnleashConfig</a>, unleashContext: <a href="../-unleash-context/index.html">UnleashContext</a>, httpClient: <span data-unresolved-link="okhttp3/OkHttpClient///PointingToDeclaration/">OkHttpClient</span>, cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a>, metricsReporter: <a href="../../io.getunleash.metrics/-metrics-reporter/index.html">MetricsReporter</a>) : <a href="../-unleash-client-spec/index.html">UnleashClientSpec</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A client for interacting with the Unleash Proxy. Enables checking whether a feature toggle is enabled or not, and working with variants. Evaluation happens in the proxy, so part of the setup is to configure how you'd like to poll/update your local copy of the evaluated feature toggles. This can be configured in <a href="../-unleash-config/polling-mode.html">io.getunleash.UnleashConfig.pollingMode</a></p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
@@ -32,10 +32,10 @@
                 <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">unleashConfig</span></div><div><div class="title"><div data-togglable="Parameters"></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">unleashContext</span></div><div><div class="title"><div data-togglable="Parameters"></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">httpClient</span></div><div><div class="title"><div data-togglable="Parameters"><ul><li><p class="paragraph">You should not need to set this, the default is a client with a <a href="../-unleash-config/http-client-cache-size.html">io.getunleash.UnleashConfig.httpClientCacheSize</a> cache, readTimeout set to <a href="../-unleash-config/http-client-read-timeout.html">io.getunleash.UnleashConfig.httpClientReadTimeout</a> and connection timeout set to <a href="../-unleash-config/http-client-connection-timeout.html">io.getunleash.UnleashConfig.httpClientConnectionTimeout</a></p></li></ul></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">cache</span></div><div><div class="title"><div data-togglable="Parameters"><ul><li><p class="paragraph">In addition to the http cache for our httpclient, we also have toggles stored in a cache, the default is an <a href="../../io.getunleash.cache/-in-memory-toggle-cache/index.html">io.getunleash.cache.InMemoryToggleCache</a> which utilizes a ConcurrentHashMap as the backing store</p></li></ul></div></div></div></div></div></div></div></div></div>
               </div>
               <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="736946267%2FConstructors%2F769193423" anchor-label="UnleashClient" id="736946267%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Constructors"><a data-name="-1735392579%2FConstructors%2F769193423" anchor-label="UnleashClient" id="-1735392579%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-unleash-client.html">UnleashClient</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="736946267%2FConstructors%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="-unleash-client.html">UnleashClient</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1735392579%2FConstructors%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -48,7 +48,7 @@
                 directory = Files.createTempDirectory(&quot;unleash_toggles&quot;).toFile(),
                 maxSize = unleashConfig.httpClientCacheSize
             )
-        ).build(), cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a> = InMemoryToggleCache())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "></div></div></div>
+        ).build(), cache: <a href="../../io.getunleash.cache/-toggle-cache/index.html">ToggleCache</a> = InMemoryToggleCache(), metricsReporter: <a href="../../io.getunleash.metrics/-metrics-reporter/index.html">MetricsReporter</a> = unleashConfig.reportMetrics?.let { HttpMetricsReporter(unleashConfig) } ?: NonReporter())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -91,7 +91,41 @@
                 </div>
               </div>
               <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="557147902%2FFunctions%2F769193423" anchor-label="close" id="557147902%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Functions"><a data-name="1928711418%2FFunctions%2F769193423" anchor-label="addTogglesErroredListener" id="1928711418%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="add-toggles-errored-listener.html">addTogglesErroredListener</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1928711418%2FFunctions%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="add-toggles-errored-listener.html">addTogglesErroredListener</a>(listener: <a href="../../io.getunleash.polling/-toggles-errored-listener/index.html">TogglesErroredListener</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1928711418%2FFunctions%2F769193423" anchor-label="addTogglesErroredListener" id="1928711418%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="1928711418%2FFunctions%2F769193423" anchor-label="addTogglesErroredListener" id="1928711418%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Adds a TogglesErroredListener to our <a href="../../io.getunleash.polling/-refresh-policy/index.html">io.getunleash.polling.RefreshPolicy</a></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-129080622%2FFunctions%2F769193423" anchor-label="addTogglesUpdatedListener" id="-129080622%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="add-toggles-updated-listener.html">addTogglesUpdatedListener</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-129080622%2FFunctions%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="add-toggles-updated-listener.html">addTogglesUpdatedListener</a>(listener: <a href="../../io.getunleash.polling/-toggles-updated-listener/index.html">TogglesUpdatedListener</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-129080622%2FFunctions%2F769193423" anchor-label="addTogglesUpdatedListener" id="-129080622%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="-129080622%2FFunctions%2F769193423" anchor-label="addTogglesUpdatedListener" id="-129080622%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Adds a TogglesUpdatedListener to our <a href="../../io.getunleash.polling/-refresh-policy/index.html">io.getunleash.polling.RefreshPolicy</a></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="557147902%2FFunctions%2F769193423" anchor-label="close" id="557147902%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
                     <div class=""><span class="inline-flex"><a href="close.html">close</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="557147902%2FFunctions%2F769193423"></span>
@@ -204,6 +238,19 @@
                     </div>
                   </div>
                 </div>
+<a data-name="-1992017806%2FProperties%2F769193423" anchor-label="metricsReporter" id="-1992017806%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="metrics-reporter.html">metricsReporter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1992017806%2FProperties%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1992017806%2FProperties%2F769193423" anchor-label="metricsReporter" id="-1992017806%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="metrics-reporter.html">metricsReporter</a>: <a href="../../io.getunleash.metrics/-metrics-reporter/index.html">MetricsReporter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 <a data-name="-607800336%2FProperties%2F769193423" anchor-label="unleashConfig" id="-607800336%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
@@ -232,10 +279,10 @@
                 </div>
               </div>
               <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="1219955707%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/UnleashClient.kt#L19" id="1219955707%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Sources"><a data-name="1219955707%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/UnleashClient.kt#L28" id="1219955707%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/UnleashClient.kt#L19">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219955707%2FSource%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/UnleashClient.kt#L28">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219955707%2FSource%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
