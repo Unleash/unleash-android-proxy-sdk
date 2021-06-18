@@ -9,6 +9,7 @@ package io.getunleash
  * if you use the userWithId strategy you'll need to set this
  * @property sessionId However you roll out your session id, if you'd like to use the flexibleRollout strategy with stickiness
  * bound to sessionId you'll need to set this
+ * @property instanceId Used as a unique identifier for the current instantiation of the client - defaults to the one set in the [io.getunleash.UnleashConfig]
  * @property remoteAddress the Ip address of the client. If your feature uses the remoteAddress strategy
  * you'll need to set this
  * @property properties - Other properties for custom strategies.
@@ -21,6 +22,7 @@ data class UnleashContext(
     val userId: String? = null,
     val sessionId: String? = null,
     val remoteAddress: String? = null,
+    val instanceId: String? = null,
     val properties: Map<String, String> = emptyMap(),
     val appName: String? = null,
     val environment: String? = null,
@@ -50,7 +52,8 @@ data class UnleashContext(
         var remoteAddress: String? = null,
         var properties: MutableMap<String, String> = mutableMapOf(),
         var appName: String? = null,
-        var environment: String? = null
+        var environment: String? = null,
+        var instanceId: String? = null,
     ) {
 
         fun userId(userId: String) = apply { this.userId = userId }
@@ -67,6 +70,8 @@ data class UnleashContext(
 
         fun environment(environment: String) = apply { this.environment = environment }
 
+        fun instanceId(id: String) = apply { this.instanceId = id }
+
         fun build(): UnleashContext {
             return UnleashContext(
                 userId = userId,
@@ -74,7 +79,8 @@ data class UnleashContext(
                 remoteAddress = remoteAddress,
                 properties = properties.toMap(),
                 appName = appName,
-                environment = environment
+                environment = environment,
+                instanceId = instanceId,
             )
         }
     }

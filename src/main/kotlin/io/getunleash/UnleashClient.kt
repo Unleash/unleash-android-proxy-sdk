@@ -4,17 +4,26 @@ import io.getunleash.cache.InMemoryToggleCache
 import io.getunleash.cache.ToggleCache
 import io.getunleash.data.Variant
 import io.getunleash.data.disabledVariant
+import io.getunleash.metrics.HttpMetricsReporter
+import io.getunleash.metrics.MetricsReporter
+import io.getunleash.metrics.NonReporter
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.AutoPollingPolicy
 import io.getunleash.polling.FilePollingMode
 import io.getunleash.polling.FilePollingPolicy
 import io.getunleash.polling.RefreshPolicy
+import io.getunleash.polling.TogglesErroredListener
+import io.getunleash.polling.TogglesUpdatedListener
 import io.getunleash.polling.UnleashFetcher
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.security.InvalidParameterException
+import java.time.Duration
 import java.util.concurrent.CompletableFuture
+import kotlin.concurrent.fixedRateTimer
 
 /**
  * A client for interacting with the Unleash Proxy.
@@ -39,6 +48,7 @@ class UnleashClient(
             )
         ).build(),
     val cache: ToggleCache = InMemoryToggleCache(),
+    val metricsReporter: MetricsReporter = unleashConfig.reportMetrics?.let { HttpMetricsReporter(unleashConfig) } ?: NonReporter()
 ) : UnleashClientSpec {
     private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
     private val refreshPolicy: RefreshPolicy = when (unleashConfig.pollingMode) {
@@ -59,15 +69,30 @@ class UnleashClient(
         else -> throw InvalidParameterException("The polling mode parameter is invalid")
     }
 
+    init {
+        if (unleashConfig.reportMetrics != null) {
+            fixedRateTimer(
+                name = "unleash_report_metrics",
+                daemon = true,
+                initialDelay = Duration.ofSeconds(2).toMillis(),
+                period = unleashConfig.reportMetrics.metricsInterval.toMillis()
+            ) {
+                metricsReporter.reportMetrics()
+            }
+        }
+    }
+
     companion object {
         /**
          * Get a builder for setting up a client
          */
         fun newBuilder(): Builder = Builder()
+        val logger: Logger = LoggerFactory.getLogger(UnleashClient::class.java)
     }
 
     override fun isEnabled(toggleName: String): Boolean {
-        return refreshPolicy.readToggleCache()[toggleName]?.enabled ?: false
+        val enabled = refreshPolicy.readToggleCache()[toggleName]?.enabled
+        return metricsReporter.log(toggleName,  enabled ?: false)
     }
 
     override fun getVariant(toggleName: String): Variant {
@@ -112,5 +137,23 @@ class UnleashClient(
             ).build(),
             cache = this.cache ?: InMemoryToggleCache(),
         )
+    }
+
+    /**
+     * Adds a TogglesUpdatedListener to our [io.getunleash.polling.RefreshPolicy]
+     * @param listener The listener to add
+     * @since 0.2
+     */
+    override fun addTogglesUpdatedListener(listener: TogglesUpdatedListener) {
+        refreshPolicy.addTogglesUpdatedListener(listener)
+    }
+
+    /**
+     * Adds a TogglesErroredListener to our [io.getunleash.polling.RefreshPolicy]
+     * @param listener the listener to add
+     * @since 0.2
+     */
+    override fun addTogglesErroredListener(listener: TogglesErroredListener) {
+        refreshPolicy.addTogglesErroredListener(listener)
     }
 }

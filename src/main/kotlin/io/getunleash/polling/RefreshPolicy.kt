@@ -25,11 +25,13 @@ abstract class RefreshPolicy(
     open val config: UnleashConfig,
     open var context: UnleashContext
 ) : Closeable {
+    internal val listeners: MutableList<TogglesUpdatedListener> = mutableListOf()
+    internal val errorListeners: MutableList<TogglesErroredListener> = mutableListOf()
     private var inMemoryConfig: Map<String, Toggle> = emptyMap()
     private val cacheKey: String by lazy { sha256(cacheBase.format(this.config.clientSecret)) }
 
     companion object {
-        val cacheBase = "android_${UnleashFetcher.TOGGLE_BACKUP_NAME}_%s"
+        const val cacheBase = "android_${UnleashFetcher.TOGGLE_BACKUP_NAME}_%s"
         fun sha256(s: String): String {
             val md = MessageDigest.getInstance("SHA-256")
             val digest = md.digest(s.toByteArray(Charsets.UTF_8))
@@ -82,4 +84,11 @@ abstract class RefreshPolicy(
         this.unleashFetcher.close()
     }
 
+    fun addTogglesUpdatedListener(listener: TogglesUpdatedListener): Unit {
+        listeners.add(listener)
+    }
+
+    fun addTogglesErroredListener(errorListener: TogglesErroredListener): Unit {
+        errorListeners.add(errorListener)
+    }
 }

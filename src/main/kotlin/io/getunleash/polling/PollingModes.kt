@@ -42,4 +42,6 @@ object PollingModes {
     fun fileMode(toggleFile: File): PollingMode {
         return FilePollingMode(toggleFile)
     }
+
+
 }

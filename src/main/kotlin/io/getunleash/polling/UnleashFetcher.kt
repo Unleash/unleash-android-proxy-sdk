@@ -8,6 +8,8 @@ import io.getunleash.data.Parser
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Status
 import io.getunleash.data.ToggleResponse
+import io.getunleash.errors.NotAuthorizedException
+import io.getunleash.errors.ServerException
 import okhttp3.Cache
 import okhttp3.Call
 import okhttp3.Callback
@@ -53,10 +55,10 @@ open class UnleashFetcher(
         return getResponseAsync(ctx).thenApply { response ->
             if (response.isFetched()) {
                 ToggleResponse(
-                    response.status,
-                    response.config!!.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
+                    status = response.status,
+                    toggles = response.config!!.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
             } else {
-                ToggleResponse(response.status)
+                ToggleResponse(response.status, error = response.error)
             }
         }
     }
@@ -68,7 +70,7 @@ open class UnleashFetcher(
         this.httpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 logger.warn("An error occurred when fetching the latest configuration.", e)
-                fetch.complete(FetchResponse(Status.FAILED))
+                fetch.complete(FetchResponse(status = Status.FAILED, error = e))
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -95,10 +97,10 @@ open class UnleashFetcher(
                         }
                         res.code == 401 -> {
                             logger.error("Double check your SDK key")
-                            fetch.complete(FetchResponse(Status.FAILED))
+                            fetch.complete(FetchResponse(Status.FAILED, error = NotAuthorizedException()))
                         }
                         else -> {
-                            fetch.complete(FetchResponse(Status.FAILED))
+                            fetch.complete(FetchResponse(Status.FAILED, error = ServerException(res.code)))
                         }
                     }
                 }

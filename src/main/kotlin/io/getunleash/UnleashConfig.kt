@@ -3,27 +3,34 @@ package io.getunleash
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.PollingMode
 import java.time.Duration
+import java.util.UUID
 
+
+data class ReportMetrics(val metricsInterval: Duration = Duration.ofSeconds(60))
 /**
  * Represents configuration for Unleash.
  * @property url HTTP(s) URL to the Unleash Proxy (Required).
  * @property clientSecret the secret added as the Authorization header sent to the unleash-proxy (Required)
  * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Required).
  * @property environment which environment is the application running in. Will be used as default argument for the [io.getunleash.UnleashContext]. (Optional - Defaults to 'default')
+ * @property instanceId instance id of your client
  * @property pollingMode How to poll for features. Defaults to [io.getunleash.polling.AutoPollingMode] with poll interval set to 60 seconds.
  * @property httpClientReadTimeout How long to wait for HTTP reads. (Optional - Defaults to 5 seconds)
  * @property httpClientConnectionTimeout How long to wait for HTTP connection. (Optional - Defaults to 2 seconds)
  * @property httpClientCacheSize Disk space (in bytes) set aside for http cache. (Optional - Defaults to 10MB)
+ * @property reportMetrics Should the client collate and report metrics? The [io.getunleah.ReportMetrics] dataclass includes a metricsInterval field which defaults to 60 seconds. (Optional - defaults to null)
  */
 data class UnleashConfig(
     val proxyUrl: String,
     val clientSecret: String,
     val appName: String? = null,
     val environment: String? = null,
+    val instanceId: String? = UUID.randomUUID().toString(),
     val pollingMode: PollingMode = AutoPollingMode(Duration.ofSeconds(60)),
     val httpClientConnectionTimeout: Duration = Duration.ofSeconds(2),
     val httpClientReadTimeout: Duration = Duration.ofSeconds(5),
-    val httpClientCacheSize: Long = 1024 * 1024 * 10
+    val httpClientCacheSize: Long = 1024 * 1024 * 10,
+    val reportMetrics: ReportMetrics? = null
 ) {
     /**
      * Get a [io.getunleash.UnleashConfig.Builder] with all fields set to the value of
@@ -38,7 +45,9 @@ data class UnleashConfig(
             pollingMode = pollingMode,
             httpClientConnectionTimeout = httpClientConnectionTimeout,
             httpClientReadTimeout = httpClientReadTimeout,
-            httpClientCacheSize = httpClientCacheSize
+            httpClientCacheSize = httpClientCacheSize,
+            enableMetrics = reportMetrics != null,
+            metricsInterval = reportMetrics?.metricsInterval
         )
 
     companion object {
@@ -59,7 +68,11 @@ data class UnleashConfig(
         var pollingMode: PollingMode? = null,
         var httpClientConnectionTimeout: Duration? = null,
         var httpClientReadTimeout: Duration? = null,
-        var httpClientCacheSize: Long? = null
+        var httpClientCacheSize: Long? = null,
+        var enableMetrics: Boolean = false,
+        var metricsInterval: Duration? = null,
+        var instanceId: String? = null,
+
     ) {
         fun proxyUrl(proxyUrl: String) = apply { this.proxyUrl = proxyUrl }
         fun clientSecret(secret: String) = apply { this.clientSecret = secret }
@@ -71,6 +84,10 @@ data class UnleashConfig(
         fun httpClientReadTimeout(timeout: Duration) = apply { this.httpClientReadTimeout = timeout }
         fun httpClientReadTimeoutInSeconds(seconds: Long) = apply { this.httpClientReadTimeout = Duration.ofSeconds(seconds) }
         fun httpClientCacheSize(cacheSize: Long) = apply { this.httpClientCacheSize = cacheSize }
+        fun enableMetrics() = apply { this.enableMetrics = true }
+        fun disableMetrics() = apply { this.enableMetrics = false }
+        fun metricsInterval(duration: Duration) = apply { this.metricsInterval = duration }
+        fun instanceId(id: String) = apply { this.instanceId = id }
         fun build(): UnleashConfig = UnleashConfig(
             proxyUrl = proxyUrl ?: throw IllegalStateException("You have to set proxy url in your UnleashConfig"),
             clientSecret = clientSecret
@@ -80,7 +97,13 @@ data class UnleashConfig(
             pollingMode = pollingMode ?: AutoPollingMode(Duration.ofSeconds(60)),
             httpClientConnectionTimeout = httpClientConnectionTimeout ?: Duration.ofSeconds(2),
             httpClientReadTimeout = httpClientReadTimeout ?: Duration.ofSeconds(5),
-            httpClientCacheSize = httpClientCacheSize ?: 1024 * 1024 * 10
+            httpClientCacheSize = httpClientCacheSize ?: 1024 * 1024 * 10,
+            reportMetrics = if (enableMetrics) {
+                ReportMetrics(metricsInterval ?: Duration.ofSeconds(60))
+            } else {
+                null
+            },
+            instanceId = instanceId
         )
 
     }

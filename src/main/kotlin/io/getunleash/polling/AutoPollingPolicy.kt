@@ -24,13 +24,13 @@ class AutoPollingPolicy(
         config = config,
         context = context
     ) {
-    private val listeners: MutableList<TogglesUpdatedListener> = mutableListOf()
     private val initialized = AtomicBoolean(false)
     private val initFuture = CompletableFuture<Unit>()
     private val timer: Timer
 
     init {
         autoPollingConfig.togglesUpdatedListener.let { listeners.add(it) }
+        autoPollingConfig.erroredListener.let { errorListeners.add(it) }
         timer =
             fixedRateTimer("unleash_toggles_fetcher", initialDelay = 0L, daemon = true, period = autoPollingConfig.pollRateDuration.toMillis()) {
                 updateToggles()
@@ -56,13 +56,24 @@ class AutoPollingPolicy(
             if (response.isFetched() && cached != response.toggles) {
                 super.writeToggleCache(response.toggles)
                 this.broadcastTogglesUpdated()
+            } else if (response.isFailed()) {
+
             }
         } catch (e: Exception) {
+            this.broadcastTogglesErrored(e)
             logger.warn("Exception in AutoPollingCachePolicy", e)
         }
     }
 
-    fun broadcastTogglesUpdated() {
+    private fun broadcastTogglesErrored(e: Exception) {
+        synchronized(errorListeners) {
+            errorListeners.forEach {
+                it.onError(e)
+            }
+        }
+    }
+
+    private fun broadcastTogglesUpdated() {
         synchronized(listeners) {
             listeners.forEach {
                 it.onTogglesUpdated()
