@@ -66,7 +66,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+                .setAction("Action", {
+                    if (unleashClient.isEnabled("SageFFs")) {
+                        it.tooltipText = "Feature was enabled"
+                    } else {
+                        it.tooltipText = "Feature was disabled"
+                    }
+                }).show()
         }
     }
 

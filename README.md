@@ -99,4 +99,24 @@ val config = UnleashConfig.newBuilder()
     .pollMode(pollingMode)
     .build()
 val client = UnleashClient(config = config, unleashContext = context)
+
 ```
+
+### Metrics (since v0.2 *UNRELEASED*)
+If you'd like the client to post metrics to the proxy so the admin interface can be updated, add a call to `enableMetrics()`.
+
+```kotlin
+val config = UnleashConfig
+    .newBuilder()
+    .appName()
+    .userId()
+    .sessionId()
+    .enableMetrics()
+    .build()
+```
+
+The default configuration configures a daemon to report metrics once every minute, this can be altered using the `metricsInterval(Duration d)` method on the builder, so if you'd rather see us post in 5 minutes intervals you could do
+```kotlin
+UnleasConfig().newBuilder().metricsInterval(Duration.ofMinutes(5))
+```
+
