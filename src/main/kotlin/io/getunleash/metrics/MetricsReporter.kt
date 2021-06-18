@@ -53,7 +53,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Inst
     private var bucket: Bucket = Bucket(start = started)
 
     override fun reportMetrics() {
-        val report = Report(appName = config.appName ?: "unknown", instanceId = config.instanceId ?: "not-set", environment = config.environment ?: "not-set", bucket = bucket)
+        val report = Report(appName = config.appName ?: "unknown", instanceId = config.instanceId ?: "not-set", environment = config.environment ?: "not-set", bucket = bucket.copy(stop = Instant.now()))
         val request = Request.Builder().url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
         ).build()
