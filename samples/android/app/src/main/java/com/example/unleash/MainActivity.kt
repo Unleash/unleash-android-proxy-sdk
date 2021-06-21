@@ -39,8 +39,9 @@ class MainActivity : AppCompatActivity() {
         this.unleashClient = UnleashClient.newBuilder()
             .unleashConfig(
                 UnleashConfig.newBuilder()
-                    .clientSecret("proxy-123")
-                    .proxyUrl("https://app.unleash-hosted.com/demo/proxy")
+                    .clientSecret("some-secret")
+                    .proxyUrl("http://192.168.1.42:3000/proxy")
+                    .enableMetrics()
                     .pollingMode(
                         PollingModes.autoPoll(
                             autoPollIntervalSeconds = 5
@@ -67,11 +68,6 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", {
-                    if (unleashClient.isEnabled("SageFFs")) {
-                        it.tooltipText = "Feature was enabled"
-                    } else {
-                        it.tooltipText = "Feature was disabled"
-                    }
                 }).show()
         }
     }

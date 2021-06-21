@@ -5,18 +5,15 @@ import io.getunleash.UnleashClient
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.data.Parser
-import io.getunleash.polling.FilePollingMode
+import io.getunleash.data.Variant
 import io.getunleash.polling.PollingModes
-import io.getunleash.polling.TestResponses
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
-import java.time.Duration
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
@@ -28,7 +25,7 @@ class MetricsTest {
 
     @BeforeEach
     fun setUp() {
-        val testResponse = File(MetricsTest::class.java.classLoader.getResource("proxyresponse.json").file)
+        val testResponse = File(MetricsTest::class.java.classLoader.getResource("proxyresponse.json")!!.file)
         server = MockWebServer()
         server.start()
         server.enqueue(MockResponse())
@@ -51,13 +48,15 @@ class MetricsTest {
     class TestReporter : MetricsReporter {
         private var toggles: MutableMap<String, EvaluationCount> = mutableMapOf()
         override fun log(featureName: String, enabled: Boolean): Boolean {
-            val count = toggles[featureName] ?: EvaluationCount(0, 0)
-            if (enabled) {
-                count.yes++
-            } else {
-                count.no++
+            toggles.compute(featureName) { _, count ->
+                val counter = count ?: EvaluationCount(0, 0)
+                if (enabled) {
+                    counter.yes++
+                } else {
+                    counter.no++
+                }
+                counter
             }
-            toggles[featureName] = count
             return enabled
         }
 
@@ -68,13 +67,24 @@ class MetricsTest {
         fun getToggles(): MutableMap<String, EvaluationCount> {
             return toggles
         }
+
+        override fun logVariant(featureName: String, variant: Variant): Variant {
+            toggles.compute(featureName) { _, count ->
+                val evaluationCount = count ?: EvaluationCount(0, 0)
+                evaluationCount.variants.compute(variant.name) { _, value ->
+                    (value ?: 0) + 1
+                }
+                evaluationCount
+            }
+            return variant
+        }
     }
 
     @Test
     fun `can report toggles`() {
         val reporter = TestReporter()
         val client = UnleashClient(config, context, metricsReporter = reporter)
-        assertThat(client.isEnabled("some-non-existing-toggle")).isFalse()
+        assertThat(client.isEnabled("some-non-existing-toggle")).isFalse
         val toggles = reporter.getToggles()
         assertThat(toggles).containsEntry("some-non-existing-toggle", EvaluationCount(0, 1))
     }
@@ -83,9 +93,9 @@ class MetricsTest {
     fun `accumulates over period`() {
         val reporter = TestReporter()
         val client = UnleashClient(config, context, metricsReporter = reporter)
-        0.until(100).forEach {
-            assertThat(client.isEnabled("some-non-existing-toggle")).isFalse()
-            assertThat(client.isEnabled("unleash_android_sdk_demo")).isTrue()
+        repeat(100) {
+            assertThat(client.isEnabled("some-non-existing-toggle")).isFalse
+            assertThat(client.isEnabled("unleash_android_sdk_demo")).isTrue
         }
         val toggles = reporter.getToggles()
         assertThat(toggles).containsEntry("some-non-existing-toggle", EvaluationCount(0, 100))
@@ -117,10 +127,13 @@ class MetricsTest {
     fun `http reporter does actually report toggles to metrics endpoint`() {
         val reporter = HttpMetricsReporter(config)
         val client = UnleashClient(config, context, metricsReporter = reporter)
-        0.until(100).forEach {
+        repeat(100) {
             client.isEnabled("unleash-android-proxy-sdk")
             client.isEnabled("non-existing-toggle")
             client.isEnabled("Test_release")
+        }
+        repeat(100) {
+            client.getVariant("demoApp.step4")
         }
         reporter.reportMetrics()
         var reported = server.takeRequest()
@@ -128,11 +141,12 @@ class MetricsTest {
         assertThat(report.appName).isEqualTo(config.appName)
         assertThat(report.environment).isEqualTo(config.environment)
         assertThat(report.instanceId).isEqualTo(config.instanceId)
-        assertThat(report.bucket.toggles).hasSize(3)
+        assertThat(report.bucket.toggles).hasSize(4)
         assertThat(report.bucket.toggles).containsAllEntriesOf(mutableMapOf(
             "unleash-android-proxy-sdk" to EvaluationCount(0, 100),
             "non-existing-toggle" to EvaluationCount(0, 100),
-            "Test_release" to EvaluationCount(100, 0)
+            "Test_release" to EvaluationCount(100, 0),
+            "demoApp.step4" to EvaluationCount(0, 0, mutableMapOf("red" to 100))
         ))
         server.enqueue(MockResponse())
         // No activity since last report, bucket should be empty
@@ -150,4 +164,5 @@ class MetricsTest {
         val output = Parser.jackson.writeValueAsString(ZonedDateTime.of(2021, 6, 1, 15, 0, 0, 456000000, ZoneOffset.UTC).toInstant())
         assertThat(output).isEqualTo("\"2021-06-01T15:00:00.456Z\"")
     }
+
 }

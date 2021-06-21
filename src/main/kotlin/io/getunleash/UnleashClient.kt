@@ -96,7 +96,8 @@ class UnleashClient(
     }
 
     override fun getVariant(toggleName: String): Variant {
-        return refreshPolicy.readToggleCache()[toggleName]?.variant ?: disabledVariant
+        val variant = refreshPolicy.readToggleCache()[toggleName]?.variant ?: disabledVariant
+        return metricsReporter.logVariant(toggleName, variant)
     }
 
     override fun updateContext(context: UnleashContext): CompletableFuture<Void> {
