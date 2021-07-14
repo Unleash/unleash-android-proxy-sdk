@@ -22,16 +22,8 @@ jobs:
         with:
           job-id: release
           arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
-      - name: Build changelog
-        id: github_release
-        uses: metcalfc/changelog-generator@v1.0.0
-        with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release
         uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: ${{ steps.github_release.outputs.changelog }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
