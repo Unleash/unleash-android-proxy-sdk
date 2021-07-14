@@ -1,6 +1,9 @@
 package io.getunleash.metrics
 
 import io.getunleash.UnleashConfig
+import io.getunleash.data.Variant
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

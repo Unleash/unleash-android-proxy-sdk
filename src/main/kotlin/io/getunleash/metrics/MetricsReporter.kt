@@ -55,36 +55,43 @@ class NonReporter : MetricsReporter {
     override fun reportMetrics() {
     }
 }
+
 data class EvaluationCount(var yes: Int, var no: Int, val variants: MutableMap<String, Int> = mutableMapOf())
-data class Bucket(val start: Instant, var stop: Instant? = null, val toggles: MutableMap<String, EvaluationCount> = mutableMapOf())
+data class Bucket(
+    val start: Instant,
+    var stop: Instant? = null,
+    val toggles: MutableMap<String, EvaluationCount> = mutableMapOf()
+)
+
 data class Report(val appName: String, val environment: String, val instanceId: String, val bucket: Bucket)
 
-class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Instant.now()) : MetricsReporter, Closeable {
+class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Instant.now()) : MetricsReporter,
+    Closeable {
     companion object {
         val logger: Logger = LoggerFactory.getLogger(MetricsReporter::class.java)
     }
+
     val client = OkHttpClient.Builder().callTimeout(Duration.ofSeconds(2)).readTimeout(Duration.ofSeconds(5)).build()
     val metricsUrl = config.proxyUrl.toHttpUrl().newBuilder().addPathSegment("client").addPathSegment("metrics").build()
     private var bucket: Bucket = Bucket(start = started)
 
     override fun reportMetrics() {
-        val report = Report(appName = config.appName ?: "unknown", instanceId = config.instanceId ?: "not-set", environment = config.environment ?: "not-set", bucket = bucket.copy(stop = Instant.now()))
+        val report = Report(
+            appName = config.appName ?: "unknown",
+            instanceId = config.instanceId ?: "not-set",
+            environment = config.environment ?: "not-set",
+            bucket = bucket.copy(stop = Instant.now())
+        )
         val request = Request.Builder().url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
         ).build()
-        logger.info("Firing call to ${request.url}")
-        client.newCall(request).enqueue(object: Callback {
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 logger.info("Failed to report metrics for interval")
             }
 
             override fun onResponse(call: Call, response: Response) {
                 response.body.use { //Need to consume body to ensure we don't keep connection open
-                    if (response.isSuccessful) {
-                        logger.info("Metrics reported for interval")
-                    } else {
-                        logger.info("Metrics reporting failed with status code ${response.code}")
-                    }
                 }
             }
         })
@@ -92,14 +99,13 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Inst
     }
 
     override fun log(featureName: String, enabled: Boolean): Boolean {
-        bucket.toggles.compute(featureName) { _, count ->
-            val counter = count ?: EvaluationCount(0, 0)
-            if (enabled) {
-                counter.yes++
-            } else {
-                counter.no++
-            }
-            counter
+        val count = if (enabled) {
+            EvaluationCount(1, 0)
+        } else {
+            EvaluationCount(0, 1)
+        }
+        bucket.toggles.merge(featureName, count) { old: EvaluationCount?, new: EvaluationCount ->
+            old?.copy(yes = old.yes + new.yes, no = old.no + new.no) ?: new
         }
         return enabled
     }
@@ -107,8 +113,8 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Inst
     override fun logVariant(featureName: String, variant: Variant): Variant {
         bucket.toggles.compute(featureName) { _, count ->
             val evaluationCount = count ?: EvaluationCount(0, 0)
-            evaluationCount.variants.compute(variant.name) { _, value ->
-                (value ?: 0) + 1
+            evaluationCount.variants.merge(variant.name, 1) { old, value ->
+                old + value
             }
             evaluationCount
         }

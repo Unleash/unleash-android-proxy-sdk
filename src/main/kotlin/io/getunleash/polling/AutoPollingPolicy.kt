@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import java.util.Timer
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.timer
 
 class AutoPollingPolicy(
     override val unleashFetcher: UnleashFetcher,
@@ -32,7 +32,12 @@ class AutoPollingPolicy(
         autoPollingConfig.togglesUpdatedListener.let { listeners.add(it) }
         autoPollingConfig.erroredListener.let { errorListeners.add(it) }
         timer =
-            fixedRateTimer("unleash_toggles_fetcher", initialDelay = 0L, daemon = true, period = autoPollingConfig.pollRateDuration.toMillis()) {
+            timer(
+                name = "unleash_toggles_fetcher",
+                initialDelay = 0L,
+                daemon = true,
+                period = autoPollingConfig.pollRateDuration.toMillis()
+            ) {
                 updateToggles()
                 if (!initialized.getAndSet(true)) {
                     initFuture.complete(null)
@@ -80,6 +85,7 @@ class AutoPollingPolicy(
             }
         }
     }
+
     override fun close() {
         super.close()
         this.timer.cancel()

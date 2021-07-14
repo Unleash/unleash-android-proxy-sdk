@@ -24,6 +24,7 @@ import java.security.InvalidParameterException
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.timer
 
 /**
  * A client for interacting with the Unleash Proxy.
@@ -71,10 +72,10 @@ class UnleashClient(
 
     init {
         if (unleashConfig.reportMetrics != null) {
-            fixedRateTimer(
+            timer(
                 name = "unleash_report_metrics",
                 daemon = true,
-                initialDelay = Duration.ofSeconds(2).toMillis(),
+                initialDelay = unleashConfig.reportMetrics.metricsInterval.toMillis(),
                 period = unleashConfig.reportMetrics.metricsInterval.toMillis()
             ) {
                 metricsReporter.reportMetrics()

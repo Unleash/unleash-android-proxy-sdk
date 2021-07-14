@@ -13,13 +13,18 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.unleash.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import io.getunleash.UnleashClient
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.InMemoryToggleCache
 import io.getunleash.polling.PollingModes
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var unleashClient: UnleashClient
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -31,34 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val unleashContext = UnleashContext.newBuilder()
-            .appName(applicationContext.getAppName())
-            .userId("unleash_demo_user")
-            .sessionId(Random.nextLong().toString())
-            .build()
-        this.unleashClient = UnleashClient.newBuilder()
-            .unleashConfig(
-                UnleashConfig.newBuilder()
-                    .clientSecret("some-secret")
-                    .proxyUrl("http://192.168.1.42:3000/proxy")
-                    .enableMetrics()
-                    .pollingMode(
-                        PollingModes.autoPoll(
-                            autoPollIntervalSeconds = 5
-                        ) {
-                            this@MainActivity.runOnUiThread {
-                                val firstFragmentText = findViewById<TextView>(R.id.textview_first)
-                                firstFragmentText.text =
-                                    "Variant ${unleashClient.getVariant("unleash_android_sdk_demo").name}"
-                            }
-
-                        }
-            )
-            .environment("dev").build()
-        )
-        .cache(InMemoryToggleCache())
-            .unleashContext(unleashContext)
-            .build()
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)

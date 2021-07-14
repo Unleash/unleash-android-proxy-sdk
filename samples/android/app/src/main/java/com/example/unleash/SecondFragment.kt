@@ -7,11 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.unleash.databinding.FragmentSecondBinding
+import dagger.hilt.android.AndroidEntryPoint
+import io.getunleash.UnleashClient
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+@AndroidEntryPoint
 class SecondFragment : Fragment() {
+
+    @Inject
+    lateinit var unleashClient: UnleashClient
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -33,7 +40,9 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            if (unleashClient.isEnabled("unleash_second_fragment")) {
+                findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            }
         }
     }
 
