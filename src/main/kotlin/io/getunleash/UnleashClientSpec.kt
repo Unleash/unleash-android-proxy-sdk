@@ -4,7 +4,7 @@ import io.getunleash.data.Variant
 import io.getunleash.polling.TogglesErroredListener
 import io.getunleash.polling.TogglesUpdatedListener
 import java.io.Closeable
-import java.util.concurrent.CompletableFuture
+import java9.util.concurrent.CompletableFuture
 
 interface UnleashClientSpec : Closeable {
     fun isEnabled(toggleName: String): Boolean

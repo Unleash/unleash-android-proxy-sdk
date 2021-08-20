@@ -6,7 +6,7 @@ import io.getunleash.cache.ToggleCache
 import io.getunleash.data.Toggle
 import org.slf4j.LoggerFactory
 import java.util.Timer
-import java.util.concurrent.CompletableFuture
+import java9.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.timer
 

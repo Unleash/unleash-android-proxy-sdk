@@ -23,9 +23,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.io.IOException
-import java.nio.file.Files
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.TimeUnit
+import java9.util.concurrent.CompletableFuture
 
 /**
  * Http Client for fetching data from Unleash Proxy.
@@ -39,7 +37,7 @@ open class UnleashFetcher(
         .connectTimeout(unleashConfig.httpClientConnectionTimeout)
         .cache(
             Cache(
-                directory = Files.createTempDirectory("unleash_toggles").toFile(),
+                directory = CacheDirectoryProvider().getCacheDirectory(),
                 maxSize = unleashConfig.httpClientCacheSize
             )
         ).build()

@@ -1,5 +1,6 @@
-package io.getunleash.polling
+package io.getunleash
 
+import io.getunleash.polling.PollingMode
 import java.io.File
 
 /**
