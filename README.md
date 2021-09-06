@@ -11,6 +11,33 @@ You will require the SDK on your classpath, so go ahead and add it to your gradl
 implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ```
 
+### Add support for minSdk < 24
+
+```kotlin
+android {
+    defaultConfig {
+        // Required when setting minSdkVersion to 20 or lower
+        multiDexEnabled = true
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled = true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    // ... 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    
+    // ... 
+}
+```
+Reference: https://developer.android.com/studio/write/java8-support
+
+
 ### Now configure your client instance
 
 You should use this as a singleton to avoid file contention on cache directory.

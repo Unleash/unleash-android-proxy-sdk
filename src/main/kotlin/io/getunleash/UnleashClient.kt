@@ -7,23 +7,13 @@ import io.getunleash.data.disabledVariant
 import io.getunleash.metrics.HttpMetricsReporter
 import io.getunleash.metrics.MetricsReporter
 import io.getunleash.metrics.NonReporter
-import io.getunleash.polling.AutoPollingMode
-import io.getunleash.polling.AutoPollingPolicy
-import io.getunleash.polling.FilePollingMode
-import io.getunleash.polling.FilePollingPolicy
-import io.getunleash.polling.RefreshPolicy
-import io.getunleash.polling.TogglesErroredListener
-import io.getunleash.polling.TogglesUpdatedListener
-import io.getunleash.polling.UnleashFetcher
+import io.getunleash.polling.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.nio.file.Files
 import java.security.InvalidParameterException
-import java.time.Duration
-import java.util.concurrent.CompletableFuture
-import kotlin.concurrent.fixedRateTimer
+import java9.util.concurrent.CompletableFuture
 import kotlin.concurrent.timer
 
 /**
@@ -44,7 +34,7 @@ class UnleashClient(
         .connectTimeout(unleashConfig.httpClientConnectionTimeout)
         .cache(
             Cache(
-                directory = Files.createTempDirectory("unleash_toggles").toFile(),
+                directory = CacheDirectoryProvider().getCacheDirectory(),
                 maxSize = unleashConfig.httpClientCacheSize
             )
         ).build(),
@@ -133,7 +123,7 @@ class UnleashClient(
                     .connectTimeout(unleashConfig!!.httpClientConnectionTimeout)
                     .cache(
                         Cache(
-                            directory = Files.createTempDirectory("unleash_toggles").toFile(),
+                            directory = CacheDirectoryProvider().getCacheDirectory(),
                             maxSize = unleashConfig!!.httpClientCacheSize
                 )
             ).build(),

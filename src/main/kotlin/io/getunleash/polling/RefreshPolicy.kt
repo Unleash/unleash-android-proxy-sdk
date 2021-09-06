@@ -8,7 +8,7 @@ import org.slf4j.Logger
 import java.io.Closeable
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.concurrent.CompletableFuture
+import java9.util.concurrent.CompletableFuture
 
 /**
  * Used to define how to Refresh and serve toggles

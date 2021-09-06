@@ -1,5 +1,6 @@
 package io.getunleash.polling
 
+import io.getunleash.FilePollingMode
 import java.io.File
 import java.time.Duration
 

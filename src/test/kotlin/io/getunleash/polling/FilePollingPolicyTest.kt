@@ -1,17 +1,12 @@
 package io.getunleash.polling
 
+import io.getunleash.FilePollingMode
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.InMemoryToggleCache
-import io.getunleash.cache.ToggleCache
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.kotlin.any
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
 import java.io.File
 
 class FilePollingPolicyTest {

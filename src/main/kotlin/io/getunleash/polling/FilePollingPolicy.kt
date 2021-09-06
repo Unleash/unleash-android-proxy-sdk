@@ -1,6 +1,7 @@
 package io.getunleash.polling
 
 import com.fasterxml.jackson.module.kotlin.readValue
+import io.getunleash.FilePollingMode
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.ToggleCache
@@ -8,7 +9,7 @@ import io.getunleash.data.Parser
 import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Toggle
 import org.slf4j.LoggerFactory
-import java.util.concurrent.CompletableFuture
+import java9.util.concurrent.CompletableFuture
 
 /**
  * Allows loading a proxy response from file.
