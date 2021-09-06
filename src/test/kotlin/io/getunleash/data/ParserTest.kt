@@ -4,9 +4,17 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.getunleash.polling.TestResponses
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.util.Date
 
 class ParserTest {
-
+    data class TestObject(val field: Date = Date.from(LocalDateTime.of(2021, 1, 1, 12, 0, 0).toInstant(ZoneOffset.UTC)))
+    @Test
+    fun jacksonSerializesDatesInISO8601Format() {
+        val data = Parser.jackson.writeValueAsString(TestObject())
+        assertThat(data).contains("2021-01-01T12:00:00")
+    }
     @Test
     fun `Able to parse payload value as string`() {
         val response: ProxyResponse = Parser.jackson.readValue(TestResponses.threeToggles)

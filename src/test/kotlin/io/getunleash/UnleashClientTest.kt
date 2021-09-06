@@ -2,13 +2,19 @@ package io.getunleash
 
 import io.getunleash.polling.PollingModes
 import io.getunleash.polling.TestResponses
+import io.getunleash.polling.TogglesErroredListener
+import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 import java.time.Duration
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 class UnleashClientTest {
     lateinit var server: MockWebServer
@@ -58,6 +64,46 @@ class UnleashClientTest {
             val newCtx = context.newBuilder().sessionId("session-2").build()
             assertThat(client.updateContext(newCtx)).succeedsWithin(Duration.ofSeconds(2))
             assertThat(server.requestCount).isEqualTo(2) // one for poller, one for updateContext call
+        }
+    }
+
+    @Test
+    fun `Not having an UnleashConfig throws an exception`() {
+        assertThrows<IllegalStateException> {
+            UnleashClient.newBuilder().build()
+        }
+    }
+
+    @Test
+    fun `Minimal config is just an unleash config`() {
+        assertDoesNotThrow {
+            UnleashClient.newBuilder().unleashConfig(config).build()
+        }
+    }
+
+    @Test
+    fun `Can override http client`() {
+        val client = UnleashClient.newBuilder().unleashConfig(config)
+            .httpClient(OkHttpClient.Builder().readTimeout(15, TimeUnit.SECONDS).build()).build()
+        assertThat(client.httpClient.cache).isNull()
+    }
+
+    @Test
+    fun `Can add update listeners to client`() {
+        UnleashClient.newBuilder().unleashConfig(config).build().use { client ->
+            val updatedFuture = CompletableFuture<Void>()
+            client.addTogglesUpdatedListener { updatedFuture.complete(null) }
+            assertThat(updatedFuture).succeedsWithin(Duration.ofSeconds(2))
+        }
+    }
+
+    @Test
+    fun `Can add error listeners to client`() {
+        server.enqueue(MockResponse().setResponseCode(500))
+        UnleashClient.newBuilder().unleashConfig(config).build().use { client ->
+            val updatedFuture = CompletableFuture<Void>()
+            client.addTogglesErroredListener { e -> updatedFuture.completeExceptionally(e) }
+            assertThat(updatedFuture).failsWithin(Duration.ofSeconds(2))
         }
     }
 }
