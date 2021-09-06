@@ -21,7 +21,7 @@ class UnleashClientTest {
         server.start()
         server.enqueue(MockResponse().setBody(TestResponses.threeToggles))
         config = UnleashConfig.newBuilder()
-            .pollingMode(PollingModes.autoPoll(Duration.ofMillis(500)) {})
+            .pollingMode(PollingModes.autoPoll(500) {})
             .proxyUrl(server.url("/proxy").toString())
             .clientSecret("some-secret")
             .build()

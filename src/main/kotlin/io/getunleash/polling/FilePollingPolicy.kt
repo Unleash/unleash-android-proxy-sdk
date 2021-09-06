@@ -1,7 +1,6 @@
 package io.getunleash.polling
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.getunleash.FilePollingMode
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.ToggleCache

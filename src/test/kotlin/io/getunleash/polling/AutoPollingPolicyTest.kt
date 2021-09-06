@@ -88,7 +88,7 @@ class AutoPollingPolicyTest {
     fun togglesChanged() {
         val server = MockWebServer()
         val isCalled = CompletableFuture<Unit>()
-        val pollingMode = PollingModes.autoPoll(Duration.ofMillis(20)) { isCalled.complete(null) }
+        val pollingMode = PollingModes.autoPoll(20) { isCalled.complete(null) }
         val config = UnleashConfig.newBuilder().proxyUrl(server.url("/").toString()).clientSecret("my-secret").build()
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()

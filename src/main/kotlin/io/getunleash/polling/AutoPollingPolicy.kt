@@ -36,7 +36,7 @@ class AutoPollingPolicy(
                 name = "unleash_toggles_fetcher",
                 initialDelay = 0L,
                 daemon = true,
-                period = autoPollingConfig.pollRateDuration.toMillis()
+                period = autoPollingConfig.pollRateDuration
             ) {
                 updateToggles()
                 if (!initialized.getAndSet(true)) {

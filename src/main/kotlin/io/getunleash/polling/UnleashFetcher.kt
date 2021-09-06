@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.io.IOException
 import java9.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 /**
  * Http Client for fetching data from Unleash Proxy.
@@ -33,8 +34,8 @@ import java9.util.concurrent.CompletableFuture
  */
 open class UnleashFetcher(
     val unleashConfig: UnleashConfig, val httpClient: OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(unleashConfig.httpClientReadTimeout)
-        .connectTimeout(unleashConfig.httpClientConnectionTimeout)
+        .readTimeout(unleashConfig.httpClientReadTimeout, TimeUnit.MILLISECONDS)
+        .connectTimeout(unleashConfig.httpClientConnectionTimeout, TimeUnit.MILLISECONDS)
         .cache(
             Cache(
                 directory = CacheDirectoryProvider().getCacheDirectory(),

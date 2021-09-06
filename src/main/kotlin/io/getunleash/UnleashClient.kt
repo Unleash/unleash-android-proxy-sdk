@@ -14,6 +14,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.security.InvalidParameterException
 import java9.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timer
 
 /**
@@ -30,8 +31,8 @@ class UnleashClient(
     val unleashConfig: UnleashConfig,
     var unleashContext: UnleashContext = UnleashContext(),
     val httpClient: OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(unleashConfig.httpClientReadTimeout)
-        .connectTimeout(unleashConfig.httpClientConnectionTimeout)
+        .readTimeout(unleashConfig.httpClientReadTimeout, TimeUnit.MILLISECONDS)
+        .connectTimeout(unleashConfig.httpClientConnectionTimeout, TimeUnit.MILLISECONDS)
         .cache(
             Cache(
                 directory = CacheDirectoryProvider().getCacheDirectory(),
@@ -65,8 +66,8 @@ class UnleashClient(
             timer(
                 name = "unleash_report_metrics",
                 daemon = true,
-                initialDelay = unleashConfig.reportMetrics.metricsInterval.toMillis(),
-                period = unleashConfig.reportMetrics.metricsInterval.toMillis()
+                initialDelay = unleashConfig.reportMetrics.metricsInterval,
+                period = unleashConfig.reportMetrics.metricsInterval
             ) {
                 metricsReporter.reportMetrics()
             }
@@ -119,8 +120,8 @@ class UnleashClient(
                 ?: throw IllegalStateException("You must set an UnleashConfig for your UnleashClient"),
             unleashContext = this.unleashContext ?: UnleashContext(),
             httpClient = this.httpClient ?: OkHttpClient.Builder()
-                    .readTimeout(unleashConfig!!.httpClientReadTimeout)
-                    .connectTimeout(unleashConfig!!.httpClientConnectionTimeout)
+                    .readTimeout(unleashConfig!!.httpClientReadTimeout, TimeUnit.MILLISECONDS)
+                    .connectTimeout(unleashConfig!!.httpClientConnectionTimeout, TimeUnit.MILLISECONDS)
                     .cache(
                         Cache(
                             directory = CacheDirectoryProvider().getCacheDirectory(),

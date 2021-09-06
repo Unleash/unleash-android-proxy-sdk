@@ -1,8 +1,6 @@
 package io.getunleash.polling
 
-import io.getunleash.FilePollingMode
 import java.io.File
-import java.time.Duration
 
 /**
  * Describes the polling modes
@@ -17,7 +15,7 @@ object PollingModes {
      */
 
     fun autoPoll(autoPollIntervalSeconds: Long): PollingMode {
-        return AutoPollingMode(Duration.ofSeconds(autoPollIntervalSeconds))
+        return AutoPollingMode(autoPollIntervalSeconds * 1000)
     }
 
     /**
@@ -27,17 +25,17 @@ object PollingModes {
      * @return the auto polling config
      */
     fun autoPoll(autoPollIntervalSeconds: Long, listener: TogglesUpdatedListener): PollingMode {
-        return AutoPollingMode(Duration.ofSeconds(autoPollIntervalSeconds), listener)
+        return AutoPollingMode(autoPollIntervalSeconds * 1000, listener)
     }
 
     /**
      * Creates a configured auto polling config with a listener which receives updates when/if toggles get updated
-     * @param duration - Sets how often as a duration this policy should refresh the cache
+     * @param intervalInMs - Sets intervalInMs for how often this policy should refresh the cache
      * @param listener - What should the poller call when toggles are updated?
      * @return the auto polling config
      */
-    fun autoPoll(duration: Duration, listener: TogglesUpdatedListener): PollingMode {
-        return AutoPollingMode(duration, listener)
+    fun autoPollMs(intervalInMs: Long, listener: TogglesUpdatedListener): PollingMode {
+        return AutoPollingMode(intervalInMs, listener)
     }
 
     fun fileMode(toggleFile: File): PollingMode {
