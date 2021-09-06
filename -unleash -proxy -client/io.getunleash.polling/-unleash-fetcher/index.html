@@ -45,7 +45,7 @@
         .connectTimeout(unleashConfig.httpClientConnectionTimeout)
         .cache(
             Cache(
-                directory = Files.createTempDirectory(&quot;unleash_toggles&quot;).toFile(),
+                directory = CacheDirectoryProvider().getCacheDirectory(),
                 maxSize = unleashConfig.httpClientCacheSize
             )
         ).build())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><ul><li><p class="paragraph">Configuration for unleash - see docs for <a href="../../io.getunleash/-unleash-config/index.html">io.getunleash.UnleashConfig</a></p></li></ul></div></div></div>
@@ -101,7 +101,7 @@
                       <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="get-response-async.html">getResponseAsync</a>(ctx: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="../../io.getunleash.data/-fetch-response/index.html">FetchResponse</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="get-response-async.html">getResponseAsync</a>(ctx: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>): <span data-unresolved-link="java9.util.concurrent/CompletableFuture///PointingToDeclaration/">CompletableFuture</span>&lt;<a href="../../io.getunleash.data/-fetch-response/index.html">FetchResponse</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 </div>
 </div>
@@ -118,7 +118,7 @@
                       <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="get-toggles-async.html">getTogglesAsync</a>(ctx: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="../../io.getunleash.data/-toggle-response/index.html">ToggleResponse</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="get-toggles-async.html">getTogglesAsync</a>(ctx: <a href="../../io.getunleash/-unleash-context/index.html">UnleashContext</a>): <span data-unresolved-link="java9.util.concurrent/CompletableFuture///PointingToDeclaration/">CompletableFuture</span>&lt;<a href="../../io.getunleash.data/-toggle-response/index.html">ToggleResponse</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 </div>
 </div>
@@ -155,10 +155,10 @@
                 </div>
               </div>
               <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="-650254486%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/UnleashFetcher.kt#L30" id="-650254486%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Sources"><a data-name="-650254486%2FSource%2F769193423" anchor-label="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/UnleashFetcher.kt#L28" id="-650254486%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/UnleashFetcher.kt#L30">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-650254486%2FSource%2F769193423"></span>
+                    <div class=""><span class="inline-flex"><a href="https://github.com/Unleash/unleash-android-proxy-sdk/tree/main/src/main/kotlin/io/getunleash/polling/UnleashFetcher.kt#L28">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-650254486%2FSource%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>

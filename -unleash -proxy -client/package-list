@@ -117,12 +117,11 @@ $dokka.location:io.getunleash.polling/AutoPollingPolicy/config/#/PointingToDecla
 $dokka.location:io.getunleash.polling/AutoPollingPolicy/context/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-policy/context.html
 $dokka.location:io.getunleash.polling/AutoPollingPolicy/getConfigurationAsync/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-policy/get-configuration-async.html
 $dokka.location:io.getunleash.polling/AutoPollingPolicy/unleashFetcher/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-auto-polling-policy/unleash-fetcher.html
-$dokka.location:io.getunleash.polling/FilePollingMode///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-mode/index.html
-$dokka.location:io.getunleash.polling/FilePollingMode/FilePollingMode/#java.io.File/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-mode/-file-polling-mode.html
-$dokka.location:io.getunleash.polling/FilePollingMode/fileToLoadFrom/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-mode/file-to-load-from.html
-$dokka.location:io.getunleash.polling/FilePollingMode/pollingIdentifier/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-mode/polling-identifier.html
+$dokka.location:io.getunleash.polling/CacheDirectoryProvider///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-cache-directory-provider/index.html
+$dokka.location:io.getunleash.polling/CacheDirectoryProvider/CacheDirectoryProvider/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-cache-directory-provider/-cache-directory-provider.html
+$dokka.location:io.getunleash.polling/CacheDirectoryProvider/getCacheDirectory/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-cache-directory-provider/get-cache-directory.html
 $dokka.location:io.getunleash.polling/FilePollingPolicy///PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/index.html
-$dokka.location:io.getunleash.polling/FilePollingPolicy/FilePollingPolicy/#io.getunleash.polling.UnleashFetcher#io.getunleash.cache.ToggleCache#io.getunleash.UnleashConfig#io.getunleash.UnleashContext#io.getunleash.polling.FilePollingMode/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/-file-polling-policy.html
+$dokka.location:io.getunleash.polling/FilePollingPolicy/FilePollingPolicy/#io.getunleash.polling.UnleashFetcher#io.getunleash.cache.ToggleCache#io.getunleash.UnleashConfig#io.getunleash.UnleashContext#io.getunleash.FilePollingMode/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/-file-polling-policy.html
 $dokka.location:io.getunleash.polling/FilePollingPolicy/cache/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/cache.html
 $dokka.location:io.getunleash.polling/FilePollingPolicy/config/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/config.html
 $dokka.location:io.getunleash.polling/FilePollingPolicy/context/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-file-polling-policy/context.html
@@ -169,6 +168,10 @@ $dokka.location:io.getunleash.polling/UnleashFetcher/getTogglesAsync/#io.getunle
 $dokka.location:io.getunleash.polling/UnleashFetcher/httpClient/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/http-client.html
 $dokka.location:io.getunleash.polling/UnleashFetcher/unleashConfig/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/unleash-config.html
 $dokka.location:io.getunleash////PointingToDeclaration/-unleash -proxy -client/io.getunleash/index.html
+$dokka.location:io.getunleash/FilePollingMode///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-file-polling-mode/index.html
+$dokka.location:io.getunleash/FilePollingMode/FilePollingMode/#java.io.File/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-file-polling-mode/-file-polling-mode.html
+$dokka.location:io.getunleash/FilePollingMode/fileToLoadFrom/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-file-polling-mode/file-to-load-from.html
+$dokka.location:io.getunleash/FilePollingMode/pollingIdentifier/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-file-polling-mode/polling-identifier.html
 $dokka.location:io.getunleash/ReportMetrics///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/index.html
 $dokka.location:io.getunleash/ReportMetrics/ReportMetrics/#java.time.Duration/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/-report-metrics.html
 $dokka.location:io.getunleash/ReportMetrics/metricsInterval/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/metrics-interval.html
