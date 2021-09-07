@@ -35,7 +35,7 @@ internal object UnleashClientModule {
                     .appName("unleash-android")
                     .instanceId("unleash-android-${Random.nextLong()}")
                     .environment("dev")
-                    .clientSecret("proxy-123")
+                    .clientSecret("s1")
                     .proxyUrl("http://192.168.1.42:3200/proxy")
                     .enableMetrics()
                     .pollingMode(

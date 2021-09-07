@@ -11,32 +11,8 @@ You will require the SDK on your classpath, so go ahead and add it to your gradl
 implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ```
 
-### Add support for minSdk < 24
-
-```kotlin
-android {
-    defaultConfig {
-        // Required when setting minSdkVersion to 20 or lower
-        multiDexEnabled = true
-    }
-
-    compileOptions {
-        // Flag to enable support for the new language APIs
-        coreLibraryDesugaringEnabled = true
-        // Sets Java compatibility to Java 8
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-}
-dependencies {
-    // ... 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    
-    // ... 
-}
-```
-Reference: https://developer.android.com/studio/write/java8-support
-
+### Minimum Android SDK
+- Currently aiming for a minimum SDK level of 21. Keeping in tune with OkHttp's requirement.
 
 ### Now configure your client instance
 
@@ -65,7 +41,7 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation")
     .clientSecret("yourProxyApiKey")
-    .pollMode(PollingModes.autoPoll(Duration.ofSeconds(60)) {
+    .pollMode(PollingModes.autoPoll(60000) { // poll interval in milliseconds
         featuresUpdated()
     })
     .build()
@@ -100,7 +76,7 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation")
     .clientSecret("yourProxyApiKey")
-    .pollMode(PollingModes.autoPoll(Duration.ofSeconds(60)) {
+    .pollMode(PollingModes.autoPoll(60000) { poll interval in milliseconds
         featuresUpdated()
     })
     .build()
@@ -144,6 +120,6 @@ val config = UnleashConfig
 
 The default configuration configures a daemon to report metrics once every minute, this can be altered using the `metricsInterval(Duration d)` method on the builder, so if you'd rather see us post in 5 minutes intervals you could do
 ```kotlin
-UnleasConfig().newBuilder().metricsInterval(Duration.ofMinutes(5))
+UnleashConfig().newBuilder().metricsInterval(300000) // Every 5 minutes
 ```
 

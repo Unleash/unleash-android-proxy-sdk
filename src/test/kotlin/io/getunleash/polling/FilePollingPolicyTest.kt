@@ -1,6 +1,5 @@
 package io.getunleash.polling
 
-import io.getunleash.FilePollingMode
 import io.getunleash.UnleashConfig
 import io.getunleash.UnleashContext
 import io.getunleash.cache.InMemoryToggleCache

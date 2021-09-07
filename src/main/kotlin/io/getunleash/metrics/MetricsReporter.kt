@@ -16,8 +16,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.io.IOException
-import java.time.Duration
-import java.time.Instant
+import java.util.Date
+import java.util.concurrent.TimeUnit
 
 interface MetricsReporter {
     /**
@@ -58,20 +58,20 @@ class NonReporter : MetricsReporter {
 
 data class EvaluationCount(var yes: Int, var no: Int, val variants: MutableMap<String, Int> = mutableMapOf())
 data class Bucket(
-    val start: Instant,
-    var stop: Instant? = null,
+    val start: Date,
+    var stop: Date? = null,
     val toggles: MutableMap<String, EvaluationCount> = mutableMapOf()
 )
 
 data class Report(val appName: String, val environment: String, val instanceId: String, val bucket: Bucket)
 
-class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Instant.now()) : MetricsReporter,
+class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date()) : MetricsReporter,
     Closeable {
     companion object {
         val logger: Logger = LoggerFactory.getLogger(MetricsReporter::class.java)
     }
 
-    val client = OkHttpClient.Builder().callTimeout(Duration.ofSeconds(2)).readTimeout(Duration.ofSeconds(5)).build()
+    val client = OkHttpClient.Builder().callTimeout(2, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).build()
     val metricsUrl = config.proxyUrl.toHttpUrl().newBuilder().addPathSegment("client").addPathSegment("metrics").build()
     private var bucket: Bucket = Bucket(start = started)
 
@@ -80,7 +80,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Inst
             appName = config.appName ?: "unknown",
             instanceId = config.instanceId ?: "not-set",
             environment = config.environment ?: "not-set",
-            bucket = bucket.copy(stop = Instant.now())
+            bucket = bucket.copy(stop = Date())
         )
         val request = Request.Builder().url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
@@ -95,7 +95,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Instant = Inst
                 }
             }
         })
-        bucket = Bucket(start = Instant.now())
+        bucket = Bucket(start = Date())
     }
 
     override fun log(featureName: String, enabled: Boolean): Boolean {

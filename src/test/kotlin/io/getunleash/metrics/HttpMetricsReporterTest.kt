@@ -15,4 +15,5 @@ class HttpMetricsReporterTest {
             assertThat(reporter.metricsUrl.toString()).isEqualTo("http://localhost:4242/proxy/client/metrics")
         }
     }
+
 }
