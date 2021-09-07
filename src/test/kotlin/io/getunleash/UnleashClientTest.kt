@@ -82,6 +82,11 @@ class UnleashClientTest {
     }
 
     @Test
+    fun `Default http client when building has a cache`() {
+        val client = UnleashClient.newBuilder().unleashConfig(config).build()
+        assertThat(client.httpClient.cache).isNotNull
+    }
+    @Test
     fun `Can override http client`() {
         val client = UnleashClient.newBuilder().unleashConfig(config)
             .httpClient(OkHttpClient.Builder().readTimeout(15, TimeUnit.SECONDS).build()).build()
