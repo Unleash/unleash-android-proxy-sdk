@@ -11,6 +11,9 @@ You will require the SDK on your classpath, so go ahead and add it to your gradl
 implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ```
 
+### Minimum Android SDK
+- Currently aiming for a minimum SDK level of 21. Keeping in tune with OkHttp's requirement.
+
 ### Now configure your client instance
 
 You should use this as a singleton to avoid file contention on cache directory.
