@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.util.Date
 
 class MetricsTest {
 
@@ -161,8 +162,8 @@ class MetricsTest {
 
     @Test
     fun `bucket start and stop gets reported in ISO 8601 format`() {
-        val output = Parser.jackson.writeValueAsString(ZonedDateTime.of(2021, 6, 1, 15, 0, 0, 456000000, ZoneOffset.UTC).toInstant())
-        assertThat(output).isEqualTo("\"2021-06-01T15:00:00.456Z\"")
+        val output = Parser.jackson.writeValueAsString(Date.from(ZonedDateTime.of(2021, 6, 1, 15, 0, 0, 456000000, ZoneOffset.UTC).toInstant()))
+        assertThat(output).isEqualTo("\"2021-06-01T15:00:00.456+00:00\"")
     }
 
 }
