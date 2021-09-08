@@ -14,6 +14,12 @@ implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 ### Minimum Android SDK
 - Currently aiming for a minimum SDK level of 21. Keeping in tune with OkHttp's requirement.
 
+### Proguard
+For now, you'll need to have Proguard ignore our classes using
+```
+-keep public class io.getunleash.** {*;}
+```
+
 ### Now configure your client instance
 
 You should use this as a singleton to avoid file contention on cache directory.
