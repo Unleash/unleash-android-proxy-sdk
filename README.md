@@ -108,6 +108,8 @@ val client = UnleashClient(config = config, unleashContext = context)
 ### Metrics (since v0.2)
 If you'd like the client to post metrics to the proxy so the admin interface can be updated, add a call to `enableMetrics()`.
 
+#### NB Only supported by SDK version >=26
+
 ```kotlin
 val config = UnleashConfig
     .newBuilder()

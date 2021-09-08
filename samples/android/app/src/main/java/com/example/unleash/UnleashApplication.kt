@@ -37,7 +37,6 @@ internal object UnleashClientModule {
                     .environment("dev")
                     .clientSecret("s1")
                     .proxyUrl("http://192.168.1.42:3200/proxy")
-                    .enableMetrics()
                     .pollingMode(
                         PollingModes.autoPoll(
                             autoPollIntervalSeconds = 15
