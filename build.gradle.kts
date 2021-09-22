@@ -30,7 +30,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.12.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5")
-    implementation("net.sourceforge.streamsupport:android-retrofuture:1.7.3")
+    api("net.sourceforge.streamsupport:android-retrofuture:1.7.3")
     api("com.squareup.okhttp3:okhttp:4.9.1")
     api("org.slf4j:slf4j-api:1.7.32")
 
