@@ -198,7 +198,7 @@ $dokka.location:io.getunleash/UnleashClient/close/#/PointingToDeclaration/-unle
 $dokka.location:io.getunleash/UnleashClient/getContext/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/get-context.html
 $dokka.location:io.getunleash/UnleashClient/getVariant/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/get-variant.html
 $dokka.location:io.getunleash/UnleashClient/httpClient/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/http-client.html
-$dokka.location:io.getunleash/UnleashClient/isEnabled/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/is-enabled.html
+$dokka.location:io.getunleash/UnleashClient/isEnabled/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/is-enabled.html
 $dokka.location:io.getunleash/UnleashClient/metricsReporter/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/metrics-reporter.html
 $dokka.location:io.getunleash/UnleashClient/unleashConfig/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/unleash-config.html
 $dokka.location:io.getunleash/UnleashClient/unleashContext/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/unleash-context.html
@@ -208,7 +208,7 @@ $dokka.location:io.getunleash/UnleashClientSpec/addTogglesErroredListener/#io.ge
 $dokka.location:io.getunleash/UnleashClientSpec/addTogglesUpdatedListener/#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/add-toggles-updated-listener.html
 $dokka.location:io.getunleash/UnleashClientSpec/getContext/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/get-context.html
 $dokka.location:io.getunleash/UnleashClientSpec/getVariant/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/get-variant.html
-$dokka.location:io.getunleash/UnleashClientSpec/isEnabled/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/is-enabled.html
+$dokka.location:io.getunleash/UnleashClientSpec/isEnabled/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/is-enabled.html
 $dokka.location:io.getunleash/UnleashClientSpec/updateContext/#io.getunleash.UnleashContext/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/update-context.html
 $dokka.location:io.getunleash/UnleashConfig.Builder///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/index.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/Builder/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#io.getunleash.polling.PollingMode?#kotlin.Long?#kotlin.Long?#kotlin.Long?#kotlin.Boolean#kotlin.Long?#kotlin.String?/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/-builder.html
