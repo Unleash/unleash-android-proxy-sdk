@@ -111,4 +111,22 @@ class UnleashClientTest {
             assertThat(updatedFuture).failsWithin(Duration.ofSeconds(2))
         }
     }
+
+    @Test
+    fun `Can check unknown toggle status with default value of false`() {
+        UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { client ->
+            assertThat(client.isEnabled("unknownToggle")).isFalse
+            Thread.sleep(5000)
+            assertThat(client.isEnabled("unknownToggle")).isFalse
+        }
+    }
+
+    @Test
+    fun `Can check unknown toggle status with default value of true`() {
+        UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { client ->
+            assertThat(client.isEnabled("unknownToggle", true)).isTrue
+            Thread.sleep(5000)
+            assertThat(client.isEnabled("unknownToggle", true)).isTrue
+        }
+    }
 }

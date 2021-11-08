@@ -7,7 +7,7 @@ import java.io.Closeable
 import java9.util.concurrent.CompletableFuture
 
 interface UnleashClientSpec : Closeable {
-    fun isEnabled(toggleName: String): Boolean
+    fun isEnabled(toggleName: String, defaultValue: Boolean = false): Boolean
     fun getVariant(toggleName: String): Variant
     fun updateContext(context: UnleashContext): CompletableFuture<Void>
     fun getContext(): UnleashContext

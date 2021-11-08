@@ -82,9 +82,9 @@ class UnleashClient(
         val logger: Logger = LoggerFactory.getLogger(UnleashClient::class.java)
     }
 
-    override fun isEnabled(toggleName: String): Boolean {
+    override fun isEnabled(toggleName: String, defaultValue: Boolean): Boolean {
         val enabled = refreshPolicy.readToggleCache()[toggleName]?.enabled
-        return metricsReporter.log(toggleName,  enabled ?: false)
+        return metricsReporter.log(toggleName,  enabled ?: defaultValue)
     }
 
     override fun getVariant(toggleName: String): Variant {
