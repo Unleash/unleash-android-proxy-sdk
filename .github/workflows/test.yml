@@ -15,12 +15,12 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 15
+          java-version: 17
       - uses: burrunan/gradle-cache-action@v1
         name: Build and test
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         with:
-          job-id: jdk15
+          job-id: jdk17
           arguments: build coverallsJacoco
           gradle-version: wrapper

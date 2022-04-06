@@ -8,9 +8,9 @@ plugins {
     `maven-publish`
     signing
     jacoco
-    id("com.github.nbaztec.coveralls-jacoco").version("1.2.12")
+    id("com.github.nbaztec.coveralls-jacoco").version("1.2.14")
     id("io.github.gradle-nexus.publish-plugin").version("1.1.0")
-    id("pl.allegro.tech.build.axion-release").version("1.13.2")
+    id("pl.allegro.tech.build.axion-release").version("1.13.6")
 }
 
 val tagVersion = System.getenv("GITHUB_REF")?.split('/')?.last()
@@ -65,7 +65,6 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         html.required.set(true)
     }
-
 }
 
 
