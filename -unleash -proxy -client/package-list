@@ -215,7 +215,8 @@ $dokka.location:io.getunleash/UnleashConfig.Builder/Builder/#kotlin.String?#kotl
 $dokka.location:io.getunleash/UnleashConfig.Builder/appName/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/app-name.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/appName/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/app-name.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/build/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/build.html
-$dokka.location:io.getunleash/UnleashConfig.Builder/clientSecret/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/client-secret.html
+$dokka.location:io.getunleash/UnleashConfig.Builder/clientKey/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/client-key.html
+$dokka.location:io.getunleash/UnleashConfig.Builder/clientKey/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/client-key.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/clientSecret/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/client-secret.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/disableMetrics/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/disable-metrics.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/enableMetrics/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/enable-metrics.html
@@ -243,7 +244,7 @@ $dokka.location:io.getunleash/UnleashConfig.Companion/newBuilder/#/PointingToDec
 $dokka.location:io.getunleash/UnleashConfig///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/index.html
 $dokka.location:io.getunleash/UnleashConfig/UnleashConfig/#kotlin.String#kotlin.String#kotlin.String?#kotlin.String?#kotlin.String?#io.getunleash.polling.PollingMode#kotlin.Long#kotlin.Long#kotlin.Long#io.getunleash.ReportMetrics?/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-unleash-config.html
 $dokka.location:io.getunleash/UnleashConfig/appName/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/app-name.html
-$dokka.location:io.getunleash/UnleashConfig/clientSecret/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/client-secret.html
+$dokka.location:io.getunleash/UnleashConfig/clientKey/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/client-key.html
 $dokka.location:io.getunleash/UnleashConfig/environment/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/environment.html
 $dokka.location:io.getunleash/UnleashConfig/httpClientCacheSize/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/http-client-cache-size.html
 $dokka.location:io.getunleash/UnleashConfig/httpClientConnectionTimeout/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/http-client-connection-timeout.html
