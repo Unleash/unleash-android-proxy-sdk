@@ -61,7 +61,7 @@ class UnleashConfigTest {
     fun `Can set client timeouts in seconds with builder methods`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
-            clientKey = "some-secret",
+            clientKey = "some-key",
             appName = "my-app",
             environment = "default"
         )
