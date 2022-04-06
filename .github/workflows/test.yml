@@ -22,5 +22,5 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         with:
           job-id: jdk17
-          arguments: build coverallsJacoco
+          arguments: test jacocoTestReport coverallsJacoco
           gradle-version: wrapper
