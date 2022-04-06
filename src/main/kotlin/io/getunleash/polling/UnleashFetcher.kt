@@ -64,7 +64,7 @@ open class UnleashFetcher(
 
     fun getResponseAsync(ctx: UnleashContext): CompletableFuture<FetchResponse> {
         val contextUrl = buildContextUrl(ctx)
-        val request = Request.Builder().url(contextUrl).header("Authorization", unleashConfig.clientSecret).build()
+        val request = Request.Builder().url(contextUrl).header("Authorization", unleashConfig.clientKey).build()
         val fetch = CompletableFuture<FetchResponse>()
         this.httpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

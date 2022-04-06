@@ -58,7 +58,7 @@ class UnleashFetcherTest {
     fun `Fetcher uses ETags if present`() {
         val server = MockWebServer()
         val fetcher =
-            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "my-secret"))
+            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientKey = "my-secret"))
         val fakeEtagHeader = "etag-1"
         server.enqueue(
             MockResponse().setResponseCode(200)
@@ -89,7 +89,7 @@ class UnleashFetcherTest {
     fun `Can handle actual proxy response`() {
         val server = MockWebServer()
         val fetcher =
-            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientSecret = "my-secret"))
+            UnleashFetcher(UnleashConfig(proxyUrl = server.url("/proxy").toString(), clientKey = "my-secret"))
         server.enqueue(
             MockResponse().setResponseCode(200)
                 .setBody(actualProxyResponse)

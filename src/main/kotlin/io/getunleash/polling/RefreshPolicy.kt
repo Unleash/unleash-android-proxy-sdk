@@ -28,7 +28,7 @@ abstract class RefreshPolicy(
     internal val listeners: MutableList<TogglesUpdatedListener> = mutableListOf()
     internal val errorListeners: MutableList<TogglesErroredListener> = mutableListOf()
     private var inMemoryConfig: Map<String, Toggle> = emptyMap()
-    private val cacheKey: String by lazy { sha256(cacheBase.format(this.config.clientSecret)) }
+    private val cacheKey: String by lazy { sha256(cacheBase.format(this.config.clientKey)) }
 
     companion object {
         const val cacheBase = "android_${UnleashFetcher.TOGGLE_BACKUP_NAME}_%s"

@@ -45,7 +45,7 @@ class AutoPollingPolicyTest {
         val policy = AutoPollingPolicy(
             unleashFetcher = unleashFetcher,
             cache = toggleCache,
-            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientSecret = "some-secret"),
+            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-secret"),
             context = UnleashContext(),
             autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
         )
@@ -57,7 +57,7 @@ class AutoPollingPolicyTest {
         val result = mapOf("variantToggle" to Toggle("variantToggle", enabled = false))
 
         val unleashFetcher = mock<UnleashFetcher> {
-            on { getTogglesAsync(any<UnleashContext>()) } doReturn CompletableFuture.completedFuture(
+            on { getTogglesAsync(any()) } doReturn CompletableFuture.completedFuture(
                 ToggleResponse(
                     Status.FETCHED,
                     result
@@ -70,7 +70,7 @@ class AutoPollingPolicyTest {
         val policy = AutoPollingPolicy(
             unleashFetcher = unleashFetcher,
             cache = toggleCache,
-            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientSecret = "some-secret"),
+            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-secret"),
             context = UnleashContext(),
             autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
         )
@@ -89,7 +89,7 @@ class AutoPollingPolicyTest {
         val server = MockWebServer()
         val isCalled = CompletableFuture<Unit>()
         val pollingMode = PollingModes.autoPoll(20) { isCalled.complete(null) }
-        val config = UnleashConfig.newBuilder().proxyUrl(server.url("/").toString()).clientSecret("my-secret").build()
+        val config = UnleashConfig.newBuilder().proxyUrl(server.url("/").toString()).clientKey("my-secret").build()
         val fetcher = UnleashFetcher(unleashConfig = config)
         val cache = InMemoryToggleCache()
         val policy = AutoPollingPolicy(unleashFetcher = fetcher, cache = cache, config = config, context = UnleashContext(), pollingMode as AutoPollingMode)
