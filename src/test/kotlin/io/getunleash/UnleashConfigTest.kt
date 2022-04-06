@@ -10,34 +10,34 @@ class UnleashConfigTest {
     fun `can build config with builder`() {
         val config =
             UnleashConfig.newBuilder().appName("my-app").environment("default").proxyUrl("https://localhost:4242/proxy")
-                .clientKey("some-secret").build()
+                .clientKey("some-key").build()
 
 
         assertThat(config.appName).isEqualTo("my-app")
         assertThat(config.environment).isEqualTo("default")
         assertThat(config.proxyUrl).isEqualTo("https://localhost:4242/proxy")
-        assertThat(config.clientKey).isEqualTo("some-secret")
+        assertThat(config.clientKey).isEqualTo("some-key")
     }
 
     @Test
     fun `can build context using normal class constructor`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
-            clientKey = "some-secret",
+            clientKey = "some-key",
             appName = "my-app",
             environment = "default"
         )
         assertThat(config.appName).isEqualTo("my-app")
         assertThat(config.environment).isEqualTo("default")
         assertThat(config.proxyUrl).isEqualTo("https://localhost:4242/proxy")
-        assertThat(config.clientKey).isEqualTo("some-secret")
+        assertThat(config.clientKey).isEqualTo("some-key")
     }
 
     @Test
     fun `Can get a builder from existing context`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
-            clientKey = "some-secret",
+            clientKey = "some-key",
             appName = "my-app",
             environment = "default"
         )
@@ -85,7 +85,7 @@ class UnleashConfigTest {
     fun `Can enable metrics with builder method`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
-            clientKey = "some-secret",
+            clientKey = "some-key",
             appName = "my-app",
             environment = "default"
         )
@@ -98,7 +98,7 @@ class UnleashConfigTest {
     fun `Can tweak metrics report interval with builder methods`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
-            clientKey = "some-secret",
+            clientKey = "some-key",
             appName = "my-app",
             environment = "default"
         )

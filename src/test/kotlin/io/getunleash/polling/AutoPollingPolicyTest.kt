@@ -45,7 +45,7 @@ class AutoPollingPolicyTest {
         val policy = AutoPollingPolicy(
             unleashFetcher = unleashFetcher,
             cache = toggleCache,
-            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-secret"),
+            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-key"),
             context = UnleashContext(),
             autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
         )
@@ -70,7 +70,7 @@ class AutoPollingPolicyTest {
         val policy = AutoPollingPolicy(
             unleashFetcher = unleashFetcher,
             cache = toggleCache,
-            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-secret"),
+            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-key"),
             context = UnleashContext(),
             autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
         )
