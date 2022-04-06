@@ -29,7 +29,7 @@ class UnleashClientTest {
         config = UnleashConfig.newBuilder()
             .pollingMode(PollingModes.autoPoll(500) {})
             .proxyUrl(server.url("/proxy").toString())
-            .clientSecret("some-secret")
+            .clientKey("some-key")
             .build()
         context = UnleashContext.newBuilder().appName("unleash-android-proxy-sdk").userId("some-user-id").build()
     }

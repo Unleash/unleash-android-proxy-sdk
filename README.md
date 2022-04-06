@@ -33,7 +33,7 @@ The important properties to configure on the context are
 #### Unleash Config
 For the config you must set two variables, and if you'd like to be notified when the polling thread has found updates you should also configure pollMode
 * proxyUrl - Where your proxy installation is located, for Unleash-Hosted's demo instance this is at `https://app.unleash-hosted.com/demo/proxy` but yours will be somewhere else
-* clientSecret - The api key for accessing your proxy.
+* clientKey - The api key for accessing your proxy. (renamed from clientSecret in v0.4.0)
 * pollMode - See [PollingModes](#PollingModes)
 
 Example setup:

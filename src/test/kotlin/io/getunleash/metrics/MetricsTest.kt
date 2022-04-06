@@ -33,7 +33,7 @@ class MetricsTest {
         config = UnleashConfig.newBuilder()
             .pollingMode(PollingModes.fileMode(testResponse))
             .proxyUrl(server.url("/proxy").toString())
-            .clientSecret("some-secret")
+            .clientKey("some-key")
             .appName("metrics-test")
             .instanceId("test-instance")
             .environment("test")

@@ -9,7 +9,7 @@ data class ReportMetrics(val metricsInterval: Long = 60000)
 /**
  * Represents configuration for Unleash.
  * @property url HTTP(s) URL to the Unleash Proxy (Required).
- * @property clientSecret the secret added as the Authorization header sent to the unleash-proxy (Required)
+ * @property clientKey the key added as the Authorization header sent to the unleash-proxy (Required)
  * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Required).
  * @property environment which environment is the application running in. Will be used as default argument for the [io.getunleash.UnleashContext]. (Optional - Defaults to 'default')
  * @property instanceId instance id of your client
@@ -21,7 +21,7 @@ data class ReportMetrics(val metricsInterval: Long = 60000)
  */
 data class UnleashConfig(
     val proxyUrl: String,
-    val clientSecret: String,
+    val clientKey: String,
     val appName: String? = null,
     val environment: String? = null,
     val instanceId: String? = UUID.randomUUID().toString(),
@@ -38,7 +38,7 @@ data class UnleashConfig(
     fun newBuilder(): Builder =
         Builder(
             proxyUrl = proxyUrl,
-            clientSecret = clientSecret,
+            clientKey = clientKey,
             appName = appName,
             environment = environment,
             pollingMode = pollingMode,
@@ -61,7 +61,7 @@ data class UnleashConfig(
      */
     data class Builder(
         var proxyUrl: String? = null,
-        var clientSecret: String? = null,
+        var clientKey: String? = null,
         var appName: String? = null,
         var environment: String? = null,
         var pollingMode: PollingMode? = null,
@@ -74,7 +74,10 @@ data class UnleashConfig(
 
     ) {
         fun proxyUrl(proxyUrl: String) = apply { this.proxyUrl = proxyUrl }
-        fun clientSecret(secret: String) = apply { this.clientSecret = secret }
+
+        @Deprecated(message = "use clientKey(key: String) instead", replaceWith = ReplaceWith("clientKey(key: String)"))
+        fun clientSecret(secret: String) = apply { this.clientKey = secret }
+        fun clientKey(key: String) = apply { this.clientKey = key }
         fun appName(appName: String) = apply { this.appName = appName }
         fun environment(environment: String) = apply { this.environment = environment }
         fun pollingMode(pollingMode: PollingMode) = apply { this.pollingMode = pollingMode }
@@ -90,8 +93,8 @@ data class UnleashConfig(
         fun instanceId(id: String) = apply { this.instanceId = id }
         fun build(): UnleashConfig = UnleashConfig(
             proxyUrl = proxyUrl ?: throw IllegalStateException("You have to set proxy url in your UnleashConfig"),
-            clientSecret = clientSecret
-                ?: throw IllegalStateException("You have to set client secret in your UnleashConfig"),
+            clientKey = clientKey
+                ?: throw IllegalStateException("You have to set client key in your UnleashConfig"),
             appName = appName,
             environment = environment,
             pollingMode = pollingMode ?: AutoPollingMode(60000),

@@ -11,7 +11,7 @@ class HttpMetricsReporterTest {
 
     @Test
     fun metricsUrlIsCorrect() {
-        HttpMetricsReporter(UnleashConfig.newBuilder().proxyUrl("http://localhost:4242/proxy").clientSecret("some-secret").build()).use { reporter ->
+        HttpMetricsReporter(UnleashConfig.newBuilder().proxyUrl("http://localhost:4242/proxy").clientKey("some-key").build()).use { reporter ->
             assertThat(reporter.metricsUrl.toString()).isEqualTo("http://localhost:4242/proxy/client/metrics")
         }
     }

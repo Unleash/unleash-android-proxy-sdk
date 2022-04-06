@@ -18,7 +18,7 @@ class FilePollingPolicyTest {
         val filePollingPolicy = FilePollingPolicy(
             unleashFetcher = mock(),
             cache = InMemoryToggleCache(),
-            config = UnleashConfig("doesn't matter", clientSecret = ""),
+            config = UnleashConfig("doesn't matter", clientKey = ""),
             context = UnleashContext(),
             filePollingConfig = pollingMode as FilePollingMode
         )
@@ -42,7 +42,7 @@ class FilePollingPolicyTest {
         val filePollingPolicy = FilePollingPolicy(
             unleashFetcher = fetcher,
             cache = InMemoryToggleCache(),
-            config = UnleashConfig("doesn't matter", clientSecret = ""),
+            config = UnleashConfig("doesn't matter", clientKey = ""),
             context = UnleashContext(),
             filePollingConfig = pollingMode as FilePollingMode
         )
