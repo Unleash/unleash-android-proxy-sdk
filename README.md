@@ -46,7 +46,7 @@ val context = UnleashContext.newBuilder()
     .build()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation")
-    .clientSecret("yourProxyApiKey")
+    .clientKey("yourProxyApiKey")
     .pollMode(PollingModes.autoPoll(60000) { // poll interval in milliseconds
         featuresUpdated()
     })
@@ -81,7 +81,7 @@ val context = UnleashContext.newBuilder()
     .build()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation")
-    .clientSecret("yourProxyApiKey")
+    .clientKey("yourProxyApiKey")
     .pollMode(PollingModes.autoPoll(60000) { poll interval in milliseconds
         featuresUpdated()
     })
@@ -104,7 +104,7 @@ val context = UnleashContext.newBuilder()
     .build()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your proxy installation") // These two don't matter for FilePolling, 
-    .clientSecret("yourProxyApiKey") // since the client never speaks to the proxy
+    .clientKey("yourProxyApiKey") // since the client never speaks to the proxy
     .pollMode(pollingMode)
     .build()
 val client = UnleashClient(config = config, unleashContext = context)
