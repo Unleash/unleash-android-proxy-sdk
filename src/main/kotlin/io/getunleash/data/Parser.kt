@@ -1,5 +1,6 @@
 package io.getunleash.data
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.util.StdDateFormat
@@ -10,5 +11,5 @@ object Parser {
         jacksonObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .setDateFormat(
                 StdDateFormat().withColonInTimeZone(true)
-            )
+            ).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 }
