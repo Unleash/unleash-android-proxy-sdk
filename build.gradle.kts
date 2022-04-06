@@ -67,6 +67,10 @@ tasks.jacocoTestReport {
     }
 }
 
+tasks.coverallsJacoco {
+    dependsOn(tasks.jacocoTestReport)
+}
+
 
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
