@@ -19,6 +19,7 @@ import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import java.time.Duration
 import java9.util.concurrent.CompletableFuture
@@ -97,5 +98,31 @@ class AutoPollingPolicyTest {
         assertThat(isCalled).succeedsWithin(Duration.ofSeconds(5))
         server.close()
         policy.close()
+    }
+
+    @Test
+    fun `if fetching fails error is delegated to listeners`() {
+        val someException = mock<Exception>()
+        val unleashFetcher = mock<UnleashFetcher> {
+            on { getTogglesAsync(any<UnleashContext>()) } doReturn CompletableFuture.completedFuture(
+                ToggleResponse(
+                    Status.FAILED,
+                    error = someException
+                )
+            )
+        }
+        val errorListener = mock<TogglesErroredListener>()
+
+        AutoPollingPolicy(
+            unleashFetcher = unleashFetcher,
+            cache = mock(),
+            config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-key"),
+            context = UnleashContext(),
+            autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
+        ).apply {
+            addTogglesErroredListener(errorListener)
+        }.getConfigurationAsync().get()
+
+        verify(errorListener, times(1)).onError(someException)
     }
 }
