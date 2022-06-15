@@ -62,7 +62,7 @@ class AutoPollingPolicy(
                 super.writeToggleCache(response.toggles)
                 this.broadcastTogglesUpdated()
             } else if (response.isFailed()) {
-
+                response?.error?.let(::broadcastTogglesErrored)
             }
         } catch (e: Exception) {
             this.broadcastTogglesErrored(e)
