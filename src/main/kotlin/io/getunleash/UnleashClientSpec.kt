@@ -13,4 +13,7 @@ interface UnleashClientSpec : Closeable {
     fun getContext(): UnleashContext
     fun addTogglesUpdatedListener(listener: TogglesUpdatedListener)
     fun addTogglesErroredListener(listener: TogglesErroredListener)
+
+    fun startPolling()
+    fun isPolling(): Boolean
 }

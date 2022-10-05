@@ -129,4 +129,21 @@ class UnleashClientTest {
             assertThat(client.isEnabled("unknownToggle", true)).isTrue
         }
     }
+
+    @Test
+    fun `Can configure a client that does not poll until requested to do so`() {
+        val manuallyStartedConfig = config.newBuilder().pollingMode(PollingModes.manuallyStartPolling(500) {}).build()
+        context = UnleashContext.newBuilder().appName("unleash-android-proxy-sdk").userId("some-user-id").build()
+        UnleashClient.newBuilder().unleashConfig(manuallyStartedConfig).unleashContext(context).build().use { client ->
+            val updatedFuture = CompletableFuture<Void>()
+            client.addTogglesUpdatedListener { updatedFuture.complete(null) }
+            assertThat(client.isPolling()).isFalse
+            Thread.sleep(2000)
+            assertThat(updatedFuture).isNotCompleted
+            assertThat(client.isEnabled("variantToggle")).isFalse
+            client.startPolling()
+            assertThat(client.isPolling()).isTrue
+            assertThat(updatedFuture).succeedsWithin(Duration.ofSeconds(2))
+        }
+    }
 }
