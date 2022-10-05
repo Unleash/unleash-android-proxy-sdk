@@ -105,6 +105,14 @@ class UnleashClient(
         this.refreshPolicy.close()
     }
 
+    override fun startPolling() {
+        this.refreshPolicy.startPolling()
+    }
+
+    override fun isPolling(): Boolean {
+        return this.refreshPolicy.isPolling()
+    }
+
     data class Builder(
         var httpClient: OkHttpClient? = null,
         var unleashConfig: UnleashConfig? = null,

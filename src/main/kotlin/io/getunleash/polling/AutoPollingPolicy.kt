@@ -15,7 +15,7 @@ class AutoPollingPolicy(
     override val cache: ToggleCache,
     override val config: UnleashConfig,
     override var context: UnleashContext,
-    autoPollingConfig: AutoPollingMode
+    val autoPollingConfig: AutoPollingMode,
 ) :
     RefreshPolicy(
         unleashFetcher = unleashFetcher,
@@ -26,23 +26,24 @@ class AutoPollingPolicy(
     ) {
     private val initialized = AtomicBoolean(false)
     private val initFuture = CompletableFuture<Unit>()
-    private val timer: Timer
-
+    private var timer: Timer? = null
     init {
         autoPollingConfig.togglesUpdatedListener.let { listeners.add(it) }
         autoPollingConfig.erroredListener.let { errorListeners.add(it) }
-        timer =
-            timer(
-                name = "unleash_toggles_fetcher",
-                initialDelay = 0L,
-                daemon = true,
-                period = autoPollingConfig.pollRateDuration
-            ) {
-                updateToggles()
-                if (!initialized.getAndSet(true)) {
-                    initFuture.complete(null)
+        if (autoPollingConfig.pollImmediate) {
+            timer =
+                timer(
+                    name = "unleash_toggles_fetcher",
+                    initialDelay = 0L,
+                    daemon = true,
+                    period = autoPollingConfig.pollRateDuration
+                ) {
+                    updateToggles()
+                    if (!initialized.getAndSet(true)) {
+                        initFuture.complete(null)
+                    }
                 }
-            }
+        }
     }
 
 
@@ -52,6 +53,25 @@ class AutoPollingPolicy(
         } else {
             this.initFuture.thenApplyAsync { super.readToggleCache() }
         }
+    }
+
+    override fun startPolling() {
+        this.timer?.cancel()
+        this.timer =  timer(
+            name = "unleash_toggles_fetcher",
+            initialDelay = 0L,
+            daemon = true,
+            period = autoPollingConfig.pollRateDuration
+        ) {
+            updateToggles()
+            if (!initialized.getAndSet(true)) {
+                initFuture.complete(null)
+            }
+        }
+    }
+
+    override fun isPolling(): Boolean {
+        return this.timer != null
     }
 
     private fun updateToggles() {
@@ -88,7 +108,8 @@ class AutoPollingPolicy(
 
     override fun close() {
         super.close()
-        this.timer.cancel()
+        this.timer?.cancel()
         this.listeners.clear()
+        this.timer = null
     }
 }

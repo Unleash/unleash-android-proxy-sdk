@@ -78,6 +78,18 @@ abstract class RefreshPolicy(
         }
     }
 
+    /**
+     * Subclasses should override this to implement their way of manually starting polling after context is updated.
+     * Typical usage would be to use [PollingModes.manuallyStartPolling] or [PollingModes.manuallyStartedPollMs] to create/configure your polling mode,
+     * and then call [startPolling()] on the Unleash client
+     */
+    abstract fun startPolling()
+
+    /**
+     * Subclasses should override this to signal to Unleash whether or not they're actively polling
+     */
+    abstract fun isPolling(): Boolean
+
     fun getLatestCachedValue(): Map<String, Toggle> = this.inMemoryConfig
 
     override fun close() {

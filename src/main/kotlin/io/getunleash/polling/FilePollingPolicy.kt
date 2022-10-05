@@ -40,6 +40,15 @@ class FilePollingPolicy(
         val togglesInFile: ProxyResponse = Parser.jackson.readValue(filePollingConfig.fileToLoadFrom)
         super.writeToggleCache(togglesInFile.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
     }
+
+    override fun startPolling() {
+        // NOOP for FilePolling
+    }
+
+    override fun isPolling(): Boolean {
+        return false
+    }
+
     override fun getConfigurationAsync(): CompletableFuture<Map<String, Toggle>> {
         return CompletableFuture.completedFuture(super.readToggleCache())
     }

@@ -3,7 +3,7 @@ import java.net.URL
 
 plugins {
     kotlin("jvm").version("1.6.20")
-    id("org.jetbrains.dokka").version("1.4.32")
+    id("org.jetbrains.dokka").version("1.7.10")
     `java-library`
     `maven-publish`
     signing
@@ -26,22 +26,22 @@ jacoco {
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.2")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4")
     api("net.sourceforge.streamsupport:android-retrofuture:1.7.4")
-    api("com.squareup.okhttp3:okhttp:4.9.3")
-    api("org.slf4j:slf4j-api:1.7.36")
+    api("com.squareup.okhttp3:okhttp:4.10.0")
+    api("org.slf4j:slf4j-api:2.0.3")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testImplementation("org.assertj:assertj-core:3.23.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation("org.slf4j:slf4j-simple:1.7.36")
+    testImplementation("org.slf4j:slf4j-simple:2.0.3")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
