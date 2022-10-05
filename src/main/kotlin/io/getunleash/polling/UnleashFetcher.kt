@@ -110,12 +110,12 @@ open class UnleashFetcher(
 
     private fun buildContextUrl(ctx: UnleashContext): HttpUrl {
         var contextUrl = proxyUrl.newBuilder().addQueryParameter("appName", ctx.appName)
-            .addQueryParameter("env", ctx.environment)
+            .addQueryParameter("environment", ctx.environment)
             .addQueryParameter("userId", ctx.userId)
             .addQueryParameter("remoteAddress", ctx.remoteAddress)
             .addQueryParameter("sessionId", ctx.sessionId)
         ctx.properties.entries.forEach {
-            contextUrl = contextUrl.addQueryParameter(it.key, it.value)
+            contextUrl = contextUrl.addQueryParameter("properties[${it.key}]", it.value)
         }
         return contextUrl.build()
     }

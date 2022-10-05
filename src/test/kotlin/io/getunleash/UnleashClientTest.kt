@@ -26,6 +26,7 @@ class UnleashClientTest {
         server = MockWebServer()
         server.start()
         server.enqueue(MockResponse().setBody(TestResponses.threeToggles))
+        server.enqueue(MockResponse().setBody(TestResponses.threeToggles))
         config = UnleashConfig.newBuilder()
             .pollingMode(PollingModes.autoPoll(500) {})
             .proxyUrl(server.url("/proxy").toString())
@@ -129,6 +130,47 @@ class UnleashClientTest {
             assertThat(client.isEnabled("unknownToggle", true)).isTrue
         }
     }
+
+    @Test
+    fun `Updating context causes the URL used to include new parameters`() {
+        UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { client ->
+            Thread.sleep(800)
+            val newCtx = context.newBuilder().addProperty("test2", "test2value").build()
+            assertThat(client.updateContext(newCtx)).succeedsWithin(Duration.ofSeconds(2))
+            val first = server.takeRequest() // initial request
+            assertThat(first.requestUrl!!.queryParameterNames).doesNotContain("properties[test2]")
+            val second = server.takeRequest() // after updateContext
+            assertThat(second.requestUrl!!.queryParameterNames).contains("properties[test2]")
+        }
+    }
+
+    // Copied from unleash-proxy-client-response
+    @Test
+    fun `Should include context fields on request`() {
+        val context = UnleashContext.newBuilder().appName("web")
+            .environment("prod")
+            .userId("123")
+            .sessionId("456")
+            .remoteAddress("address")
+            .addProperty("property1", "property1")
+            .addProperty("property2", "property2")
+            .build()
+        UnleashClient.newBuilder().unleashConfig(config).unleashContext(context).build().use { _ ->
+            Thread.sleep(500)
+            val request = server.takeRequest()
+            val url = request.requestUrl!!
+            assertThat(url.queryParameter("userId")).isEqualTo("123")
+            assertThat(url.queryParameter("sessionId")).isEqualTo("456")
+            assertThat(url.queryParameter("userId")).isEqualTo("123")
+            assertThat(url.queryParameter("sessionId")).isEqualTo("456")
+            assertThat(url.queryParameter("remoteAddress")).isEqualTo("address")
+            assertThat(url.queryParameter("properties[property1]")).isEqualTo("property1")
+            assertThat(url.queryParameter("properties[property2]")).isEqualTo("property2")
+            assertThat(url.queryParameter("appName")).isEqualTo("web")
+            assertThat(url.queryParameter("environment")).isEqualTo("prod")
+        }
+    }
+
 
     @Test
     fun `Can configure a client that does not poll until requested to do so`() {

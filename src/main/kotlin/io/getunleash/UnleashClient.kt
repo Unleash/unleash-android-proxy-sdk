@@ -94,6 +94,7 @@ class UnleashClient(
 
     override fun updateContext(context: UnleashContext): CompletableFuture<Void> {
         refreshPolicy.context = context
+        this.unleashContext = context
         return refreshPolicy.refreshAsync()
     }
 
