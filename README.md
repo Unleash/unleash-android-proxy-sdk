@@ -15,9 +15,10 @@ implementation("io.getunleash:unleash-android-proxy-sdk:${unleash.sdk.version}")
 - Currently aiming for a minimum SDK level of 21. Keeping in tune with OkHttp's requirement.
 
 ### Proguard
-For now, you'll need to have Proguard ignore our classes using
+For now, you'll need to have Proguard ignore our classes as well as fasterxml (Jackson)
 ```
 -keep public class io.getunleash.** {*;}
+-keep class com.fasterxml.** { *; }
 ```
 
 ### Now configure your client instance
