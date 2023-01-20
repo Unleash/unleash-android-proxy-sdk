@@ -67,11 +67,19 @@ val context = UnleashContext.newBuilder()
 #### Step 3b: Unleash Config
 To create a client, use the UnleashConfig.newBuilder method. When building a configuration, you'll need to provide it with:
 
-    proxyUrl: the URL your proxy is available at
-    clientKey: the proxy client key you wish to use (this method was known as clientSecret prior to version 0.4.0)
-    pollMode: how you want to load the toggle status
+- `proxyUrl`: the URL the Unleash front-end API is available at **OR** the URL your proxy is available at
+- `clientKey`: the API token or proxy client key you wish to use (this method was known as clientSecret prior to version 0.4.0)
+- `pollMode`: how you want to load the toggle status
 
 As of v0.1 the SDK supports an automatic polling with an adjustable poll period or loading the state from disk. Most users will probably want to use the polling client, but it's nice to know that you can instantiate your client without actually needing Internet if you choose loading from File
+
+
+##### Connection options
+
+To connect this SDK to your Unleash instance's [front-end API](https://docs.getunleash.io/reference/front-end-api), use the URL to your Unleash instance's front-end API (`<unleash-url>/api/frontend`) as the `url` parameter. For the `clientKey` parameter, use a `FRONTEND` token generated from your Unleash instance. Refer to the [_how to create API tokens_](https://docs.getunleash.io/how-to/how-to-create-api-tokens) guide for the necessary steps.
+
+To connect this SDK to the [Unleash proxy](https://docs.getunleash.io/reference/unleash-proxy), use the proxy's URL and a [proxy client key](https://docs.getunleash.io/reference/api-tokens-and-client-keys#proxy-client-keys). The [_configuration_ section of the Unleash proxy docs](https://docs.getunleash.io/reference/unleash-proxy#configuration) contains more info on how to configure client keys for your proxy.
+
 
 ##### Step 3b: Configure client polling proxy
 
@@ -79,8 +87,8 @@ Configuring a client with a 60 seconds poll interval:
 
 ```kotlin
 val config = UnleashConfig.newBuilder()
-    .proxyUrl("URL to your proxy installation")
-    .clientKey("yourProxyApiKey")
+    .proxyUrl("URL to your front-end API or proxy")
+    .clientKey("your front-end API token or proxy client key")
     .pollMode(PollingModes.autoPoll(60000) { // poll interval in milliseconds
         featuresUpdated()
     })
@@ -132,8 +140,8 @@ val context = UnleashContext.newBuilder()
     .sessionId("However you resolve your session id")
     .build()
 val config = UnleashConfig.newBuilder()
-    .proxyUrl("URL to your proxy installation")
-    .clientKey("yourProxyApiKey")
+    .proxyUrl("URL to your front-end API or proxy")
+    .clientKey("your front-end API token or proxy client key")
     .pollMode(PollingModes.autoPoll(60000) { poll interval in milliseconds
         featuresUpdated()
     })
@@ -155,8 +163,8 @@ val context = UnleashContext.newBuilder()
     .sessionId("However you resolve your session id")
     .build()
 val config = UnleashConfig.newBuilder()
-    .proxyUrl("URL to your proxy installation") // These two don't matter for FilePolling, 
-    .clientKey("yourProxyApiKey") // since the client never speaks to the proxy
+    .proxyUrl("URL to your front-end API or proxy") // These two don't matter for FilePolling,
+    .clientKey("front-end API token / proxy client key") // since the client never speaks to the proxy
     .pollMode(pollingMode)
     .build()
 val client = UnleashClient(config = config, unleashContext = context)
