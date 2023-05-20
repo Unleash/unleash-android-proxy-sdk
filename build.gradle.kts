@@ -2,7 +2,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    kotlin("jvm").version("1.6.20")
+    kotlin("jvm").version("1.8.21")
     id("org.jetbrains.dokka").version("1.7.10")
     `java-library`
     `maven-publish`
