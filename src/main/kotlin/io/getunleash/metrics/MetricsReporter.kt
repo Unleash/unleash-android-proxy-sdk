@@ -82,7 +82,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date())
             environment = config.environment ?: "not-set",
             bucket = bucket.copy(stop = Date())
         )
-        val request = Request.Builder().url(metricsUrl).post(
+        val request = Request.Builder().header("Authorization", config.clientKey).url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
         ).build()
         client.newCall(request).enqueue(object : Callback {

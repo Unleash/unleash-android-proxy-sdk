@@ -18,7 +18,8 @@ object TestResponses {
                                 "type": "string",
                                 "value": "some-text"
                             }
-                        }
+                        },
+                        "impressionData": true
                     }, {
                         "name": "featureToggle",
                         "enabled": true,
