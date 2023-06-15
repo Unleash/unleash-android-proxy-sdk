@@ -34,9 +34,9 @@ internal object UnleashClientModule {
                 UnleashConfig.newBuilder()
                     .appName("unleash-android")
                     .instanceId("unleash-android-${Random.nextLong()}")
-                    .environment("dev")
-                    .clientSecret("s1")
-                    .proxyUrl("http://192.168.1.42:3200/proxy")
+                    .enableMetrics()
+                    .clientSecret("*:development.8e2b03838a586e7de5009e08b56e839cf538f6f9968dc03eddcb44d7")
+                    .proxyUrl("http:///192.168.50.135:3063/api/frontend")
                     .pollingMode(
                         PollingModes.autoPoll(
                             autoPollIntervalSeconds = 15
@@ -44,7 +44,7 @@ internal object UnleashClientModule {
 
                         }
                     )
-                    .environment("dev").build()
+                    .build()
             )
             .cache(InMemoryToggleCache())
             .unleashContext(unleashContext)
