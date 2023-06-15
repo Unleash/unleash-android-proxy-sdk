@@ -147,7 +147,7 @@ class MetricsTest {
             "unleash-android-proxy-sdk" to EvaluationCount(0, 100),
             "non-existing-toggle" to EvaluationCount(0, 100),
             "Test_release" to EvaluationCount(100, 0),
-            "demoApp.step4" to EvaluationCount(0, 0, mutableMapOf("red" to 100))
+            "demoApp.step4" to EvaluationCount(100, 0, mutableMapOf("red" to 100))
         ))
         server.enqueue(MockResponse())
         // No activity since last report, bucket should be empty
