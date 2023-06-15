@@ -2,7 +2,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    kotlin("jvm").version("1.6.20")
+    kotlin("jvm").version("1.8.21")
     id("org.jetbrains.dokka").version("1.7.10")
     `java-library`
     `maven-publish`
@@ -21,31 +21,35 @@ repositories {
     mavenCentral()
 }
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "0.8.8"
 }
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.15.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1")
     api("net.sourceforge.streamsupport:android-retrofuture:1.7.4")
-    api("com.squareup.okhttp3:okhttp:4.10.0")
-    api("org.slf4j:slf4j-api:2.0.3")
+    api("com.squareup.okhttp3:okhttp:4.11.0")
+    api("org.slf4j:slf4j-api:2.0.7")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
-    testImplementation("org.assertj:assertj-core:3.23.1")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation("org.slf4j:slf4j-simple:2.0.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
+    testImplementation("org.slf4j:slf4j-simple:2.0.7")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType<JavaCompile> {
+    targetCompatibility = "1.8"
 }
 
 tasks.withType<Test> {
