@@ -121,7 +121,7 @@ class MetricsTest {
         assertThat(toggles).containsAllEntriesOf(mutableMapOf(
             "some-non-existing-toggle" to EvaluationCount(0, 100, mutableMapOf("disabled" to 100)),
             "asdasd" to EvaluationCount(100, 0, mutableMapOf("123" to 100)),
-            "cache.buster" to EvaluationCount(0, 100, mutableMapOf("disabled" to 100)),
+            "cache.buster" to EvaluationCount(100, 0, mutableMapOf("disabled" to 100)),
         ))
     }
 
