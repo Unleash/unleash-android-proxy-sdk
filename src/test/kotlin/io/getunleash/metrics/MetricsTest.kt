@@ -103,6 +103,28 @@ class MetricsTest {
         assertThat(toggles).containsEntry("unleash_android_sdk_demo", EvaluationCount(100, 0))
     }
 
+
+    @Test
+    fun `getVariant calls also records "yes" and "no"`() {
+        val reporter = TestReporter()
+        val client = UnleashClient(config, context, metricsReporter = reporter)
+        repeat(100) {
+			// toggle doesn't exist
+			client.getVariant("some-non-existing-toggle")
+			// toggle with variants
+			client.getVariant("asdasd")
+			// toggle without variants
+			client.getVariant("cache.buster")
+        }
+        val toggles = reporter.getToggles()
+
+        assertThat(toggles).containsAllEntriesOf(mutableMapOf(
+            "some-non-existing-toggle" to EvaluationCount(0, 100, mutableMapOf("disabled" to 100)),
+            "asdasd" to EvaluationCount(100, 0, mutableMapOf("123" to 100)),
+            "cache.buster" to EvaluationCount(100, 0, mutableMapOf("disabled" to 100)),
+        ))
+    }
+
     @Test
     fun `reporting resets period`() {
         val reporter = TestReporter()
@@ -147,7 +169,7 @@ class MetricsTest {
             "unleash-android-proxy-sdk" to EvaluationCount(0, 100),
             "non-existing-toggle" to EvaluationCount(0, 100),
             "Test_release" to EvaluationCount(100, 0),
-            "demoApp.step4" to EvaluationCount(0, 0, mutableMapOf("red" to 100))
+            "demoApp.step4" to EvaluationCount(100, 0, mutableMapOf("red" to 100))
         ))
         server.enqueue(MockResponse())
         // No activity since last report, bucket should be empty

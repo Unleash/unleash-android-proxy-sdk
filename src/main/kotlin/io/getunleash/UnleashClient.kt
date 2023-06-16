@@ -88,7 +88,12 @@ class UnleashClient(
     }
 
     override fun getVariant(toggleName: String): Variant {
-        val variant = refreshPolicy.readToggleCache()[toggleName]?.variant ?: disabledVariant
+        val variant =
+                if (isEnabled(toggleName)) {
+                    refreshPolicy.readToggleCache()[toggleName]?.variant ?: disabledVariant
+                } else {
+                    disabledVariant
+                }
         return metricsReporter.logVariant(toggleName, variant)
     }
 
