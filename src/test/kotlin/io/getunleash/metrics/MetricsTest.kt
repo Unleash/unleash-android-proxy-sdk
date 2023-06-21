@@ -105,7 +105,7 @@ class MetricsTest {
 
 
     @Test
-    fun `getVariant calls also records "yes" and "no"`() {
+    fun `getVariant calls also records yes and no`() {
         val reporter = TestReporter()
         val client = UnleashClient(config, context, metricsReporter = reporter)
         repeat(100) {

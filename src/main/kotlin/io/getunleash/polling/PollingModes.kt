@@ -40,6 +40,15 @@ object PollingModes {
     }
 
     /**
+     * Creates a configured poller that fetches once at initialisation and then never polls
+     * @param listener - What should the poller call when toggles are updated?
+     * @param readyListener - What should the poller call when it has initialised its toggles cache
+     */
+    fun fetchOnce(listener: TogglesUpdatedListener? = null, readyListener: ReadyListener? = null): PollingMode {
+        return AutoPollingMode(pollRateDuration = 0, togglesUpdatedListener = listener, readyListener = readyListener)
+    }
+
+    /**
      * Creates a configured auto polling config with a listener which receives updates when/if toggles get updated
      * @param intervalInMs - Sets intervalInMs for how often this policy should refresh the cache
      * @param listener - What should the poller call when toggles are updated?
@@ -60,8 +69,8 @@ object PollingModes {
         return AutoPollingMode(pollRateDuration = intervalInMs, togglesUpdatedListener = listener, pollImmediate = false)
     }
 
-    fun fileMode(toggleFile: File): PollingMode {
-        return FilePollingMode(toggleFile)
+    fun fileMode(toggleFile: File, readyListener: ReadyListener? = null): PollingMode {
+        return FilePollingMode(toggleFile, readyListener)
     }
 
 
