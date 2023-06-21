@@ -9,6 +9,7 @@ import java.io.Closeable
 import java.math.BigInteger
 import java.security.MessageDigest
 import java9.util.concurrent.CompletableFuture
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Used to define how to Refresh and serve toggles
@@ -27,6 +28,8 @@ abstract class RefreshPolicy(
 ) : Closeable {
     internal val listeners: MutableList<TogglesUpdatedListener> = mutableListOf()
     internal val errorListeners: MutableList<TogglesErroredListener> = mutableListOf()
+    internal val checkListeners: MutableList<TogglesCheckedListener> = mutableListOf()
+    internal val readyListeners: MutableList<ReadyListener> = mutableListOf()
     private var inMemoryConfig: Map<String, Toggle> = emptyMap()
     private val cacheKey: String by lazy { sha256(cacheBase.format(this.config.clientKey)) }
 
@@ -40,6 +43,8 @@ abstract class RefreshPolicy(
         }
     }
 
+    abstract val isReady: AtomicBoolean
+
     fun readToggleCache(): Map<String, Toggle> {
         return try {
             this.cache.read(cacheKey)
@@ -52,6 +57,7 @@ abstract class RefreshPolicy(
         try {
             this.inMemoryConfig = value
             this.cache.write(cacheKey, value)
+            broadcastTogglesUpdated()
         } catch (e: Exception) {
         }
     }
@@ -78,6 +84,38 @@ abstract class RefreshPolicy(
         }
     }
 
+    fun broadcastTogglesUpdated(): Unit {
+        synchronized(listeners) {
+            listeners.forEach {
+                it.onTogglesUpdated()
+            }
+        }
+    }
+
+    fun broadcastTogglesChecked() {
+        synchronized(checkListeners) {
+            checkListeners.forEach {
+                it.onTogglesChecked()
+            }
+        }
+    }
+
+    fun broadcastTogglesErrored(e: Exception) {
+        synchronized(errorListeners) {
+            errorListeners.forEach {
+                it.onError(e)
+            }
+        }
+    }
+
+    fun broadcastReady() {
+        synchronized(readyListeners) {
+            readyListeners.forEach {
+                it.onReady()
+            }
+        }
+    }
+
     /**
      * Subclasses should override this to implement their way of manually starting polling after context is updated.
      * Typical usage would be to use [PollingModes.manuallyStartPolling] or [PollingModes.manuallyStartedPollMs] to create/configure your polling mode,
@@ -97,10 +135,26 @@ abstract class RefreshPolicy(
     }
 
     fun addTogglesUpdatedListener(listener: TogglesUpdatedListener): Unit {
-        listeners.add(listener)
+        synchronized(listener) {
+            listeners.add(listener)
+        }
     }
 
     fun addTogglesErroredListener(errorListener: TogglesErroredListener): Unit {
-        errorListeners.add(errorListener)
+        synchronized(errorListeners) {
+            errorListeners.add(errorListener)
+        }
+    }
+
+    fun addTogglesCheckedListener(checkListener: TogglesCheckedListener) {
+        synchronized(checkListeners) {
+            checkListeners.add(checkListener)
+        }
+    }
+
+    fun addReadyListener(readyListener: ReadyListener) {
+        synchronized(readyListeners) {
+            readyListeners.add(readyListener)
+        }
     }
 }

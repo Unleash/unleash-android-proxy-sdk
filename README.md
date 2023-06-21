@@ -126,7 +126,8 @@ val unleashClient = UnleashClient(config = unleashConfig, context = myAppContext
 #### PollingModes
 ##### Autopolling
 If you'd like for changes in toggles to take effect for you; use AutoPolling.
-You can configure the pollInterval and a listener that gets notified when toggles are updated in the background thread
+You can configure the pollInterval and a listener that gets notified when toggles are updated in the background thread. 
+If you set the poll interval to 0, the SDK will fetch once, but not set up polling.
 
 The listener is a no-argument lambda that gets called by the RefreshPolicy for every poll that
 1. Does not return `304 - Not Modified`

@@ -9,6 +9,7 @@ import io.getunleash.data.ProxyResponse
 import io.getunleash.data.Toggle
 import org.slf4j.LoggerFactory
 import java9.util.concurrent.CompletableFuture
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Allows loading a proxy response from file.
@@ -36,9 +37,13 @@ class FilePollingPolicy(
     config = config,
     context = context
 ) {
+    override val isReady: AtomicBoolean = AtomicBoolean(false)
     init {
         val togglesInFile: ProxyResponse = Parser.jackson.readValue(filePollingConfig.fileToLoadFrom)
+        filePollingConfig.readyListener?.let { r -> addReadyListener(r) }
         super.writeToggleCache(togglesInFile.toggles.groupBy { it.name }.mapValues { (_, v) -> v.first() })
+        super.broadcastReady()
+        isReady.getAndSet(true)
     }
 
     override fun startPolling() {

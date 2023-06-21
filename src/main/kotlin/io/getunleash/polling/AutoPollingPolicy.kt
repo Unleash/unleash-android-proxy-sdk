@@ -28,24 +28,37 @@ class AutoPollingPolicy(
     private val initFuture = CompletableFuture<Unit>()
     private var timer: Timer? = null
     init {
-        autoPollingConfig.togglesUpdatedListener.let { listeners.add(it) }
-        autoPollingConfig.erroredListener.let { errorListeners.add(it) }
+        autoPollingConfig.togglesUpdatedListener?.let { listeners.add(it) }
+        autoPollingConfig.togglesCheckedListener?.let { checkListeners.add(it) }
+        autoPollingConfig.erroredListener?.let { errorListeners.add(it) }
+        autoPollingConfig.readyListener?.let { readyListeners.add(it) }
         if (autoPollingConfig.pollImmediate) {
-            timer =
-                timer(
-                    name = "unleash_toggles_fetcher",
-                    initialDelay = 0L,
-                    daemon = true,
-                    period = autoPollingConfig.pollRateDuration
-                ) {
-                    updateToggles()
-                    if (!initialized.getAndSet(true)) {
-                        initFuture.complete(null)
-                    }
+            if (autoPollingConfig.pollRateDuration > 0) {
+                timer =
+                        timer(
+                                name = "unleash_toggles_fetcher",
+                                initialDelay = 0L,
+                                daemon = true,
+                                period = autoPollingConfig.pollRateDuration
+                        ) {
+                            updateToggles()
+                            if (!initialized.getAndSet(true)) {
+                                super.broadcastReady()
+                                initFuture.complete(null)
+                            }
+                        }
+            } else {
+                updateToggles()
+                if (!initialized.getAndSet(true)) {
+                    super.broadcastReady()
+                    initFuture.complete(null)
                 }
+            }
         }
     }
 
+    override val isReady: AtomicBoolean
+        get() = initialized
 
     override fun getConfigurationAsync(): CompletableFuture<Map<String, Toggle>> {
         return if (this.initFuture.isDone) {
@@ -56,13 +69,20 @@ class AutoPollingPolicy(
     }
 
     override fun startPolling() {
-        this.timer?.cancel()
-        this.timer =  timer(
-            name = "unleash_toggles_fetcher",
-            initialDelay = 0L,
-            daemon = true,
-            period = autoPollingConfig.pollRateDuration
-        ) {
+        if (autoPollingConfig.pollRateDuration > 0) {
+            this.timer?.cancel()
+            this.timer = timer(
+                    name = "unleash_toggles_fetcher",
+                    initialDelay = 0L,
+                    daemon = true,
+                    period = autoPollingConfig.pollRateDuration
+            ) {
+                updateToggles()
+                if (!initialized.getAndSet(true)) {
+                    initFuture.complete(null)
+                }
+            }
+        } else {
             updateToggles()
             if (!initialized.getAndSet(true)) {
                 initFuture.complete(null)
@@ -79,37 +99,25 @@ class AutoPollingPolicy(
             val response = super.fetcher().getTogglesAsync(context).get()
             val cached = super.readToggleCache()
             if (response.isFetched() && cached != response.toggles) {
-                super.writeToggleCache(response.toggles)
-                this.broadcastTogglesUpdated()
+                logger.trace("Content was not equal")
+                super.writeToggleCache(response.toggles) // This will also broadcast updates
             } else if (response.isFailed()) {
-                response?.error?.let(::broadcastTogglesErrored)
+                response?.error?.let { e -> super.broadcastTogglesErrored(e) }
             }
         } catch (e: Exception) {
-            this.broadcastTogglesErrored(e)
+            super.broadcastTogglesErrored(e)
             logger.warn("Exception in AutoPollingCachePolicy", e)
         }
+        logger.info("Done checking. Broadcasting check result")
+        super.broadcastTogglesChecked()
     }
-
-    private fun broadcastTogglesErrored(e: Exception) {
-        synchronized(errorListeners) {
-            errorListeners.forEach {
-                it.onError(e)
-            }
-        }
-    }
-
-    private fun broadcastTogglesUpdated() {
-        synchronized(listeners) {
-            listeners.forEach {
-                it.onTogglesUpdated()
-            }
-        }
-    }
-
     override fun close() {
         super.close()
         this.timer?.cancel()
         this.listeners.clear()
+        this.errorListeners.clear()
+        this.checkListeners.clear()
+        this.readyListeners.clear()
         this.timer = null
     }
 }

@@ -23,6 +23,8 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import java.time.Duration
 import java9.util.concurrent.CompletableFuture
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.LongAdder
 
 class AutoPollingPolicyTest {
 
@@ -79,6 +81,68 @@ class AutoPollingPolicyTest {
         verify(toggleCache, never()).write(anyString(), eq(result))
     }
 
+    @Test
+    fun `same response still sends a toggles checked update`() {
+        val result = mapOf("variantToggle" to Toggle("variantToggle", enabled = false))
+
+        val unleashFetcher = mock<UnleashFetcher> {
+            on { getTogglesAsync(any()) } doReturn CompletableFuture.completedFuture(
+                    ToggleResponse(
+                            Status.FETCHED,
+                            result
+                    )
+            )
+        }
+        val toggleCache = mock<ToggleCache> {
+            on { read(anyString()) } doReturn result
+        }
+        val checks = LongAdder()
+        val checkListener = TogglesCheckedListener { checks.add(1) }
+        val policy = AutoPollingPolicy(
+                unleashFetcher = unleashFetcher,
+                cache = toggleCache,
+                config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-key"),
+                context = UnleashContext(),
+                autoPollingConfig = PollingModes.autoPoll(2) as AutoPollingMode
+        )
+        policy.addTogglesCheckedListener(checkListener)
+        assertThat(policy.getConfigurationAsync().get()).isEqualTo(result)
+        verify(toggleCache, never()).write(anyString(), eq(result))
+        assertThat(checks.sum()).isEqualTo(1)
+
+    }
+
+    @Test
+    fun `Can fetch once when asked to check`() {
+        val result = mapOf("variantToggle" to Toggle("variantToggle", enabled = false))
+
+        val unleashFetcher = mock<UnleashFetcher> {
+            on { getTogglesAsync(any()) } doReturn CompletableFuture.completedFuture(
+                    ToggleResponse(
+                            Status.FETCHED,
+                            result
+                    )
+            )
+        }
+        val ready = AtomicBoolean(false)
+        val readyListener = ReadyListener {
+            ready.set(true)
+        }
+        val toggleCache = mock<ToggleCache> {
+            on { read(anyString()) } doReturn result
+        }
+        val policy = AutoPollingPolicy(
+                unleashFetcher = unleashFetcher,
+                cache = toggleCache,
+                config = UnleashConfig(proxyUrl = "https://localhost:4242/proxy", clientKey = "some-key"),
+                context = UnleashContext(),
+                autoPollingConfig = PollingModes.fetchOnce(listener = { }, readyListener = readyListener) as AutoPollingMode
+        )
+        assertThat(policy.getConfigurationAsync().get()).isEqualTo(result)
+        verify(toggleCache, never()).write(anyString(), eq(result))
+        assertThat(policy.isReady).isTrue
+        assertThat(ready.get()).isTrue
+    }
     @Test
     fun `yields correct identifier`() {
         val f = PollingModes.autoPoll(5)
