@@ -117,6 +117,7 @@ class AutoPollingPolicy(
         this.listeners.clear()
         this.errorListeners.clear()
         this.checkListeners.clear()
+        this.readyListeners.clear()
         this.timer = null
     }
 }
