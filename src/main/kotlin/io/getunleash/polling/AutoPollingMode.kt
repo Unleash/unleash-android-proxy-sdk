@@ -1,7 +1,7 @@
 package io.getunleash.polling
 
 /**
- * @param pollRateDuration - How long (in seconds) between each poll
+ * @param pollRateDuration - How long (in milliseconds) between each poll
  * @param togglesUpdatedListener - A listener that will be notified each time a poll actually updates the evaluation result
  * @param erroredListener - A listener that will be notified each time a poll fails. The notification will include the Exception
  * @param togglesCheckedListener - A listener that will be notified each time a poll completed. Will be called regardless of the check succeeded or failed.
