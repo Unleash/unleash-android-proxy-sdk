@@ -143,7 +143,7 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
-    .pollingMode(PollingModes.autoPoll(60) { poll interval in seconds
+    .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
         featuresUpdated()
     })
     .build()
