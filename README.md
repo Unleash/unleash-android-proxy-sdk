@@ -89,7 +89,7 @@ Configuring a client with a 60 seconds poll interval:
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
-    .pollingMode(PollingModes.autoPoll(60000) { // poll interval in milliseconds
+    .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
         featuresUpdated()
     })
     .build()
@@ -143,7 +143,7 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
-    .pollingMode(PollingModes.autoPoll(60000) { poll interval in milliseconds
+    .pollingMode(PollingModes.autoPoll(60) { poll interval in seconds
         featuresUpdated()
     })
     .build()
