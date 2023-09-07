@@ -89,7 +89,7 @@ Configuring a client with a 60 seconds poll interval:
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
-    .pollMode(PollingModes.autoPoll(60000) { // poll interval in milliseconds
+    .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
         featuresUpdated()
     })
     .build()
@@ -106,7 +106,7 @@ import io.getunleash.polling.PollingModes
 val toggles = File("/tmp/proxyresponse.json")
 val pollingMode = PollingModes.fileMode(toggles)
 
-val unleashConfig = UnleashConfig.newBuilder()
+val config = UnleashConfig.newBuilder()
     .proxyUrl("Doesn't matter since we don't use it when sent a file")
     .clientKey("Doesn't matter since we don't use it when sent a file")
     .pollMode(pollingMode)
@@ -119,7 +119,7 @@ Having created your UnleashContext and your UnleashConfig you can now instantiat
 ```kotlin
 import io.getunleash.UnleashClient
 
-val unleashClient = UnleashClient(config = unleashConfig, context = myAppContext)
+val unleashClient = UnleashClient(unleashConfig = config, unleashContext = context)
 ```
 
 ### Details
@@ -143,11 +143,11 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
-    .pollMode(PollingModes.autoPoll(60000) { poll interval in milliseconds
+    .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
         featuresUpdated()
     })
     .build()
-val client = UnleashClient(config = config, unleashContext = context)
+val client = UnleashClient(unleashConfig = config, unleashContext = context)
 ```
 
 ##### FilePolling (since v0.2)
@@ -166,9 +166,9 @@ val context = UnleashContext.newBuilder()
 val config = UnleashConfig.newBuilder()
     .proxyUrl("URL to your front-end API or proxy") // These two don't matter for FilePolling,
     .clientKey("front-end API token / proxy client key") // since the client never speaks to the proxy
-    .pollMode(pollingMode)
+    .pollingMode(pollingMode)
     .build()
-val client = UnleashClient(config = config, unleashContext = context)
+val client = UnleashClient(unleashConfig = config, unleashContext = context)
 
 ```
 
