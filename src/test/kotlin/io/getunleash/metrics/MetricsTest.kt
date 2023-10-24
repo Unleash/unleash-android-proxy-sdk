@@ -17,7 +17,15 @@ import java.io.File
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
+import java.util.concurrent.ConcurrentHashMap
 
+fun <K, V> concurrentHashMapOf(vararg pairs: Pair<K, V>): ConcurrentHashMap<K, V> {
+    val map: ConcurrentHashMap<K, V> = ConcurrentHashMap()
+    pairs.forEach { (key, value) ->
+        map[key] = value
+    }
+    return map
+}
 class MetricsTest {
 
     lateinit var server: MockWebServer
@@ -118,11 +126,13 @@ class MetricsTest {
         }
         val toggles = reporter.getToggles()
 
-        assertThat(toggles).containsAllEntriesOf(mutableMapOf(
-            "some-non-existing-toggle" to EvaluationCount(0, 100, mutableMapOf("disabled" to 100)),
-            "asdasd" to EvaluationCount(100, 0, mutableMapOf("123" to 100)),
-            "cache.buster" to EvaluationCount(100, 0, mutableMapOf("disabled" to 100)),
-        ))
+        assertThat(toggles).containsAllEntriesOf(
+            concurrentHashMapOf(
+            "some-non-existing-toggle" to EvaluationCount(0, 100, concurrentHashMapOf("disabled" to 100)),
+            "asdasd" to EvaluationCount(100, 0, concurrentHashMapOf("123" to 100)),
+            "cache.buster" to EvaluationCount(100, 0, concurrentHashMapOf("disabled" to 100)),
+        )
+        )
     }
 
     @Test
@@ -169,7 +179,7 @@ class MetricsTest {
             "unleash-android-proxy-sdk" to EvaluationCount(0, 100),
             "non-existing-toggle" to EvaluationCount(0, 100),
             "Test_release" to EvaluationCount(100, 0),
-            "demoApp.step4" to EvaluationCount(100, 0, mutableMapOf("red" to 100))
+            "demoApp.step4" to EvaluationCount(100, 0, concurrentHashMapOf("red" to 100))
         ))
         server.enqueue(MockResponse())
         // No activity since last report, bucket should be empty
@@ -187,5 +197,4 @@ class MetricsTest {
         val output = Parser.jackson.writeValueAsString(Date.from(ZonedDateTime.of(2021, 6, 1, 15, 0, 0, 456000000, ZoneOffset.UTC).toInstant()))
         assertThat(output).isEqualTo("\"2021-06-01T15:00:00.456+00:00\"")
     }
-
 }
