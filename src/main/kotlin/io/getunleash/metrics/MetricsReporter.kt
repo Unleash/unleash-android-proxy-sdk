@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.io.IOException
 import java.util.Date
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
 interface MetricsReporter {
@@ -56,11 +57,11 @@ class NonReporter : MetricsReporter {
     }
 }
 
-data class EvaluationCount(var yes: Int, var no: Int, val variants: MutableMap<String, Int> = mutableMapOf())
+data class EvaluationCount(var yes: Int, var no: Int, val variants: ConcurrentHashMap<String, Int> = ConcurrentHashMap())
 data class Bucket(
     val start: Date,
     var stop: Date? = null,
-    val toggles: MutableMap<String, EvaluationCount> = mutableMapOf()
+    val toggles: ConcurrentHashMap<String, EvaluationCount> = ConcurrentHashMap()
 )
 
 data class Report(val appName: String, val environment: String, val instanceId: String, val bucket: Bucket)
@@ -80,7 +81,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date())
             appName = config.appName ?: "unknown",
             instanceId = config.instanceId ?: "not-set",
             environment = config.environment ?: "not-set",
-            bucket = bucket.copy(stop = Date())
+            bucket = bucket
         )
         val request = Request.Builder().header("Authorization", config.clientKey).url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
