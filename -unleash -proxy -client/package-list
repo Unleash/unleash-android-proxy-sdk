@@ -60,12 +60,12 @@ $dokka.location:io.getunleash.errors/ServerException///PointingToDeclaration/-u
 $dokka.location:io.getunleash.errors/ServerException/ServerException/#kotlin.Int/PointingToDeclaration/-unleash -proxy -client/io.getunleash.errors/-server-exception/-server-exception.html
 $dokka.location:io.getunleash.metrics////PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/index.html
 $dokka.location:io.getunleash.metrics/Bucket///PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/index.html
-$dokka.location:io.getunleash.metrics/Bucket/Bucket/#java.util.Date#java.util.Date?#kotlin.collections.MutableMap[kotlin.String,io.getunleash.metrics.EvaluationCount]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/-bucket.html
+$dokka.location:io.getunleash.metrics/Bucket/Bucket/#java.util.Date#java.util.Date?#java.util.concurrent.ConcurrentHashMap[kotlin.String,io.getunleash.metrics.EvaluationCount]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/-bucket.html
 $dokka.location:io.getunleash.metrics/Bucket/start/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/start.html
 $dokka.location:io.getunleash.metrics/Bucket/stop/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/stop.html
 $dokka.location:io.getunleash.metrics/Bucket/toggles/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-bucket/toggles.html
 $dokka.location:io.getunleash.metrics/EvaluationCount///PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/index.html
-$dokka.location:io.getunleash.metrics/EvaluationCount/EvaluationCount/#kotlin.Int#kotlin.Int#kotlin.collections.MutableMap[kotlin.String,kotlin.Int]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/-evaluation-count.html
+$dokka.location:io.getunleash.metrics/EvaluationCount/EvaluationCount/#kotlin.Int#kotlin.Int#java.util.concurrent.ConcurrentHashMap[kotlin.String,kotlin.Int]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/-evaluation-count.html
 $dokka.location:io.getunleash.metrics/EvaluationCount/no/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/no.html
 $dokka.location:io.getunleash.metrics/EvaluationCount/variants/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/variants.html
 $dokka.location:io.getunleash.metrics/EvaluationCount/yes/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-evaluation-count/yes.html
