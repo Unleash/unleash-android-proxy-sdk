@@ -2,13 +2,18 @@ package io.getunleash
 
 import io.getunleash.polling.AutoPollingMode
 import io.getunleash.polling.PollingMode
+import okhttp3.OkHttpClient
 import java.util.UUID
+import java.util.concurrent.TimeUnit
 
+data class ReportMetrics(
+    val metricsInterval: Long,
+    val httpClient: OkHttpClient,
+)
 
-data class ReportMetrics(val metricsInterval: Long = 60000)
 /**
  * Represents configuration for Unleash.
- * @property url HTTP(s) URL to the Unleash Proxy (Required).
+ * @property proxyUrl HTTP(s) URL to the Unleash Proxy (Required).
  * @property clientKey the key added as the Authorization header sent to the unleash-proxy (Required)
  * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Required).
  * @property environment which environment is the application running in. Will be used as default argument for the [io.getunleash.UnleashContext]. (Optional - Defaults to 'default')
@@ -69,9 +74,9 @@ data class UnleashConfig(
         var httpClientReadTimeout: Long? = null,
         var httpClientCacheSize: Long? = null,
         var enableMetrics: Boolean = false,
+        var metricsHttpClient: OkHttpClient? = null,
         var metricsInterval: Long? = null,
         var instanceId: String? = null,
-
     ) {
         fun proxyUrl(proxyUrl: String) = apply { this.proxyUrl = proxyUrl }
 
@@ -88,6 +93,7 @@ data class UnleashConfig(
         fun httpClientCacheSize(cacheSize: Long) = apply { this.httpClientCacheSize = cacheSize }
         fun enableMetrics() = apply { this.enableMetrics = true }
         fun disableMetrics() = apply { this.enableMetrics = false }
+        fun metricsHttpClient(client: OkHttpClient) = apply { this.metricsHttpClient = client }
         fun metricsInterval(intervalInMs: Long) = apply { this.metricsInterval = intervalInMs }
         fun metricsIntervalInSeconds(seconds: Long) = apply { this.metricsInterval = seconds * 1000 }
         fun instanceId(id: String) = apply { this.instanceId = id }
@@ -102,7 +108,13 @@ data class UnleashConfig(
             httpClientReadTimeout = httpClientReadTimeout ?: 5000,
             httpClientCacheSize = httpClientCacheSize ?: (1024 * 1024 * 10),
             reportMetrics = if (enableMetrics) {
-                ReportMetrics(metricsInterval ?: 60000)
+                ReportMetrics(
+                    metricsInterval = metricsInterval ?: 60000,
+                    httpClient = metricsHttpClient ?: OkHttpClient.Builder()
+                        .connectTimeout(httpClientConnectionTimeout ?: 2000, TimeUnit.MILLISECONDS)
+                        .readTimeout(httpClientReadTimeout ?: 5000, TimeUnit.MILLISECONDS)
+                        .build(),
+                )
             } else {
                 null
             },

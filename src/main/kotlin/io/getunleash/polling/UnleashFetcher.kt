@@ -121,8 +121,8 @@ open class UnleashFetcher(
     }
 
     override fun close() {
-        this.httpClient.dispatcher.executorService.shutdownNow()
-        this.httpClient.connectionPool.evictAll()
-        this.httpClient.cache?.closeQuietly()
+        httpClient.dispatcher.executorService.shutdownNow()
+        httpClient.connectionPool.evictAll()
+        httpClient.cache?.closeQuietly()
     }
 }
