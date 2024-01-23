@@ -1,9 +1,7 @@
-name: Test
+name: PR
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   test:
@@ -17,9 +15,7 @@ jobs:
           java-version: 17
       - uses: burrunan/gradle-cache-action@v1
         name: Build and test
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         with:
           job-id: jdk17
-          arguments: clean test jacocoTestReport coverallsJacoco
+          arguments: clean test jacocoTestReport
           gradle-version: wrapper
