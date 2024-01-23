@@ -7,6 +7,7 @@ import io.getunleash.UnleashContext
 import io.getunleash.data.Parser
 import io.getunleash.data.Variant
 import io.getunleash.polling.PollingModes
+import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
@@ -18,6 +19,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
 
 fun <K, V> concurrentHashMapOf(vararg pairs: Pair<K, V>): ConcurrentHashMap<K, V> {
     val map: ConcurrentHashMap<K, V> = ConcurrentHashMap()
@@ -158,7 +160,8 @@ class MetricsTest {
 
     @Test
     fun `http reporter does actually report toggles to metrics endpoint`() {
-        val reporter = HttpMetricsReporter(config)
+        val okHttpClient = OkHttpClient.Builder().build()
+        val reporter = HttpMetricsReporter(config, okHttpClient)
         val client = UnleashClient(config, context, metricsReporter = reporter)
         repeat(100) {
             client.isEnabled("unleash-android-proxy-sdk")

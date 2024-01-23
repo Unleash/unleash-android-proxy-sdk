@@ -1,8 +1,11 @@
 package io.getunleash
 
+import okhttp3.OkHttpClient
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import java.util.concurrent.TimeUnit
+import kotlin.test.assertEquals
 
 class UnleashConfigTest {
 
@@ -106,5 +109,35 @@ class UnleashConfigTest {
         val configInMs = config.newBuilder().enableMetrics().metricsInterval(5000).build()
         val configWithMetricsSetInSeconds = config.newBuilder().enableMetrics().metricsIntervalInSeconds(5).build()
         assertThat(configInMs.reportMetrics!!.metricsInterval).isEqualTo(configWithMetricsSetInSeconds.reportMetrics!!.metricsInterval)
+    }
+
+    @Test
+    fun `Default http client for metrics uses config`() {
+        val config = UnleashConfig(
+            proxyUrl = "https://localhost:4242/proxy",
+            clientKey = "some-key",
+            appName = "my-app",
+            environment = "default"
+        )
+        assertThat(config.reportMetrics).isNull()
+        val withMetrics = config.newBuilder().enableMetrics().build()
+        assertThat(withMetrics.reportMetrics).isNotNull
+        assertThat(withMetrics.reportMetrics!!.httpClient.connectTimeoutMillis).isEqualTo(config.httpClientConnectionTimeout)
+        assertThat(withMetrics.reportMetrics!!.httpClient.readTimeoutMillis).isEqualTo(config.httpClientReadTimeout)
+    }
+
+    @Test
+    fun `Can override http client for metrics`() {
+        val config = UnleashConfig(
+            proxyUrl = "https://localhost:4242/proxy",
+            clientKey = "some-key",
+            appName = "my-app",
+            environment = "default"
+        )
+        assertThat(config.reportMetrics).isNull()
+        val okHttpClient = OkHttpClient.Builder().build()
+        val withMetrics = config.newBuilder().enableMetrics().metricsHttpClient(okHttpClient).build()
+        assertThat(withMetrics.reportMetrics).isNotNull
+        assertEquals(okHttpClient, withMetrics.reportMetrics!!.httpClient)
     }
 }

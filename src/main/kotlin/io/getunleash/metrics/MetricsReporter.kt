@@ -66,13 +66,20 @@ data class Bucket(
 
 data class Report(val appName: String, val environment: String, val instanceId: String, val bucket: Bucket)
 
-class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date()) : MetricsReporter,
+/**
+ * @param config - Configuration for unleash - see docs for [io.getunleash.UnleashConfig]
+ * @param httpClient - the http client to use for reporting metrics to Unleash proxy.
+ */
+class HttpMetricsReporter(
+    val config: UnleashConfig,
+    val httpClient: OkHttpClient,
+    started: Date = Date(),
+) : MetricsReporter,
     Closeable {
     companion object {
         val logger: Logger = LoggerFactory.getLogger(MetricsReporter::class.java)
     }
 
-    val client = OkHttpClient.Builder().callTimeout(2, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).build()
     val metricsUrl = config.proxyUrl.toHttpUrl().newBuilder().addPathSegment("client").addPathSegment("metrics").build()
     private var bucket: Bucket = Bucket(start = started)
 
@@ -86,7 +93,7 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date())
         val request = Request.Builder().header("Authorization", config.clientKey).url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
         ).build()
-        client.newCall(request).enqueue(object : Callback {
+        httpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 logger.info("Failed to report metrics for interval")
             }
@@ -123,8 +130,8 @@ class HttpMetricsReporter(val config: UnleashConfig, val started: Date = Date())
     }
 
     override fun close() {
-        client.connectionPool.evictAll()
-        client.cache?.closeQuietly()
-        client.dispatcher.executorService.shutdown()
+        httpClient.dispatcher.executorService.shutdownNow()
+        httpClient.connectionPool.evictAll()
+        httpClient.cache?.closeQuietly()
     }
 }

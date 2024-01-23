@@ -40,7 +40,7 @@ class UnleashClient(
             )
         ).build(),
     val cache: ToggleCache = InMemoryToggleCache(),
-    val metricsReporter: MetricsReporter = unleashConfig.reportMetrics?.let { HttpMetricsReporter(unleashConfig) } ?: NonReporter()
+    val metricsReporter: MetricsReporter = unleashConfig.reportMetrics?.let { HttpMetricsReporter(unleashConfig, it.httpClient) } ?: NonReporter()
 ) : UnleashClientSpec {
     private val fetcher: UnleashFetcher = UnleashFetcher(unleashConfig = unleashConfig, httpClient = httpClient)
     private val refreshPolicy: RefreshPolicy = when (unleashConfig.pollingMode) {
