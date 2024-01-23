@@ -72,15 +72,14 @@ $dokka.location:io.getunleash.metrics/EvaluationCount/yes/#/PointingToDeclaratio
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter.Companion///PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/-companion/index.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter.Companion/logger/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/-companion/logger.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter///PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/index.html
-$dokka.location:io.getunleash.metrics/HttpMetricsReporter/HttpMetricsReporter/#io.getunleash.UnleashConfig#java.util.Date/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/-http-metrics-reporter.html
-$dokka.location:io.getunleash.metrics/HttpMetricsReporter/client/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/client.html
+$dokka.location:io.getunleash.metrics/HttpMetricsReporter/HttpMetricsReporter/#io.getunleash.UnleashConfig#okhttp3.OkHttpClient#java.util.Date/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/-http-metrics-reporter.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/close/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/close.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/config/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/config.html
+$dokka.location:io.getunleash.metrics/HttpMetricsReporter/httpClient/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/http-client.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/log/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/log.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/logVariant/#kotlin.String#io.getunleash.data.Variant/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/log-variant.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/metricsUrl/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/metrics-url.html
 $dokka.location:io.getunleash.metrics/HttpMetricsReporter/reportMetrics/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/report-metrics.html
-$dokka.location:io.getunleash.metrics/HttpMetricsReporter/started/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-http-metrics-reporter/started.html
 $dokka.location:io.getunleash.metrics/MetricsReporter///PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-metrics-reporter/index.html
 $dokka.location:io.getunleash.metrics/MetricsReporter/log/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-metrics-reporter/log.html
 $dokka.location:io.getunleash.metrics/MetricsReporter/logVariant/#kotlin.String#io.getunleash.data.Variant/PointingToDeclaration/-unleash -proxy -client/io.getunleash.metrics/-metrics-reporter/log-variant.html
@@ -194,7 +193,8 @@ $dokka.location:io.getunleash.polling/UnleashFetcher/httpClient/#/PointingToDecl
 $dokka.location:io.getunleash.polling/UnleashFetcher/unleashConfig/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-unleash-fetcher/unleash-config.html
 $dokka.location:io.getunleash////PointingToDeclaration/-unleash -proxy -client/io.getunleash/index.html
 $dokka.location:io.getunleash/ReportMetrics///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/index.html
-$dokka.location:io.getunleash/ReportMetrics/ReportMetrics/#kotlin.Long/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/-report-metrics.html
+$dokka.location:io.getunleash/ReportMetrics/ReportMetrics/#kotlin.Long#okhttp3.OkHttpClient/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/-report-metrics.html
+$dokka.location:io.getunleash/ReportMetrics/httpClient/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/http-client.html
 $dokka.location:io.getunleash/ReportMetrics/metricsInterval/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-report-metrics/metrics-interval.html
 $dokka.location:io.getunleash/UnleashClient.Builder///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/-builder/index.html
 $dokka.location:io.getunleash/UnleashClient.Builder/Builder/#okhttp3.OkHttpClient?#io.getunleash.UnleashConfig?#io.getunleash.UnleashContext?#io.getunleash.cache.ToggleCache?/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/-builder/-builder.html
@@ -236,7 +236,7 @@ $dokka.location:io.getunleash/UnleashClientSpec/isPolling/#/PointingToDeclaratio
 $dokka.location:io.getunleash/UnleashClientSpec/startPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/start-polling.html
 $dokka.location:io.getunleash/UnleashClientSpec/updateContext/#io.getunleash.UnleashContext/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/update-context.html
 $dokka.location:io.getunleash/UnleashConfig.Builder///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/index.html
-$dokka.location:io.getunleash/UnleashConfig.Builder/Builder/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#io.getunleash.polling.PollingMode?#kotlin.Long?#kotlin.Long?#kotlin.Long?#kotlin.Boolean#kotlin.Long?#kotlin.String?/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/-builder.html
+$dokka.location:io.getunleash/UnleashConfig.Builder/Builder/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#io.getunleash.polling.PollingMode?#kotlin.Long?#kotlin.Long?#kotlin.Long?#kotlin.Boolean#okhttp3.OkHttpClient?#kotlin.Long?#kotlin.String?/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/-builder.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/appName/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/app-name.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/appName/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/app-name.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/build/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/build.html
@@ -257,6 +257,8 @@ $dokka.location:io.getunleash/UnleashConfig.Builder/httpClientReadTimeout/#kotli
 $dokka.location:io.getunleash/UnleashConfig.Builder/httpClientReadTimeoutInSeconds/#kotlin.Long/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/http-client-read-timeout-in-seconds.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/instanceId/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/instance-id.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/instanceId/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/instance-id.html
+$dokka.location:io.getunleash/UnleashConfig.Builder/metricsHttpClient/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/metrics-http-client.html
+$dokka.location:io.getunleash/UnleashConfig.Builder/metricsHttpClient/#okhttp3.OkHttpClient/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/metrics-http-client.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/metricsInterval/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/metrics-interval.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/metricsInterval/#kotlin.Long/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/metrics-interval.html
 $dokka.location:io.getunleash/UnleashConfig.Builder/metricsIntervalInSeconds/#kotlin.Long/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/metrics-interval-in-seconds.html
