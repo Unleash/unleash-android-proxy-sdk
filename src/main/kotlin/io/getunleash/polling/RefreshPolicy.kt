@@ -135,7 +135,7 @@ abstract class RefreshPolicy(
     }
 
     fun addTogglesUpdatedListener(listener: TogglesUpdatedListener): Unit {
-        synchronized(listener) {
+        synchronized(listeners) {
             listeners.add(listener)
         }
     }
