@@ -156,11 +156,29 @@ class UnleashClient(
     }
 
     /**
+     * Removes a TogglesUpdatedListener from our [io.getunleash.polling.RefreshPolicy]
+     * @param listener the listener to remove
+     * @since 0.2
+     */
+    override fun removeTogglesUpdatedListener(listener: TogglesUpdatedListener) {
+        refreshPolicy.removeTogglesUpdatedListener(listener)
+    }
+
+    /**
      * Adds a TogglesErroredListener to our [io.getunleash.polling.RefreshPolicy]
      * @param listener the listener to add
      * @since 0.2
      */
     override fun addTogglesErroredListener(listener: TogglesErroredListener) {
         refreshPolicy.addTogglesErroredListener(listener)
+    }
+
+    /**
+     * Removes a TogglesErroredListener from our [io.getunleash.polling.RefreshPolicy]
+     * @param listener The listener to remove
+     * @since 0.2
+     */
+    override fun removeTogglesErroredListener(listener: TogglesErroredListener) {
+        refreshPolicy.removeTogglesErroredListener(listener)
     }
 }
