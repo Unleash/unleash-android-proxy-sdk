@@ -135,14 +135,26 @@ abstract class RefreshPolicy(
     }
 
     fun addTogglesUpdatedListener(listener: TogglesUpdatedListener): Unit {
-        synchronized(listener) {
+        synchronized(listeners) {
             listeners.add(listener)
+        }
+    }
+
+    fun removeTogglesUpdatedListener(listener: TogglesUpdatedListener) {
+        synchronized(listeners) {
+            listeners.remove(listener)
         }
     }
 
     fun addTogglesErroredListener(errorListener: TogglesErroredListener): Unit {
         synchronized(errorListeners) {
             errorListeners.add(errorListener)
+        }
+    }
+
+    fun removeTogglesErroredListener(listener: TogglesErroredListener): Unit {
+        synchronized(errorListeners) {
+            errorListeners.remove(listener)
         }
     }
 
