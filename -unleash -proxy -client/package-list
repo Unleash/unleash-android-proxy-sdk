@@ -172,6 +172,8 @@ $dokka.location:io.getunleash.polling/RefreshPolicy/isReady/#/PointingToDeclarat
 $dokka.location:io.getunleash.polling/RefreshPolicy/logger/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/logger.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/readToggleCache/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/read-toggle-cache.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/refreshAsync/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/refresh-async.html
+$dokka.location:io.getunleash.polling/RefreshPolicy/removeTogglesErroredListener/#io.getunleash.polling.TogglesErroredListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/remove-toggles-errored-listener.html
+$dokka.location:io.getunleash.polling/RefreshPolicy/removeTogglesUpdatedListener/#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/remove-toggles-updated-listener.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/startPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/start-polling.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/unleashFetcher/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/unleash-fetcher.html
 $dokka.location:io.getunleash.polling/RefreshPolicy/writeToggleCache/#kotlin.collections.Map[kotlin.String,io.getunleash.data.Toggle]/PointingToDeclaration/-unleash -proxy -client/io.getunleash.polling/-refresh-policy/write-toggle-cache.html
@@ -222,6 +224,8 @@ $dokka.location:io.getunleash/UnleashClient/httpClient/#/PointingToDeclaration/
 $dokka.location:io.getunleash/UnleashClient/isEnabled/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/is-enabled.html
 $dokka.location:io.getunleash/UnleashClient/isPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/is-polling.html
 $dokka.location:io.getunleash/UnleashClient/metricsReporter/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/metrics-reporter.html
+$dokka.location:io.getunleash/UnleashClient/removeTogglesErroredListener/#io.getunleash.polling.TogglesErroredListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/remove-toggles-errored-listener.html
+$dokka.location:io.getunleash/UnleashClient/removeTogglesUpdatedListener/#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/remove-toggles-updated-listener.html
 $dokka.location:io.getunleash/UnleashClient/startPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/start-polling.html
 $dokka.location:io.getunleash/UnleashClient/unleashConfig/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/unleash-config.html
 $dokka.location:io.getunleash/UnleashClient/unleashContext/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client/unleash-context.html
@@ -233,6 +237,8 @@ $dokka.location:io.getunleash/UnleashClientSpec/getContext/#/PointingToDeclarati
 $dokka.location:io.getunleash/UnleashClientSpec/getVariant/#kotlin.String/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/get-variant.html
 $dokka.location:io.getunleash/UnleashClientSpec/isEnabled/#kotlin.String#kotlin.Boolean/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/is-enabled.html
 $dokka.location:io.getunleash/UnleashClientSpec/isPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/is-polling.html
+$dokka.location:io.getunleash/UnleashClientSpec/removeTogglesErroredListener/#io.getunleash.polling.TogglesErroredListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/remove-toggles-errored-listener.html
+$dokka.location:io.getunleash/UnleashClientSpec/removeTogglesUpdatedListener/#io.getunleash.polling.TogglesUpdatedListener/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/remove-toggles-updated-listener.html
 $dokka.location:io.getunleash/UnleashClientSpec/startPolling/#/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/start-polling.html
 $dokka.location:io.getunleash/UnleashClientSpec/updateContext/#io.getunleash.UnleashContext/PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-client-spec/update-context.html
 $dokka.location:io.getunleash/UnleashConfig.Builder///PointingToDeclaration/-unleash -proxy -client/io.getunleash/-unleash-config/-builder/index.html
