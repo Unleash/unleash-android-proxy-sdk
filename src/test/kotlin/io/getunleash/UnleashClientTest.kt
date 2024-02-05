@@ -188,4 +188,32 @@ class UnleashClientTest {
             assertThat(updatedFuture).succeedsWithin(Duration.ofSeconds(2))
         }
     }
+
+    @Test
+    fun `Context falls back to config values for appName and environment when not provided`() {
+        val fallbackConfig = config.newBuilder().appName("fallbackApp").environment("fallbackEnv").build()
+        val incompleteContext = UnleashContext.newBuilder().userId("someUserId").build()
+
+        UnleashClient.newBuilder().unleashConfig(fallbackConfig).unleashContext(incompleteContext).build().use { client ->
+            val usedContext = client.getContext()
+
+            assertThat(usedContext.appName).isEqualTo("fallbackApp")
+            assertThat(usedContext.environment).isEqualTo("fallbackEnv")
+            assertThat(usedContext.userId).isEqualTo("someUserId")
+        }
+    }
+
+    @Test
+    fun `Explicit context takes precedence over config appName and environment`() {
+        val fallbackConfig = config.newBuilder().appName("fallbackApp").environment("fallbackEnv").build()
+        val explicitContext = UnleashContext.newBuilder().appName("contextApp").environment("contextEnvironment").build()
+
+        UnleashClient.newBuilder().unleashConfig(fallbackConfig).unleashContext(explicitContext).build().use { client ->
+            val usedContext = client.getContext()
+
+            assertThat(usedContext.appName).isEqualTo("contextApp")
+            assertThat(usedContext.environment).isEqualTo("contextEnvironment")
+        }
+    }
+
 }
