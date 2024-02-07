@@ -48,14 +48,14 @@ class UnleashClient(
             unleashFetcher = fetcher,
             cache = cache,
             config = unleashConfig,
-            context = unleashContext,
+            context = this.getContext(),
             unleashConfig.pollingMode
         )
         is FilePollingMode -> FilePollingPolicy(
             unleashFetcher = fetcher,
             cache = cache,
             config = unleashConfig,
-            context = unleashContext,
+            context = this.getContext(),
             unleashConfig.pollingMode
         )
         else -> throw InvalidParameterException("The polling mode parameter is invalid")
@@ -98,13 +98,16 @@ class UnleashClient(
     }
 
     override fun updateContext(context: UnleashContext): CompletableFuture<Void> {
-        refreshPolicy.context = context
         this.unleashContext = context
+        refreshPolicy.context = this.getContext()
         return refreshPolicy.refreshAsync()
     }
 
     override fun getContext(): UnleashContext {
-        return unleashContext
+        return unleashContext.copy(
+                appName = unleashContext.appName ?: unleashConfig.appName,
+                environment = unleashContext.environment ?: unleashConfig.environment
+        )
     }
 
     override fun close() {
