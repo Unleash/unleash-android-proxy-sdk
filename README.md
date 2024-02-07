@@ -203,4 +203,7 @@ we use this to update the text on the first view
  }
 ```
 
+## Releasing
 
+### Create a github tag prefixed with v
+- So, if you want to release 0.6.0, make a tag v0.6.0
