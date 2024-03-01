@@ -18,7 +18,6 @@ import java.io.Closeable
 import java.io.IOException
 import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
 
 interface MetricsReporter {
     /**
@@ -84,11 +83,15 @@ class HttpMetricsReporter(
     private var bucket: Bucket = Bucket(start = started)
 
     override fun reportMetrics() {
+        val stop = Date()
+        val bucketRef = bucket
+        bucket = Bucket(start = stop)
+        val clonedMetrics = bucketRef.copy(stop = stop)
         val report = Report(
             appName = config.appName ?: "unknown",
             instanceId = config.instanceId ?: "not-set",
             environment = config.environment ?: "not-set",
-            bucket = bucket
+            bucket = clonedMetrics
         )
         val request = Request.Builder().header("Authorization", config.clientKey).url(metricsUrl).post(
             Parser.jackson.writeValueAsString(report).toRequestBody("application/json".toMediaType())
@@ -103,7 +106,7 @@ class HttpMetricsReporter(
                 }
             }
         })
-        bucket = Bucket(start = Date())
+
     }
 
     override fun log(featureName: String, enabled: Boolean): Boolean {
