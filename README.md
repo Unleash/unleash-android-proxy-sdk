@@ -203,4 +203,12 @@ we use this to update the text on the first view
  }
 ```
 
+## Releasing
 
+### Create a github tag prefixed with v
+- So, if you want to release 0.6.0, make a tag v0.6.0 and push it.
+### Using gradle
+- To release next patch version run `./gradlew release`
+
+## Publishing to Maven central
+This is automatically handled when tags with v prefix is created in the repo. See `.github/workflows/deployrelease.yml`
