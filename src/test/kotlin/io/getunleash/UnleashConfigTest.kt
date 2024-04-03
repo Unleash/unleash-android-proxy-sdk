@@ -85,7 +85,7 @@ class UnleashConfigTest {
     }
 
     @Test
-    fun `Can enable metrics with builder method`() {
+    fun `Can disable metrics with builder method`() {
         val config = UnleashConfig(
             proxyUrl = "https://localhost:4242/proxy",
             clientKey = "some-key",
@@ -93,8 +93,8 @@ class UnleashConfigTest {
             environment = "default"
         )
         assertThat(config.reportMetrics).isNull()
-        val withMetrics = config.newBuilder().enableMetrics().build()
-        assertThat(withMetrics.reportMetrics).isNotNull
+        val withMetrics = config.newBuilder().disableMetrics().build()
+        assertThat(withMetrics.reportMetrics).isNull()
     }
 
     @Test
@@ -106,8 +106,8 @@ class UnleashConfigTest {
             environment = "default"
         )
 
-        val configInMs = config.newBuilder().enableMetrics().metricsInterval(5000).build()
-        val configWithMetricsSetInSeconds = config.newBuilder().enableMetrics().metricsIntervalInSeconds(5).build()
+        val configInMs = config.newBuilder().metricsInterval(5000).build()
+        val configWithMetricsSetInSeconds = config.newBuilder().metricsIntervalInSeconds(5).build()
         assertThat(configInMs.reportMetrics!!.metricsInterval).isEqualTo(configWithMetricsSetInSeconds.reportMetrics!!.metricsInterval)
     }
 
@@ -120,7 +120,7 @@ class UnleashConfigTest {
             environment = "default"
         )
         assertThat(config.reportMetrics).isNull()
-        val withMetrics = config.newBuilder().enableMetrics().build()
+        val withMetrics = config.newBuilder().build()
         assertThat(withMetrics.reportMetrics).isNotNull
         assertThat(withMetrics.reportMetrics!!.httpClient.connectTimeoutMillis).isEqualTo(config.httpClientConnectionTimeout)
         assertThat(withMetrics.reportMetrics!!.httpClient.readTimeoutMillis).isEqualTo(config.httpClientReadTimeout)
@@ -136,7 +136,7 @@ class UnleashConfigTest {
         )
         assertThat(config.reportMetrics).isNull()
         val okHttpClient = OkHttpClient.Builder().build()
-        val withMetrics = config.newBuilder().enableMetrics().metricsHttpClient(okHttpClient).build()
+        val withMetrics = config.newBuilder().metricsHttpClient(okHttpClient).build()
         assertThat(withMetrics.reportMetrics).isNotNull
         assertEquals(okHttpClient, withMetrics.reportMetrics!!.httpClient)
     }
