@@ -173,19 +173,7 @@ val client = UnleashClient(unleashConfig = config, unleashContext = context)
 ```
 
 ### Metrics (since v0.2)
-If you'd like the client to post metrics to the proxy so the admin interface can be updated, add a call to `enableMetrics()`.
-
-#### NB Only supported by SDK version >=26
-
-```kotlin
-val config = UnleashConfig
-    .newBuilder()
-    .appName()
-    .userId()
-    .sessionId()
-    .enableMetrics()
-    .build()
-```
+Metrics are automatically posted to the upstream, so the admin interface can be updated. To disable automatic metrics posting, call `disableMetrics()` on the builder.
 
 The default configuration configures a daemon to report metrics once every minute, this can be altered using the `metricsInterval(long milliseconds)` method on the builder, so if you'd rather see us post in 5 minutes intervals you could do
 ```kotlin

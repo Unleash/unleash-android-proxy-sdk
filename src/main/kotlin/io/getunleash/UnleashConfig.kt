@@ -50,7 +50,6 @@ data class UnleashConfig(
             httpClientConnectionTimeout = httpClientConnectionTimeout,
             httpClientReadTimeout = httpClientReadTimeout,
             httpClientCacheSize = httpClientCacheSize,
-            enableMetrics = reportMetrics != null,
             metricsInterval = reportMetrics?.metricsInterval
         )
 
@@ -73,7 +72,7 @@ data class UnleashConfig(
         var httpClientConnectionTimeout: Long? = null,
         var httpClientReadTimeout: Long? = null,
         var httpClientCacheSize: Long? = null,
-        var enableMetrics: Boolean = false,
+        var enableMetrics: Boolean = true,
         var metricsHttpClient: OkHttpClient? = null,
         var metricsInterval: Long? = null,
         var instanceId: String? = null,
