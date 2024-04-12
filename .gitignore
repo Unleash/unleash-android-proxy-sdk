@@ -10,3 +10,6 @@ build
 *.ipr
 *.iws
 bin/
+
+# Ignore local gradle properties
+local.properties

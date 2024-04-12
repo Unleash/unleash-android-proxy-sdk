@@ -13,10 +13,8 @@ package io.getunleash
  * @property remoteAddress the Ip address of the client. If your feature uses the remoteAddress strategy
  * you'll need to set this
  * @property properties - Other properties for custom strategies.
- * @property appName - The name of your app - mostly used for metrics server side, but someone might use this to
- * evaluate a strategy as well
- * @property environment - Which environment are you running in? Not currently supported server side
- * (per Unleash-server v4.0.0), but support is coming, and can be used for custom strategies
+ * @property appName - The name of your app, used for evaluating strategies - defaults to the one set in the [io.getunleash.UnleashConfig]
+ * @property environment - Which environment are you running in - defaults to the one set in the [io.getunleash.UnleashConfig]
  */
 data class UnleashContext(
     val userId: String? = null,

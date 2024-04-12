@@ -15,7 +15,7 @@ data class ReportMetrics(
  * Represents configuration for Unleash.
  * @property proxyUrl HTTP(s) URL to the Unleash Proxy (Required).
  * @property clientKey the key added as the Authorization header sent to the unleash-proxy (Required)
- * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Required).
+ * @property appName: name of the underlying application. Will be used as default in the [io.getunleash.UnleashContext] call (Optional - Defaults to 'unknown').
  * @property environment which environment is the application running in. Will be used as default argument for the [io.getunleash.UnleashContext]. (Optional - Defaults to 'default')
  * @property instanceId instance id of your client
  * @property pollingMode How to poll for features. Defaults to [io.getunleash.polling.AutoPollingMode] with poll interval set to 60 seconds.
