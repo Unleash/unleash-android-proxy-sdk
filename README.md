@@ -50,7 +50,6 @@ You should use a singleton pattern to avoid file contention on cache directory.
 #### Step 3a: Unleash Context
 
 The important properties to configure on the context are
-* Appname - In case you use strategies that depend on which app
 * UserId - GradualRolloutStrategies often use this to decide stickiness when assigning which group of users the user end up in
 * SessionId - GradualRolloutStrategies often use this to decide stickiness
 
@@ -58,7 +57,6 @@ The important properties to configure on the context are
 import io.getunleash.UnleashContext
 
 val context = UnleashContext.newBuilder()
-    .appName("Your AppName")
     .userId("However you resolve your userid")
     .sessionId("However you resolve your session id") 
     .build()
@@ -67,6 +65,7 @@ val context = UnleashContext.newBuilder()
 #### Step 3b: Unleash Config
 To create a client, use the UnleashConfig.newBuilder method. When building a configuration, you'll need to provide it with:
 
+- `appName`: the name of the application to be used in strategies and metrics
 - `proxyUrl`: the URL the Unleash front-end API is available at **OR** the URL your proxy is available at
 - `clientKey`: the API token or proxy client key you wish to use (this method was known as clientSecret prior to version 0.4.0)
 - `pollMode`: how you want to load the toggle status
@@ -87,6 +86,7 @@ Configuring a client with a 60 seconds poll interval:
 
 ```kotlin
 val config = UnleashConfig.newBuilder()
+    .appName("Your AppName")
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
     .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
@@ -107,6 +107,7 @@ val toggles = File("/tmp/proxyresponse.json")
 val pollingMode = PollingModes.fileMode(toggles)
 
 val config = UnleashConfig.newBuilder()
+    .appName("Your AppName")
     .proxyUrl("Doesn't matter since we don't use it when sent a file")
     .clientKey("Doesn't matter since we don't use it when sent a file")
     .pollMode(pollingMode)
@@ -136,11 +137,11 @@ The listener is a no-argument lambda that gets called by the RefreshPolicy for e
 Example usage is equal to the `Example setup` above
 ```kotlin
 val context = UnleashContext.newBuilder()
-    .appName("Your AppName")
     .userId("However you resolve your userid")
     .sessionId("However you resolve your session id")
     .build()
 val config = UnleashConfig.newBuilder()
+    .appName("Your AppName")
     .proxyUrl("URL to your front-end API or proxy")
     .clientKey("your front-end API token or proxy client key")
     .pollingMode(PollingModes.autoPoll(60) { // poll interval in seconds
@@ -159,11 +160,11 @@ The following example shows how to use it, provided the file to use is located a
 val toggles = File("/tmp/proxyresponse.json")
 val pollingMode = PollingModes.fileMode(toggles)
 val context = UnleashContext.newBuilder()
-    .appName("Your AppName")
     .userId("However you resolve your userid")
     .sessionId("However you resolve your session id")
     .build()
 val config = UnleashConfig.newBuilder()
+    .appName("Your AppName")
     .proxyUrl("URL to your front-end API or proxy") // These two don't matter for FilePolling,
     .clientKey("front-end API token / proxy client key") // since the client never speaks to the proxy
     .pollingMode(pollingMode)
