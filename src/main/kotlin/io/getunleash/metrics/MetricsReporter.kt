@@ -109,27 +109,59 @@ class HttpMetricsReporter(
 
     }
 
-    override fun log(featureName: String, enabled: Boolean): Boolean {
-        val count = if (enabled) {
-            EvaluationCount(1, 0)
-        } else {
-            EvaluationCount(0, 1)
+       override fun log(featureName: String, enabled: Boolean): Boolean {
+        try {
+            val count = if (enabled) {
+                EvaluationCount(1, 0)
+            } else {
+                EvaluationCount(0, 1)
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                bucket.toggles?.merge(
+                    featureName,
+                    count
+                ) { old: EvaluationCount?, new: EvaluationCount ->
+                    old?.copy(yes = old.yes + new.yes, no = old.no + new.no) ?: new
+                }
+            } else {
+                // handle for android 5,6
+                try {
+                    bucket.toggles?.remove(featureName)
+                    bucket.toggles?.set(featureName, count)
+                } catch (e: Exception) {
+                }
+            }
+            return enabled
+        } catch (e: Exception) {
         }
-        bucket.toggles.merge(featureName, count) { old: EvaluationCount?, new: EvaluationCount ->
-            old?.copy(yes = old.yes + new.yes, no = old.no + new.no) ?: new
-        }
-        return enabled
+        return false
     }
 
     override fun logVariant(featureName: String, variant: Variant): Variant {
-        bucket.toggles.compute(featureName) { _, count ->
-            val evaluationCount = count ?: EvaluationCount(0, 0)
-            evaluationCount.variants.merge(variant.name, 1) { old, value ->
-                old + value
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                bucket.toggles?.compute(featureName) { _, count ->
+                    val evaluationCount = count ?: EvaluationCount(0, 0)
+                    evaluationCount.variants.merge(variant.name, 1) { old, value ->
+                        old + value
+                    }
+                    evaluationCount
+                }
+            } else {
+                //handle for android 5,6
+                try {
+                    val count: EvaluationCount =
+                        bucket.toggles?.get(featureName) ?: EvaluationCount(0, 0)
+                    bucket.toggles?.remove(featureName)
+                    bucket.toggles?.set(featureName, count)
+                } catch (e: Exception) {
+                }
             }
-            evaluationCount
+            return variant
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        return variant
+        return Variant()
     }
 
     override fun close() {
