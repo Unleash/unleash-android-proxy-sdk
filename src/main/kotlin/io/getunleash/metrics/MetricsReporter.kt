@@ -117,7 +117,7 @@ class HttpMetricsReporter(
                 EvaluationCount(0, 1)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                bucket.toggles?.merge(
+                bucket.toggles.merge(
                     featureName,
                     count
                 ) { old: EvaluationCount?, new: EvaluationCount ->
@@ -126,13 +126,15 @@ class HttpMetricsReporter(
             } else {
                 // handle for android 5,6
                 try {
-                    bucket.toggles?.remove(featureName)
-                    bucket.toggles?.set(featureName, count)
+                    bucket.toggles.remove(featureName)
+                    bucket.toggles[featureName] = count
                 } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
             return enabled
         } catch (e: Exception) {
+            e.printStackTrace()
         }
         return false
     }
@@ -140,7 +142,7 @@ class HttpMetricsReporter(
     override fun logVariant(featureName: String, variant: Variant): Variant {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                bucket.toggles?.compute(featureName) { _, count ->
+                bucket.toggles.compute(featureName) { _, count ->
                     val evaluationCount = count ?: EvaluationCount(0, 0)
                     evaluationCount.variants.merge(variant.name, 1) { old, value ->
                         old + value
@@ -151,17 +153,18 @@ class HttpMetricsReporter(
                 //handle for android 5,6
                 try {
                     val count: EvaluationCount =
-                        bucket.toggles?.get(featureName) ?: EvaluationCount(0, 0)
-                    bucket.toggles?.remove(featureName)
-                    bucket.toggles?.set(featureName, count)
+                        bucket.toggles[featureName] ?: EvaluationCount(0, 0)
+                    bucket.toggles.remove(featureName)
+                    bucket.toggles[featureName] = count
                 } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
             return variant
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return Variant()
+        return Variant("")
     }
 
     override fun close() {
