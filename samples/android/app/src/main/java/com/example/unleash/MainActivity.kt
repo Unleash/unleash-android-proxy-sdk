@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,14 +14,6 @@ import com.example.unleash.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.getunleash.UnleashClient
-import io.getunleash.UnleashConfig
-import io.getunleash.UnleashContext
-import io.getunleash.cache.InMemoryToggleCache
-import io.getunleash.polling.PollingModes
-import java.time.Duration
-import java.time.temporal.ChronoUnit
-import java.time.temporal.TemporalUnit
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

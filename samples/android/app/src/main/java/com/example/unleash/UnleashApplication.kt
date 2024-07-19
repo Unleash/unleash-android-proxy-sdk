@@ -35,8 +35,8 @@ internal object UnleashClientModule {
                     .appName("unleash-android")
                     .instanceId("unleash-android-${Random.nextLong()}")
                     .enableMetrics()
-                    .clientKey("get a frontend key from instance you connect to")
-                    .proxyUrl("http:///UNLEASHURL:4242/api/frontend")
+                    .clientKey("default:development.5d6b7aaeb6a9165f28e91290d13ba0ed39f56f6d9e6952c642fed7cc")
+                    .proxyUrl("https://eu.app.unleash-hosted.com/demo/api/frontend")
                     .pollingMode(
                         PollingModes.autoPoll(
                             autoPollIntervalSeconds = 15

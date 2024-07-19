@@ -39,8 +39,10 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            if (unleashClient.isEnabled("unleash_first_fragment_demo")) {
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            if (unleashClient.isEnabled("android-sdk-first-fragment-demo")) {
+                val bundle = Bundle()
+                bundle.putString("argName", unleashClient.getVariant("android-sdk-first-fragment-demo").name)
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
             }
         }
     }

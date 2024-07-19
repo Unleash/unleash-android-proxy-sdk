@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.unleash.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,8 +40,11 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val args = arguments?.getString("argName") ?: "No Args"
+        view.findViewById<TextView>(R.id.textview_second).text = getString(R.string.hello_second_fragment, args)
+
         binding.buttonSecond.setOnClickListener {
-            if (unleashClient.isEnabled("unleash_second_fragment")) {
+            if (unleashClient.isEnabled("android-sdk-second-fragment-demo")) {
                 findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
             }
         }
