@@ -1,16 +1,17 @@
 package com.example.unleash
 
 import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.getunleash.UnleashClient
-import io.getunleash.UnleashConfig
-import io.getunleash.UnleashContext
-import io.getunleash.cache.InMemoryToggleCache
-import io.getunleash.polling.PollingModes
+import io.getunleash.android.DefaultUnleash
+import io.getunleash.android.Unleash
+import io.getunleash.android.UnleashConfig
+import io.getunleash.android.data.UnleashContext
 import javax.inject.Singleton
 import kotlin.random.Random
 
@@ -19,8 +20,6 @@ import kotlin.random.Random
 @InstallIn(SingletonComponent::class)
 internal object UnleashClientModule {
     val unleashContext = UnleashContext.newBuilder()
-        .appName("unleash-android")
-        .instanceId("main-activity-unleash-demo-${Random.nextLong()}")
         .userId("unleash_demo_user")
         .sessionId(Random.nextLong().toString())
         .build()
@@ -28,28 +27,21 @@ internal object UnleashClientModule {
 
     @Provides
     @Singleton
-    fun unleashClient(): UnleashClient {
-        return UnleashClient.newBuilder()
-            .unleashConfig(
-                UnleashConfig.newBuilder()
-                    .appName("unleash-android")
-                    .instanceId("unleash-android-${Random.nextLong()}")
-                    .enableMetrics()
-                    .clientKey("default:development.5d6b7aaeb6a9165f28e91290d13ba0ed39f56f6d9e6952c642fed7cc")
-                    .proxyUrl("https://eu.app.unleash-hosted.com/demo/api/frontend")
-                    .pollingMode(
-                        PollingModes.autoPoll(
-                            autoPollIntervalSeconds = 15
-                        ) {
-
-                        }
-                    )
-                    .metricsInterval(5000)
-                    .build()
-            )
-            .cache(InMemoryToggleCache())
-            .unleashContext(unleashContext)
-            .build()
+    fun unleashClient(
+        @ApplicationContext context: Context
+    ): Unleash {
+        val unleash = DefaultUnleash(
+            androidContext = context,
+            unleashConfig = UnleashConfig.newBuilder("unleash-android")
+                .clientKey("default:development.5d6b7aaeb6a9165f28e91290d13ba0ed39f56f6d9e6952c642fed7cc")
+                .proxyUrl("https://eu.app.unleash-hosted.com/demo/api/frontend")
+                .pollingStrategy.interval(15000)
+                .metricsStrategy.interval(5000)
+                .build(),
+            unleashContext = unleashContext
+        )
+        unleash.start()
+        return unleash
     }
 
 }

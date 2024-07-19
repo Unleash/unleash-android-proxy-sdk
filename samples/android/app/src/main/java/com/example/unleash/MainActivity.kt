@@ -13,11 +13,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.unleash.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.getunleash.UnleashClient
+import io.getunleash.android.Unleash
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var unleashClient: UnleashClient
+    private lateinit var unleashClient: Unleash
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
