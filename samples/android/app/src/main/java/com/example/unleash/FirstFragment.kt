@@ -42,7 +42,7 @@ class FirstFragment : Fragment() {
             if (unleashClient.isEnabled("android-sdk-first-fragment-demo")) {
                 val bundle = Bundle()
                 val variant = unleashClient.getVariant("android-sdk-first-fragment-demo")
-                bundle.putString("argName", variant.payload?.value ?: variant.name)
+                bundle.putString("argName", variant.payload?.getValueAsString() ?: variant.name)
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
             }
         }
