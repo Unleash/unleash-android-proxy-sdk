@@ -4,6 +4,11 @@
 [![latest](https://badgen.net/maven/v/maven-central/io.getunleash/unleash-android-proxy-sdk)](https://search.maven.org/search?q=g:io.getunleash%20AND%20a:unleash-android-proxy-sdk)
 [KDoc](https://unleash.github.io/unleash-android-proxy-sdk)
 
+# Deprecation notice
+This repository is deprecated since July 25th of 2024 in favor of [unleash-android](https://github.com/Unleash/unleash-android).
+Consider migrating to the new SDK as this repository will no longer be maintained.
+Check out the [migration guide](https://github.com/Unleash/unleash-android/blob/main/docs/MigrationGuide.md) for more information.
+
 ## Getting started
 
 ### Step 1
