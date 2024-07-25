@@ -1,14 +1,14 @@
 package com.example.unleash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.unleash.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
-import io.getunleash.UnleashClient
+import io.getunleash.android.Unleash
 import javax.inject.Inject
 
 /**
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
-    @Inject lateinit var unleashClient: UnleashClient
+    @Inject lateinit var unleashClient: Unleash
 
     private var _binding: FragmentFirstBinding? = null
 
