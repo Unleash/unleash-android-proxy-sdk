@@ -2,7 +2,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/Unleash/unleash-android-proxy-sdk/badge.svg?branch=main)](https://coveralls.io/github/Unleash/unleash-android-proxy-sdk?branch=main)
 [![main](https://github.com/Unleash/unleash-android-proxy-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/Unleash/unleash-android-proxy-sdk/actions/workflows/test.yml)
 [![latest](https://badgen.net/maven/v/maven-central/io.getunleash/unleash-android-proxy-sdk)](https://search.maven.org/search?q=g:io.getunleash%20AND%20a:unleash-android-proxy-sdk)
-[KDoc](https://unleash.github.io/unleash-android-proxy-sdk)
 
 # Deprecation notice
 This repository is deprecated since July 25th of 2024 in favor of [unleash-android](https://github.com/Unleash/unleash-android).
